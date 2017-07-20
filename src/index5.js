@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { style, keyframes} from 'typestyle';
+import { style, keyframes } from 'typestyle';
 
 const colorAnimationName = keyframes({
 	'0%': {color: 'black'},
