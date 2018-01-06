@@ -25,6 +25,22 @@ var Button = React.createClass({
 	}
 });
 
+var GlyphIcon = React.createClass({
+	propTypes: {
+        icon: React.PropTypes.string
+    },
+    getDefaultProps: function() {
+        return {
+            icon: ''
+        };
+    },
+	render: function() {
+		return (
+			<span className={'glyphicon glyphicon-' + this.props.icon} aria-hidden='true'></span>
+		);
+	}
+});
+
 var TextBox = React.createClass({
 	propTypes: {
         update: React.PropTypes.func,
@@ -53,9 +69,9 @@ var TextBox = React.createClass({
 				<input type='text' ref='messageTextBox' disabled={!this.state.isEditing} />
 				{
 					this.state.isEditing ?
-						<button onClick={this.update}>Update</button>
+						<button onClick={this.update}><GlyphIcon icon='ok' />&nbsp;Update</button>
 						:
-						<button onClick={this.edit}>Edit</button>
+						<button onClick={this.edit}><GlyphIcon icon='pencil' />&nbsp;Edit</button>
 				}
 			</div>
 		);
