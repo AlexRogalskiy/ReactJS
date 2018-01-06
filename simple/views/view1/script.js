@@ -27,6 +27,8 @@ var Header2 = React.createClass({
 
 var Button = React.createClass({
 	propTypes: {
+		id: React.PropTypes.string,
+		name: React.PropTypes.string,
 		className: React.PropTypes.string
 	},
     getDefaultProps: function() {
@@ -39,7 +41,7 @@ var Button = React.createClass({
 	},
 	render: function() {
 		return (
-			<button type='button' className={'btn ' + this.props.className} onClick={this.props.onClick}>
+			<button id={this.props.id} name={this.props.name} type='button' className={'btn ' + this.props.className} onClick={this.props.onClick}>
 				{this.props.children}
 			</button>
 		);
