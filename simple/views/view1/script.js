@@ -107,6 +107,7 @@ var TextBox = React.createClass({
         isDisabled: React.PropTypes.bool,
         placeholder: React.PropTypes.string,
         className: React.PropTypes.string,
+        type: React.PropTypes.string,
         item: React.PropTypes.object,
 		key: React.PropTypes.string
     },
@@ -118,12 +119,13 @@ var TextBox = React.createClass({
             isDisabled: false,
             placeholder: '',
             className: 'form-control',
+            type: 'text',
             item: {},
         	key: ''
         };
     },
     getInitialState: function() {
-		return { isReadOnly: this.props.isReadOnly, value: this.props.value, isRequired: this.props.isRequired, isDisabled: this.props.isDisabled, className: this.props.className, item: this.props.item, key: this.props.key };
+		return { isReadOnly: this.props.isReadOnly, value: this.props.value, isRequired: this.props.isRequired, isDisabled: this.props.isDisabled, className: this.props.className, type: this.props.type, item: this.props.item, key: this.props.key };
 	},
 	onChange: function(e) {
 		this.setState({ value: e.target.value });
@@ -131,7 +133,7 @@ var TextBox = React.createClass({
 	render: function() {
 		return (
 			this.state.isRequired ?
-				<input id={this.props.id} name={this.props.name} ref='textBox' type='text' className={this.state.className} value={this.state.value} disabled={this.props.isDisabled} placeholder={this.props.placeholder} onChange={this.props.onChange ? this.props.onChange : this.onChange} required />
+				<input id={this.props.id} name={this.props.name} ref='textBox' type={this.props.type} className={this.state.className} value={this.state.value} disabled={this.props.isDisabled} placeholder={this.props.placeholder} onChange={this.props.onChange ? this.props.onChange : this.onChange} required />
 				:
 				<input id={this.props.id} name={this.props.name} ref='textBox' type='text' className={this.state.className} value={this.state.value} disabled={this.props.isDisabled} placeholder={this.props.placeholder} onChange={this.props.onChange ? this.props.onChange : this.onChange} />
 		);
