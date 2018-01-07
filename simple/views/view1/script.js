@@ -50,17 +50,20 @@ var Button = React.createClass({
 		name: React.PropTypes.string,
 		isDisabled: React.PropTypes.bool,
 		className: React.PropTypes.string,
-		type: React.PropTypes.string
+		type: React.PropTypes.string,
+		item: React.PropTypes.object,
+		key: React.PropTypes.string
 	},
     getDefaultProps: function() {
         return {
+        	item: {},
         	isDisabled: false,
         	className: '',
         	type: 'button'
         };
     },
     getInitialState: function() {
-		return { isDisabled: this.props.isDisabled, className: this.props.className, type: this.props.type };
+		return { item: this.props.item, isDisabled: this.props.isDisabled, className: this.props.className, type: this.props.type };
 	},
 	onClick: function() {
 		//onClick={this.props.onClick ? this.props.onClick : this.onClick}
@@ -103,7 +106,9 @@ var TextBox = React.createClass({
         isRequired: React.PropTypes.bool,
         isDisabled: React.PropTypes.bool,
         placeholder: React.PropTypes.string,
-        className: React.PropTypes.string
+        className: React.PropTypes.string,
+        item: React.PropTypes.object,
+		key: React.PropTypes.string
     },
     getDefaultProps: function() {
         return {
@@ -112,11 +117,13 @@ var TextBox = React.createClass({
             isRequired: false,
             isDisabled: false,
             placeholder: '',
-            className: 'form-control'
+            className: 'form-control',
+            item: {},
+        	key: ''
         };
     },
     getInitialState: function() {
-		return { isReadOnly: this.props.isReadOnly, value: this.props.value, isRequired: this.props.isRequired, isDisabled: this.props.isDisabled, className: this.props.className };
+		return { isReadOnly: this.props.isReadOnly, value: this.props.value, isRequired: this.props.isRequired, isDisabled: this.props.isDisabled, className: this.props.className, item: this.props.item, key: this.props.key };
 	},
 	onChange: function(e) {
 		this.setState({ value: e.target.value });
@@ -124,9 +131,9 @@ var TextBox = React.createClass({
 	render: function() {
 		return (
 			this.state.isRequired ?
-				<input id={this.props.id} name={this.props.name} ref='textBox' type='text' className={this.props.className} value={this.props.value} disabled={this.props.isDisabled} placeholder={this.props.placeholder} onChange={this.props.isReadOnly ? this.props.onChange : this.props.onChange ? this.props.onChange : this.onChange} required />
+				<input id={this.props.id} name={this.props.name} ref='textBox' type='text' className={this.state.className} value={this.state.value} disabled={this.props.isDisabled} placeholder={this.props.placeholder} onChange={this.props.onChange ? this.props.onChange : this.onChange} required />
 				:
-				<input id={this.props.id} name={this.props.name} ref='textBox' type='text' className={this.props.className} value={this.props.value} disabled={this.props.isDisabled} placeholder={this.props.placeholder} onChange={this.props.isReadOnly ? this.props.onChange : this.props.onChange ? this.props.onChange : this.onChange} />
+				<input id={this.props.id} name={this.props.name} ref='textBox' type='text' className={this.state.className} value={this.state.value} disabled={this.props.isDisabled} placeholder={this.props.placeholder} onChange={this.props.onChange ? this.props.onChange : this.onChange} />
 		);
 	},
 });
@@ -137,13 +144,15 @@ var EditTextBox = React.createClass({
 		name: React.PropTypes.string,
 		isReadOnly: React.PropTypes.bool,
         value: React.PropTypes.string,
+        textBoxClassName: React.PropTypes.string,
+        buttonClassName: React.PropTypes.string,
 		isEditing: React.PropTypes.bool,
 		isRequired: React.PropTypes.bool,
 		update: React.PropTypes.func,
         label: React.PropTypes.string.isRequired,
         placeholder: React.PropTypes.string,
         item: React.PropTypes.object,
-		key: React.PropTypes.string.isRequired
+		key: React.PropTypes.string
     },
     getDefaultProps: function() {
         return {
@@ -154,13 +163,15 @@ var EditTextBox = React.createClass({
         	update: null,
             label: '',
             placeholder: '',
-            item: {},
-        	key: '',
-        	buttonPrefix: 'b'
+        	textBoxClassName: 'form-control',
+        	buttonClassName: 'btn btn-info btn-lg',
+        	buttonPrefix: 'b',
+        	item: {},
+        	key: ''
         };
     },
 	getInitialState: function() {
-		return { isReadOnly: this.props.isReadOnly, value: this.props.value, isRequired: this.props.isRequired, update: this.props.update, label: this.props.label, placeholder: this.props.placeholder, item: this.props.item, key: this.props.key };
+		return { isReadOnly: this.props.isReadOnly, value: this.props.value, isRequired: this.props.isRequired, update: this.props.update, label: this.props.label, placeholder: this.props.placeholder, textBoxClassName: this.props.textBoxClassName, buttonClassName: this.props.buttonClassName, item: this.props.item, key: this.props.key };
 	},
 	update: function(e) {
 		this.setState({ isEditing: false });
@@ -172,19 +183,20 @@ var EditTextBox = React.createClass({
 		this.refs.editTextBox.setState({ isDisabled: false });
 	},
 	onChange: function(e) {
-		this.setState({ value: e.target.value });
+		//this.setState({ value: e.target.value });
+		this.refs.editTextBox.onChange(e);
 	},
 	render: function() {
 		return (
 			<div className='form-group'>
 				<label>{this.props.label}</label>
 				<div className='input-group'>
-					<TextBox id={this.props.id} name={this.props.name} ref='editTextBox' value={this.state.value} isDisabled={!this.state.isEditing} placeholder={this.props.placeholder} isReadOnly={this.props.isReadOnly} isRequired={this.props.isRequired} onChange={this.onChange} />
+					<TextBox id={this.props.id} name={this.props.name} ref='editTextBox' value={this.state.value} isDisabled={!this.state.isEditing} placeholder={this.props.placeholder} isReadOnly={this.props.isReadOnly} isRequired={this.props.isRequired} className={this.state.textBoxClassName} onChange={this.onChange} />
 					{
 						this.state.isEditing ?
-							<Button name={this.props.buttonPrefix + this.props.name} onClick={this.update} className='btn btn-info btn-lg'><GlyphIcon className='glyphicon glyphicon-ok' />&nbsp;Update</Button>
+							<Button name={this.props.buttonPrefix + this.props.name} onClick={this.update} className={this.state.buttonClassName}><GlyphIcon className='glyphicon glyphicon-ok' />&nbsp;Update</Button>
 							:
-							<Button name={this.props.buttonPrefix + this.props.name} onClick={this.edit} className='btn btn-info btn-lg'><GlyphIcon className='glyphicon glyphicon-pencil' />&nbsp;Edit</Button>
+							<Button name={this.props.buttonPrefix + this.props.name} onClick={this.edit} className={this.state.buttonClassName}><GlyphIcon className='glyphicon glyphicon-pencil' />&nbsp;Edit</Button>
 					}
 				</div>
 			</div>
@@ -228,19 +240,23 @@ var View = React.createClass({
 		return {
 			fields: {
 				firstName: {
-					id: 1,
+					id: '1',
 					name: 'firstName',
 					label: 'First Name',
 					ref: 'firstName',
 					placeholder: 'First Name',
+					// textBoxClassName: '',
+					// buttonClassName: '',
 					value: ''
 				},
 				lastName: {
-					id: 2,
+					id: '2',
 					name: 'lastName',
 					label: 'Last Name',
 					ref: 'lastName',
 					placeholder: 'Last Name',
+					// textBoxClassName: '',
+					// buttonClassName: '',
 					value: ''
 				}
 			}
@@ -276,14 +292,13 @@ var View = React.createClass({
 		}).join(' ');
 		var editFields = Object.keys(this.state.fields).map(function(key, index) {
 			return (
-				<EditTextBox item={self.state.fields[key]} key={key} name={self.state.fields[key].name} label={self.state.fields[key].label} ref={self.state.fields[key].ref} update={self.update} placeholder={self.state.fields[key].placeholder}></EditTextBox>
+				<EditTextBox item={self.state.fields[key]} key={key} id={self.state.fields[key].id} name={self.state.fields[key].name} label={self.state.fields[key].label} ref={self.state.fields[key].ref} update={self.update} placeholder={self.state.fields[key].placeholder} textBoxClassName={self.state.fields[key].textBoxClassName} buttonClassName={self.state.fields[key].buttonClassName}></EditTextBox>
 			);
 		});
 		return (
 			<div>
 				<Header2 message={'Hello ' + header}></Header2>
-				<EditTextBox name='firstName' label='First Name' ref='firstName' update={this.update} placeholder='First Name'></EditTextBox>
-				<EditTextBox name='lastName' label='Last Name' ref='lastName' update={this.update} placeholder='Last Name'></EditTextBox>
+				{editFields}
 				<Counter min={0} />
 				<Form />
 				<Button onClick={this.reload} className='btn btn-primary'>Reload</Button>
@@ -299,7 +314,9 @@ var Counter = React.createClass({
 		max: React.PropTypes.number,
 		step: React.PropTypes.number,
 		isIncreasing: React.PropTypes.bool,
-		isVisible: React.PropTypes.bool
+		isVisible: React.PropTypes.bool,
+		item: React.PropTypes.object,
+		key: React.PropTypes.string
     },
     getDefaultProps: function() {
         return {
@@ -367,7 +384,7 @@ var Counter = React.createClass({
 
 var Form = React.createClass({
 	propTypes: {
-		form: React.PropTypes.object,
+		fields: React.PropTypes.object,
 		id: React.PropTypes.string,
 		name: React.PropTypes.string,
 		className: React.PropTypes.string,
@@ -375,26 +392,28 @@ var Form = React.createClass({
 	},
     getDefaultProps: function() {
         return {
-        	form: {},
+        	fields: {},
         	className: 'form-horizontal',
         	method: 'POST'
         };
     },
 	getInitialState: function() {
 		return {
-			form: {
-        		firstName: {
+			fields: {
+        		firstName2: {
         			id: '1',
-        			name: 'firstName',
-        			ref: 'firstName',
+        			name: 'firstName2',
+        			ref: 'firstName2',
         			placeholder: 'First Name',
+        			//className: 'form-control',
         			value: ''
         		},
-        		lastName: {
-        			id: '1',
-        			name: 'lastName',
-        			ref: 'lastName',
+        		lastName2: {
+        			id: '2',
+        			name: 'lastName2',
+        			ref: 'lastName2',
         			placeholder: 'Last Name',
+        			//className: 'form-control',
         			value: ''
         		}
         	},
@@ -403,28 +422,31 @@ var Form = React.createClass({
 		};
 	},
 	onChange: function(e) {
-		// this.refs[this.state.form.firstName.ref].refs.textBox.value
 		console.log('onChange: key =', e.target.name, ', value =', e.target.value);
-		this.state.form[e.target.name].value = e.target.value;
-		this.setState({form: this.state.form});
+		this.state.fields[e.target.name].value = e.target.value;
+		this.setState({fields: this.state.fields});
+		this.refs[e.target.name].onChange(e);
 	},
     onSubmit: function(e) {
         e.preventDefault();
-        console.log('onSubmit: firstName=' + this.state.form.firstName.value, ', lastName=', this.state.form.lastName.value);
+        //console.log('onSubmit: firstName=' + this.state.fields.firstName.value, ', lastName=', this.state.fields.lastName.value);
+        console.log('onSubmit: firstName=' + this.refs.firstName2.refs.textBox.value, ', lastName=', this.refs.lastName2.refs.textBox.value);
     },
     render: function() {
     	var self = this;
+    	var editFields = Object.keys(this.state.fields).map(function(key, index) {
+			return (
+				<div className="form-group" key={key}>
+                	<TextBox item={self.state.fields[key]} key={key} id={self.state.fields[key].id} name={self.state.fields[key].name} ref={self.state.fields[key].ref} value={self.state.fields[key].value} placeholder={self.state.fields[key].placeholder} className={self.state.fields[key].className} onChange={self.onChange} />
+                </div>
+			);
+		});
         return(
             <form className={this.props.className} onSubmit={this.onSubmit} method={this.props.method} role='form' autoComplete='off'>
             	<div className="form-group">
                 	<input type="text" className="form-control" ref="fieldName" defaultValue="Hello World!" />
                 </div>
-                <div className="form-group">
-                	<TextBox id={this.state.form.firstName.id} name={this.state.form.firstName.name} ref={this.state.form.firstName.ref} value={this.state.form.firstName.value} placeholder={this.state.form.firstName.placeholder} className='form-control' onChange={this.onChange} />
-                </div>
-                <div className="form-group">
-                	<TextBox id={this.state.form.lastName.id} name={this.state.form.lastName.name} ref={this.state.form.lastName.ref} value={this.state.form.lastName.value} placeholder={this.state.form.lastName.placeholder} className='form-control' onChange={this.onChange} />
-                </div>
+                {editFields}
                 <Button type="submit" className='btn btn-success'>Send</Button>
             </form>
         );
