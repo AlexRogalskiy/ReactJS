@@ -50,21 +50,21 @@ var Button = React.createClass({
 	},
     getDefaultProps: function() {
         return {
-        	className: ''
+        	className: '',
         };
     },
+    onClick: function() {
+		this.log(ReactDOM.findDOMNode(this).id + ' clicked');
+	},
     getInitialState: function() {
 		return { className: '' };
 	},
 	componentWillMount: function() {
 		console.log('componentWillMount: Button');
 	},
-	clicked: function() {
-		this.log(ReactDOM.findDOMNode(this).id + ' clicked');
-	},
 	render: function() {
 		return (
-			<button id={this.props.id} name={this.props.name} type='button' onClick={this.clicked} className={'btn ' + this.props.className}>
+			<button id={this.props.id} name={this.props.name} type='button' onClick={this.props.onClick ? this.props.onClick : this.onClick} className={'btn ' + this.props.className}>
 				{this.props.children}
 			</button>
 		);
@@ -72,11 +72,14 @@ var Button = React.createClass({
 });
 
 var View = React.createClass({
+	clicked: function() {
+		console.log('clicked');
+	},
 	render: function() {
 		return (
 			<div>
 				<Header2 message='Hi' />
-				<Button id='22'>Ok</Button>
+				<Button id='22' onClick={this.clicked}>Ok</Button>
 			</div>
 		);
 	}

@@ -38,7 +38,7 @@ var GlyphIcon = React.createClass({
 	}
 });
 
-var View = React.createClass({
+var Counter = React.createClass({
 	propTypes: {
 		counter: React.PropTypes.number,
 		min: React.PropTypes.number,
@@ -56,7 +56,7 @@ var View = React.createClass({
         };
     },
 	getInitialState: function() {
-		return { counter: 0, isIncreasing: false, isVisible: true };
+		return { counter: this.props.counter, min: this.props.min, max: this.props.max, isIncreasing: false, isVisible: this.props.isVisible };
 	},
 	// componentWillReceiveProps: function(nextProps) {
 	// 	this._logPropsAndState('componentWillReceiveProps: View');
@@ -117,4 +117,4 @@ var View = React.createClass({
 	}
 });
 
-ReactDOM.render(<View />, document.getElementById('view'));
+ReactDOM.render(<Counter />, document.getElementById('view'));
