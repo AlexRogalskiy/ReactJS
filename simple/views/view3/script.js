@@ -5,12 +5,12 @@ var Row = React.createClass({
 	},
     getDefaultProps: function() {
         return {
-        	user: null,
+        	user: {},
         	key: ''
         };
     },
     getInitialState: function() {
-		return { user: null, key: '' };
+		return { user: this.props.user, key: this.props.key };
 	},
 	render: function() {
 		return (
