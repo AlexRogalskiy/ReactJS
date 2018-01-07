@@ -124,9 +124,9 @@ var TextBox = React.createClass({
 	render: function() {
 		return (
 			this.state.isRequired ?
-				<input id={this.props.id} name={this.props.name} ref='textBox' type='text' className={this.props.className} value={this.state.value} disabled={this.props.isDisabled} placeholder={this.props.placeholder} onChange={this.props.isReadOnly ? this.props.onChange : this.props.onChange ? this.props.onChange : this.onChange} required />
+				<input id={this.props.id} name={this.props.name} ref='textBox' type='text' className={this.props.className} value={this.props.value} disabled={this.props.isDisabled} placeholder={this.props.placeholder} onChange={this.props.isReadOnly ? this.props.onChange : this.props.onChange ? this.props.onChange : this.onChange} required />
 				:
-				<input id={this.props.id} name={this.props.name} ref='textBox' type='text' className={this.props.className} value={this.state.value} disabled={this.props.isDisabled} placeholder={this.props.placeholder} onChange={this.props.isReadOnly ? this.props.onChange : this.props.onChange ? this.props.onChange : this.onChange} />
+				<input id={this.props.id} name={this.props.name} ref='textBox' type='text' className={this.props.className} value={this.props.value} disabled={this.props.isDisabled} placeholder={this.props.placeholder} onChange={this.props.isReadOnly ? this.props.onChange : this.props.onChange ? this.props.onChange : this.onChange} />
 		);
 	},
 });
@@ -179,7 +179,7 @@ var EditTextBox = React.createClass({
 			<div className='form-group'>
 				<label>{this.props.label}</label>
 				<div className='input-group'>
-					<TextBox id={this.props.id} name={this.props.name} ref='editTextBox' value={this.state.value} isDisabled={!this.state.isEditing} placeholder={this.props.placeholder} isReadOnly={this.props.isReadOnly} isRequired={this.props.isRequired} />
+					<TextBox id={this.props.id} name={this.props.name} ref='editTextBox' value={this.state.value} isDisabled={!this.state.isEditing} placeholder={this.props.placeholder} isReadOnly={this.props.isReadOnly} isRequired={this.props.isRequired} onChange={this.onChange} />
 					{
 						this.state.isEditing ?
 							<Button name={this.props.buttonPrefix + this.props.name} onClick={this.update} className='btn btn-info btn-lg'><GlyphIcon className='glyphicon glyphicon-ok' />&nbsp;Update</Button>
@@ -221,7 +221,12 @@ var View = React.createClass({
     },
     getDefaultProps: function() {
         return {
-        	fields: {
+        	fields: {}
+        };
+    },
+	getInitialState: function() {
+		return {
+			fields: {
 				firstName: {
 					id: 1,
 					name: 'firstName',
@@ -239,11 +244,6 @@ var View = React.createClass({
 					value: ''
 				}
 			}
-        };
-    },
-	getInitialState: function() {
-		return {
-			fields: this.props.fields
 		};
 	},
 	update: function(e) {
@@ -265,6 +265,9 @@ var View = React.createClass({
 		ReactDOM.unmountComponentAtNode(document.getElementById('view'));
 		ReactDOM.render(<View />, document.getElementById('view'));
 	},
+	componentWillUnmount: function() {
+		console.log('componentWillUnmount: View');
+	},
 	render: function() {
 		//update={this.update.bind(this, 'lastName')}
 		var self = this;
@@ -281,9 +284,9 @@ var View = React.createClass({
 				<Header2 message={'Hello ' + header}></Header2>
 				<EditTextBox name='firstName' label='First Name' ref='firstName' update={this.update} placeholder='First Name'></EditTextBox>
 				<EditTextBox name='lastName' label='Last Name' ref='lastName' update={this.update} placeholder='Last Name'></EditTextBox>
-				<Button onClick={this.reload} className='btn'>Reload</Button>
 				<Counter min={0} />
 				<Form />
+				<Button onClick={this.reload} className='btn btn-primary'>Reload</Button>
 			</div>
 		);
 	}
@@ -372,7 +375,14 @@ var Form = React.createClass({
 	},
     getDefaultProps: function() {
         return {
-        	form: {
+        	form: {},
+        	className: 'form-horizontal',
+        	method: 'POST'
+        };
+    },
+	getInitialState: function() {
+		return {
+			form: {
         		firstName: {
         			id: '1',
         			name: 'firstName',
@@ -388,21 +398,14 @@ var Form = React.createClass({
         			value: ''
         		}
         	},
-        	className: 'form-horizontal',
-        	method: 'POST'
-        };
-    },
-	getInitialState: function() {
-		return {
-			form: this.props.form,
 			className: this.props.className,
 			method: this.props.method
 		};
 	},
 	onChange: function(e) {
-		console.log('onChange: key=', e.target.name, ', value=', e.target.value);
-		this.state.form[e.target.name].value = e.target.value;
 		// this.refs[this.state.form.firstName.ref].refs.textBox.value
+		console.log('onChange: key =', e.target.name, ', value =', e.target.value);
+		this.state.form[e.target.name].value = e.target.value;
 		this.setState({form: this.state.form});
 	},
     onSubmit: function(e) {
