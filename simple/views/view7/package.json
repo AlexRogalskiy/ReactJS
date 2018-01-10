@@ -5,13 +5,13 @@
 	"private": "true",
 	"description": "A simple react blog showcase",
 	"repository": {
-	    "type": "git",
-	    "url": "https://github.com/AlexRogalskiy/ReactJS.git"
+		"type": "git",
+		"url": "https://github.com/AlexRogalskiy/ReactJS.git"
 	},
 	"author": "Alexander R <alexander.rogalsky@yandex.ru> (https://linkedin.com/in/alexander-rogalsky-985a4828)",
 	"license": "MIT",
 	"bugs": {
-	  	"url": "https://github.com/AlexRogalskiy/ReactJS/issues"
+		"url": "https://github.com/AlexRogalskiy/ReactJS/issues"
 	},
 	"homepage": "https://github.com/AlexRogalskiy/ReactJS",
 	"keywords": [
@@ -26,11 +26,13 @@
 	"dependencies": {
 		"autoprefixer-loader": "3.2.0",
 		"babel": "6.23.0",
+		"babel-cli": "6.26.0",
 		"babel-core": "6.26.0",
 		"babel-loader": "7.1.2",
 		"babel-polyfill": "6.26.0",
 		"babel-preset-env": "1.6.1",
 		"babel-preset-es2015": "6.24.1",
+		"babel-preset-latest": "6.24.1",
 		"babel-preset-react": "6.24.1",
 		"classnames": "2.2.5",
 		"css-loader": "0.28.8",
@@ -50,12 +52,13 @@
 		"webpack": "3.10.0"
 	},
 	"devDependencies": {
-		"react-hot-loader": "3.1.3"
+		"react-hot-loader": "3.1.3",
+		"webpack-dev-server": "2.10.1"
 	},
 	"scripts": {
-		"start": "webpack-dev-server --progress --colors --watch",
+		"start": "webpack-dev-server --hot --config ./webpack.config.js --progress --colors --watch",
 		"test2": "clear && ./node_modules/mocha/bin/mocha --compilers js:babel/register --reporter dot --recursive",
-    	"build": "browserify src/client.js -t babelify --outfile public/bundle.js && node-less --output-style compressed styles/main.less public/main.css",
+		"build": "browserify src/client.js -t babelify --outfile public/bundle.js && node-less --output-style compressed styles/main.less public/main.css",
 		"flow": "babel src --out-dir build_flow --blacklist flow && flow build_flow",
 		"commit": "git-cz",
 		"check-coverage2": "istanbul check-coverage --statements 100 --branches 100 --functions 100 --lines 100",
@@ -76,7 +79,8 @@
 		"release": "npm run build && with-package git commit -am pkg.version && with-package git tag pkg.version && git push && npm publish",
 		"release:beta": "npm run release && npm run tag:beta",
 		"tag:beta": "with-package npm dist-tag add pkg.name@pkg.version beta",
-		"publish": "npm publish"
+		"publish": "npm publish",
+		"dev": "NODE_ENV=dev webpack-dev-server --port 3000 --inline --hot"
 	},
 	"config": {
 		"commitizen": {
