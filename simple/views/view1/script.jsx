@@ -7,6 +7,7 @@ const ReactDOM = require("react-dom")
 const Joi = require("joi");
 const JoiValidationStrategy = require("joi-validation-strategy");
 const ReactValidationMixin = require("react-validation-mixin");
+const Utils = require('./libs/utils');
 
 const Mixin1 = {
 	log: function(message) {
@@ -142,9 +143,9 @@ const TextBox = React.createClass({
 	},
 	renderHelpText: function(message) {
         return (
-            <span className='help-block'>
+            <div className='help-block'>
                 {message}
-            </span>
+            </div>
         );
     },
 	render: function() {
@@ -156,8 +157,11 @@ const TextBox = React.createClass({
         }
 
 		return (
-			<div className={formClass}>
-				<input id={this.props.id} name={this.props.name} ref='textBox' type={this.props.type} className={this.state.className} value={this.state.value} disabled={this.props.isDisabled} placeholder={this.props.placeholder} onChange={this.props.onChange ? this.props.onChange : this.onChange} {...this.props} />
+			<div>
+				<div className={formClass}>
+					<input id={this.props.id} name={this.props.name} ref='textBox' type={this.props.type} className={this.state.className} value={this.state.value} disabled={this.props.isDisabled} placeholder={this.props.placeholder} onChange={this.props.onChange ? this.props.onChange : this.onChange} {...this.props} />
+					{this.props.children}
+				</div>
 				{this.renderHelpText(error)}
 			</div>
 		);
@@ -201,16 +205,18 @@ const EditTextBox = React.createClass({
 	},
 	update: function(e) {
 		this.setState({ isEditing: false });
-		this.refs.editTextBox.setState({ isDisabled: true });
+		var target = e.target.name.substring(1);
+		this.refs['t' + target].setState({ isDisabled: true });
 		this.props.update(e);
 	},
 	edit: function(e) {
 		this.setState({ isEditing: true });
-		this.refs.editTextBox.setState({ isDisabled: false });
+		var target = e.target.name.substring(1);
+		this.refs['t' + target].setState({ isDisabled: false });
 	},
 	onChange: function(e) {
-		//this.setState({ value: e.target.value });
-		this.refs.editTextBox.onChange(e);
+		this.setState({ value: e.target.value });
+		this.refs['t' + e.target.name].onChange(e);
 	},
 	render: function() {
 		var formClass = "form-group";
@@ -218,13 +224,14 @@ const EditTextBox = React.createClass({
 			<div className={formClass}>
 				<label className="control-label" htmlFor={this.props.name}>{this.props.label}</label>
 				<div className='input-group'>
-					<TextBox id={this.props.id} name={this.props.name} ref='editTextBox' value={this.state.value} isDisabled={!this.state.isEditing} placeholder={this.props.placeholder} isReadOnly={this.props.isReadOnly} isRequired={this.props.isRequired} className={this.state.textBoxClassName} onChange={this.props.onChange ? this.props.onChange : this.onChange} onBlur={this.props.onBlur} getValidationMessages={this.props.getValidationMessages} />
+					<TextBox id={this.props.id} name={this.props.name} ref={'t' + this.props.name} value={this.state.value} isDisabled={!this.state.isEditing} placeholder={this.props.placeholder} isReadOnly={this.props.isReadOnly} isRequired={this.props.isRequired} className={this.state.textBoxClassName} onChange={this.onChange} onBlur={this.props.onBlur} getValidationMessages={this.props.getValidationMessages}>
 					{
 						this.state.isEditing ?
 							<Button name={this.props.buttonPrefix + this.props.name} onClick={this.update} className={this.state.buttonClassName}><GlyphIcon className='glyphicon glyphicon-ok' />&nbsp;Update</Button>
 							:
 							<Button name={this.props.buttonPrefix + this.props.name} onClick={this.edit} className={this.state.buttonClassName}><GlyphIcon className='glyphicon glyphicon-pencil' />&nbsp;Edit</Button>
 					}
+					</TextBox>
 				</div>
 			</div>
 		);
@@ -261,12 +268,7 @@ const View = React.createClass({
     },
     getDefaultProps: function() {
         return {
-        	fields: {}
-        };
-    },
-	getInitialState: function() {
-		return {
-			fields: {
+        	fields: {
 				firstName: {
 					id: '1',
 					name: 'firstName',
@@ -288,11 +290,16 @@ const View = React.createClass({
 					value: ''
 				}
 			}
+        };
+    },
+	getInitialState: function() {
+		return {
+			fields: this.props.fields
 		};
 	},
 	update: function(e) {
 		var fieldName = e.target.name.substring(1);
-		this.state.fields[fieldName].value = this.refs[fieldName].refs.editTextBox.refs.textBox.value;
+		this.state.fields[fieldName].value = this.refs[fieldName].refs['t' + fieldName].refs.textBox.value;
 		this.setState({ fields: this.state.fields });
 		// this.setState({
 		// 	// firstName: ReactDOM.findDOMNode(this.refs.firstName.refs.editTextBox).value,
@@ -320,7 +327,7 @@ const View = React.createClass({
 		}).join(' ');
 		var editFields = Object.keys(this.state.fields).map(function(key, index) {
 			return (
-				<EditTextBox item={self.state.fields[key]} key={key} id={self.state.fields[key].id} name={self.state.fields[key].name} label={self.state.fields[key].label} ref={self.state.fields[key].ref} update={self.update} placeholder={self.state.fields[key].placeholder} textBoxClassName={self.state.fields[key].textBoxClassName} buttonClassName={self.state.fields[key].buttonClassName} getValidationMessages={self.props.getValidationMessages} onChange={self.props.onChange}></EditTextBox>
+				<EditTextBox item={self.state.fields[key]} key={key} id={self.state.fields[key].id} name={self.state.fields[key].name} label={self.state.fields[key].label} ref={self.state.fields[key].ref} update={self.update} placeholder={self.state.fields[key].placeholder} textBoxClassName={self.state.fields[key].textBoxClassName} buttonClassName={self.state.fields[key].buttonClassName} getValidationMessages={self.props.getValidationMessages} onChange={self.props.onChange} />
 			);
 		});
 		return (
@@ -430,22 +437,45 @@ const Form = React.createClass({
         		firstName2: {
         			id: '1',
         			name: 'firstName2',
-        			label: 'First Name',
+        			label: 'First Name2',
         			ref: 'firstName2',
-        			placeholder: 'First Name',
-        			//pattern: Joi.string().required().label("First Name"),
+        			placeholder: 'First2 Name',
         			//className: 'form-control',
-        			value: ''
+        			value: 'First2',
+        			subView: false
         		},
         		lastName2: {
         			id: '2',
         			name: 'lastName2',
-        			label: 'Last Name',
+        			label: 'Last Name2',
         			ref: 'lastName2',
-        			placeholder: 'Last Name',
+        			placeholder: 'Last2 Name',
         			//className: 'form-control',
-        			value: ''
-        		}
+        			value: 'Last2',
+        			subView: false
+        		},
+				firstName: {
+					id: '3',
+					name: 'firstName',
+					label: 'First Name',
+					ref: 'firstName',
+					placeholder: 'First Name',
+					// textBoxClassName: '',
+					// buttonClassName: '',
+					value: '',
+					subView: true
+				},
+				lastName: {
+					id: '4',
+					name: 'lastName',
+					label: 'Last Name',
+					ref: 'lastName',
+					placeholder: 'Last Name',
+					// textBoxClassName: '',
+					// buttonClassName: '',
+					value: '',
+					subView: true
+				}
         	},
 			className: this.props.className,
 			method: this.props.method
@@ -454,19 +484,23 @@ const Form = React.createClass({
 	validatorTypes: {
 		firstName: Joi.string().required().label("F"),
 		lastName: Joi.string().required().label("L"),
-	    firstName2: Joi.string().required().label("First Name"),
-	    lastName2: Joi.string().required().regex(/[a-zA-Z0-9]{3,30}/).label("Last Name")
+	    firstName2: Joi.string().required().label("First 2"),
+	    lastName2: Joi.string().required().regex(/[a-zA-Z0-9]{3,30}/).label("Last 2")
 	},
 	getValidatorData: function(e) {
 		return this.state;
 	},
 	onChange: function(e) {
 		console.log('onChange: key =', e.target.name, ', value =', e.target.value);
-		
-		//this.state.fields[e.target.name].value = e.target.value;
-		//this.setState({fields: this.state.fields});
+		this.state.fields[e.target.name].value = e.target.value;
+		this.setState({ fields: this.state.fields });
+
 		// this.refs[e.target.name].onChange(e);
-		//this.refs.view.refs[e.target.name].onChange(e);
+		// console.log(ReactDOM.findDOMNode(e.target));
+		// ReactDOM.findDOMNode(e.target).value = e.target.value;
+		//ReactDOM.findDOMNode(e.target).onChange(e);
+		// this.refs.view.refs[e.target.name].onChange(e);
+		// this.refs.view.refs[e.target.name].refs['editTextBox'].onChange(e);
 
 		const validationState = {};
    	 	validationState[e.target.name] = e.target.value;
@@ -474,8 +508,7 @@ const Form = React.createClass({
 	},
 	onSubmit: function(e) {
 		e.preventDefault();
-		//console.log('onSubmit: firstName=' + this.state.fields.firstName.value, ', lastName=', this.state.fields.lastName.value);
-		console.log('onSubmit: firstName=' + this.refs.firstName2.refs.textBox.value, ', lastName=', this.refs.lastName2.refs.textBox.value);
+		console.log('onSubmit: firstName=' + this.refs.firstName.refs.textBox.value, ', lastName=', this.refs.lastName.refs.textBox.value);
 	    var onValidate = function(err) {
 	        if (err) {
 	            if (err.userName) {
@@ -485,8 +518,8 @@ const Form = React.createClass({
 	                alert(err.password);
 	            }
 	        }
-	        var passwordContainsUserName = this.refs.firstName2.refs.textBox.value.indexOf(this.refs.lastName2.refs.textBox.value) > -1;
-	        if (this.refs.lastName2.refs.textBox.value && passwordContainsUserName) {
+	        var passwordContainsUserName = this.refs.firstName.refs.textBox.value.indexOf(this.refs.lastName.refs.textBox.value) > -1;
+	        if (this.refs.lastName.refs.textBox.value && passwordContainsUserName) {
 	            alert("Password cannot contain the user name.");
 	            return;
 	        }
@@ -498,7 +531,9 @@ const Form = React.createClass({
 	},
 	render: function() {
 		var self = this;
-		var editFields = Object.keys(this.state.fields).map(function(key, index) {
+		var editFields = Utils.filter(this.state.fields, field => !field.subView);
+		var subFields = Utils.filter(this.state.fields, field => field.subView);
+		var editFields = Object.keys(editFields).map(function(key, index) {
 			return (
 				<div className='form-group' key={key}>
 					<label className="control-label" htmlFor={self.state.fields[key].name}>{self.state.fields[key].label}</label>
@@ -506,14 +541,14 @@ const Form = React.createClass({
 				</div>
 			);
 		});
-		return(
+		return (
 			<form className={this.props.className} onSubmit={this.onSubmit} method={this.props.method} role='form' autoComplete='off'>
-				<div className="form-group">
-					<input type="text" className="form-control" ref="fieldName" defaultValue="Hello World!" />
+				<div className='form-group'>
+					<input type='text' className='form-control' ref='fieldName' defaultValue='Hello World!' />
 				</div>
 				{editFields}
-				<View ref='view' onChange={this.onChange} getValidationMessages={this.props.getValidationMessages} />
-				<Button type="submit" className='btn btn-success'>Send</Button>
+				<View fields={subFields} ref='view' onChange={this.onChange} getValidationMessages={this.props.getValidationMessages} />
+				<Button type='submit' className='btn btn-success'>Send</Button>
 			</form>
 		);
 	}
