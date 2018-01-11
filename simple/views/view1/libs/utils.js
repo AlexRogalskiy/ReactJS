@@ -17,7 +17,7 @@ function filter(obj, predicate) {
 };
 
 function filter2(obj, predicate) {
-    Object.keys(obj)
+    return Object.keys(obj)
           .filter( key => predicate(obj[key]))
           .reduce( (res, key) => (res[key] = obj[key], res), {} );
 };

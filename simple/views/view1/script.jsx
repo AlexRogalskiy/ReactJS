@@ -82,7 +82,7 @@ const Button = React.createClass({
 	},
 	render: function() {
 		return (
-			<button id={this.props.id} name={this.props.name} type={this.props.type} className={this.state.className} disabled={this.props.isDisabled} onClick={this.props.onClick}>
+			<button id={this.props.id} name={this.props.name} type={this.props.type} className={this.state.className} disabled={this.props.isDisabled} onClick={this.props.onClick} {...this.props}>
 				{this.props.children}
 			</button>
 		);
@@ -159,8 +159,8 @@ const TextBox = React.createClass({
 		return (
 			<div>
 				<div className={formClass}>
-					<input id={this.props.id} name={this.props.name} ref='textBox' type={this.props.type} className={this.state.className} value={this.state.value} disabled={this.props.isDisabled} placeholder={this.props.placeholder} onChange={this.props.onChange ? this.props.onChange : this.onChange} {...this.props} />
-					{this.props.children}
+					<input id={this.props.id} name={this.props.name} ref={this.props.ref} type={this.props.type} className={this.state.className} value={this.state.value} disabled={this.props.isDisabled} placeholder={this.props.placeholder} onChange={this.props.onChange ? this.props.onChange : this.onChange} {...this.props} />
+					{this.props.decorator}
 				</div>
 				{this.renderHelpText(error)}
 			</div>
@@ -172,6 +172,7 @@ const EditTextBox = React.createClass({
 	propTypes: {
 		id: React.PropTypes.string,
 		name: React.PropTypes.string,
+		ref: React.PropTypes.string,
 		isReadOnly: React.PropTypes.bool,
         value: React.PropTypes.string,
         textBoxClassName: React.PropTypes.string,
@@ -186,6 +187,8 @@ const EditTextBox = React.createClass({
     },
     getDefaultProps: function() {
         return {
+        	name: '',
+        	ref: '',
         	isReadOnly: false,
             value: '',
         	isEditing: false,
@@ -201,7 +204,7 @@ const EditTextBox = React.createClass({
         };
     },
 	getInitialState: function() {
-		return { isReadOnly: this.props.isReadOnly, value: this.props.value, isRequired: this.props.isRequired, update: this.props.update, label: this.props.label, placeholder: this.props.placeholder, textBoxClassName: this.props.textBoxClassName, buttonClassName: this.props.buttonClassName, item: this.props.item, key: this.props.key };
+		return { name: this.props.name, ref: this.props.ref, isReadOnly: this.props.isReadOnly, value: this.props.value, isRequired: this.props.isRequired, update: this.props.update, label: this.props.label, placeholder: this.props.placeholder, textBoxClassName: this.props.textBoxClassName, buttonClassName: this.props.buttonClassName, item: this.props.item, key: this.props.key };
 	},
 	update: function(e) {
 		this.setState({ isEditing: false });
@@ -220,18 +223,12 @@ const EditTextBox = React.createClass({
 	},
 	render: function() {
 		var formClass = "form-group";
+		var button = this.state.isEditing ? <Button ref={this.props.buttonPrefix + this.props.ref} name={this.props.buttonPrefix + this.props.name} onClick={this.update} className={this.state.buttonClassName}><GlyphIcon className='glyphicon glyphicon-ok' />&nbsp;Update</Button> : <Button ref={'b' + this.props.ref} name={this.props.buttonPrefix + this.props.name} onClick={this.edit} className={this.state.buttonClassName}><GlyphIcon className='glyphicon glyphicon-pencil' />&nbsp;Edit</Button>;
 		return (
 			<div className={formClass}>
 				<label className="control-label" htmlFor={this.props.name}>{this.props.label}</label>
 				<div className='input-group'>
-					<TextBox id={this.props.id} name={this.props.name} ref={'t' + this.props.name} value={this.state.value} isDisabled={!this.state.isEditing} placeholder={this.props.placeholder} isReadOnly={this.props.isReadOnly} isRequired={this.props.isRequired} className={this.state.textBoxClassName} onChange={this.onChange} onBlur={this.props.onBlur} getValidationMessages={this.props.getValidationMessages}>
-					{
-						this.state.isEditing ?
-							<Button name={this.props.buttonPrefix + this.props.name} onClick={this.update} className={this.state.buttonClassName}><GlyphIcon className='glyphicon glyphicon-ok' />&nbsp;Update</Button>
-							:
-							<Button name={this.props.buttonPrefix + this.props.name} onClick={this.edit} className={this.state.buttonClassName}><GlyphIcon className='glyphicon glyphicon-pencil' />&nbsp;Edit</Button>
-					}
-					</TextBox>
+					<TextBox id={this.props.id} name={this.props.name} ref={'t' + this.props.item.ref} value={this.state.value} isDisabled={!this.state.isEditing} placeholder={this.props.placeholder} isReadOnly={this.props.isReadOnly} isRequired={this.props.isRequired} className={this.state.textBoxClassName} onChange={this.onChange} onBlur={this.props.onBlur} getValidationMessages={this.props.getValidationMessages} decorator={button} />
 				</div>
 			</div>
 		);
@@ -299,7 +296,7 @@ const View = React.createClass({
 	},
 	update: function(e) {
 		var fieldName = e.target.name.substring(1);
-		this.state.fields[fieldName].value = this.refs[fieldName].refs['t' + fieldName].refs.textBox.value;
+		this.state.fields[fieldName].value = this.refs[fieldName].refs['t' + fieldName].props.value;
 		this.setState({ fields: this.state.fields });
 		// this.setState({
 		// 	// firstName: ReactDOM.findDOMNode(this.refs.firstName.refs.editTextBox).value,
@@ -481,16 +478,28 @@ const Form = React.createClass({
 			method: this.props.method
 		};
 	},
-	validatorTypes: {
-		firstName: Joi.string().required().label("F"),
-		lastName: Joi.string().required().label("L"),
-	    firstName2: Joi.string().required().label("First 2"),
-	    lastName2: Joi.string().required().regex(/[a-zA-Z0-9]{3,30}/).label("Last 2")
+	validatorTypes: function() {
+		return {
+			username: Joi.string().alphanum().min(3).max(30).required(),
+			name: Joi.string().allow(null),
+			email: Joi.string().email(),
+			firstName: Joi.string().required().label(this.refs.firstName.props.item.label),
+			lastName: Joi.string().required().label(this.refs.lastName.props.item.label),
+			firstName2: Joi.string().required().label("First 2"),
+			lastName2: Joi.string().required().regex(/[a-zA-Z0-9]{3,30}/).label("Last 2")
+		}
 	},
-	getValidatorData: function(e) {
-		return this.state;
+	getValidatorData: function() {
+		return {
+			firstName: this.state.fields.firstName.value, 
+			lastName: this.state.fields.lastName.value,
+			firstName2: this.state.fields.firstName2.value, 
+			lastName2: this.state.fields.lastName2.value
+		}
 	},
 	onChange: function(e) {
+		console.log(this.refs.view.refs.firstName2.props.item.value);
+		//var field = e.target.name.substring(1);
 		console.log('onChange: key =', e.target.name, ', value =', e.target.value);
 		this.state.fields[e.target.name].value = e.target.value;
 		this.setState({ fields: this.state.fields });
@@ -504,11 +513,12 @@ const Form = React.createClass({
 
 		const validationState = {};
    	 	validationState[e.target.name] = e.target.value;
-    	this.setState(validationState);
+    	this.setState(this.state.fields);
 	},
 	onSubmit: function(e) {
 		e.preventDefault();
-		console.log('onSubmit: firstName=' + this.refs.firstName.refs.textBox.value, ', lastName=', this.refs.lastName.refs.textBox.value);
+		console.log('onSubmit: firstName=' + this.refs.firstName.props.value, ', lastName=', this.refs.lastName.props.value);
+		console.log('onSubmit: firstName2=' + this.refs.view.refs.firstName2.props.value, ', lastName2=', this.refs.view.refs.lastName2.props.value);
 	    var onValidate = function(err) {
 	        if (err) {
 	            if (err.userName) {
@@ -518,11 +528,11 @@ const Form = React.createClass({
 	                alert(err.password);
 	            }
 	        }
-	        var passwordContainsUserName = this.refs.firstName.refs.textBox.value.indexOf(this.refs.lastName.refs.textBox.value) > -1;
-	        if (this.refs.lastName.refs.textBox.value && passwordContainsUserName) {
-	            alert("Password cannot contain the user name.");
-	            return;
-	        }
+	        var passwordContainsUserName = this.refs.firstName.props.value.indexOf(this.refs.lastName.props.value) > -1;
+	        // if (this.refs.lastName.props.value && passwordContainsUserName) {
+	        //     alert("Password cannot contain the user name.");
+	        //     return;
+	        // }
 	        if (!err) {
 	            alert("Account created!");
 	        }
