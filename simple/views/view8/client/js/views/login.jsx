@@ -2,7 +2,7 @@ import React from 'react';
 import { History } from 'react-router';
 
 export default class Login extends React.Component {
-	mixins: [History],
+	mixins: [History]
 	login(e) {
 		this.history.pushState('', '/');
 	}

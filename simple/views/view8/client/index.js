@@ -9,9 +9,10 @@ const render = (Component) =>
       <Component />
     </AppContainer>,
     document.getElementById('app')
-  );
+);
 
 render(AppRouter);
+
 if (module.hot) {
   module.hot.accept('./routes', () => {
     require('./routes');

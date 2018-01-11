@@ -7,7 +7,7 @@ const USERS = [
   { id: 2, name: "Ignat", age: 15 },
   { id: 3, name: "Sergey", age: 26 },
 ];
-const PUBLIC_PATH = __dirname + '/client';
+const PUBLIC_PATH = path.join(__dirname, 'client');
 
 const app = express();
 const isDevelopment = process.env.NODE_ENV === 'development';

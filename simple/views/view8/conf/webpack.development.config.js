@@ -1,7 +1,9 @@
 import webpack from 'webpack';
 import Config from 'webpack-config';
 import path from 'path';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
+const autoprefixer = require('autoprefixer');
 const include = path.join(__dirname, '../client');
 
 export default new Config().extend('conf/webpack.base.config.js').merge({
@@ -10,11 +12,10 @@ export default new Config().extend('conf/webpack.base.config.js').merge({
     'babel-polyfill',
     'react-hot-loader/patch',
     path.join(include, 'index.js')
-    // __dirname + '/../client/index.js'
   ],
   devtool: 'inline-source-map',
   output: {
-    filename: 'bundle.js',
+    filename: '[name].js',
     library: '[name]'
   },
   module: {
@@ -33,6 +34,17 @@ export default new Config().extend('conf/webpack.base.config.js').merge({
         },
         { loader: 'postcss-loader' },
       ]
+    },
+    { test: /\.less$/,
+      loader: ExtractTextPlugin.extract(['css-loader',
+      {
+        loader: 'postcss-loader',
+        options: {
+          plugins: () => autoprefixer({
+            browsers: ['last 3 versions', '> 1%']
+          })
+        }
+      }, 'less-loader'])
     }]
   },
   plugins: [
@@ -42,12 +54,25 @@ export default new Config().extend('conf/webpack.base.config.js').merge({
       "process.env": {
         NODE_ENV: JSON.stringify("development")
       }
-    })
+    }),
+    new ExtractTextPlugin({
+      filename: '[name].css',
+      allChunks: true,
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: "common",
+        // chunks: ['about', 'home'],
+        // minChunks: 2,
+    }),
+    // new webpack.ProvidePlugin({
+    //     compact: 'lodash/compact',
+    //     _: 'lodash'
+    // })
   ],
   devServer: {
     //stats: 'warnings-only',
         port: 8080
-    },
+  },
    //  postcss: [
     //   autoprefixer({
     //     browsers:['ie >= 8', 'last 4 version']
