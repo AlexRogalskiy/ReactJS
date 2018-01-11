@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default React.createClass({
-	render: function() {
+export default class Login extends React.Component {
+	render() {
 		return (
 			<form className='login-form'>login-form</form>
 		);
 	}
-})
+}

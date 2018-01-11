@@ -2,7 +2,7 @@
  * Module dependencies
  */
 import {join} from 'path';
-import {HotModuleReplacementPlugin, NoEmitOnErrorsPlugin} from 'webpack';
+import {HotModuleReplacementPlugin, NoEmitOnErrorsPlugin, DefinePlugin} from 'webpack';
 // var autoprefixer = require('autoprefixer');
 
 const include = join(__dirname, 'js');
@@ -24,7 +24,7 @@ export default {
 	devtool: 'source-map',
 	module: {
 		loaders: [
-			{test: /\.less$/, loader: 'style-loader!css-loader!autoprefixer?browsers=last 4 version!less-loader'},
+			{test: /\.less$/, loader: 'style-loader!css-loader!autoprefixer-loader?browsers=last 4 version!less-loader'},
 			{test: /\.css$/, loader: 'style-loader!css-loader'},
 			{test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192&name=images/[hash].[ext]'},
 			{test: /\.jsx?$/, exclude: /(node_modules|bower_components)/, include: [include], loaders: ['react-hot-loader/webpack', 'babel-loader?presets[]=react,presets[]=es2015']},
@@ -37,6 +37,11 @@ export default {
 	plugins: [
 		new HotModuleReplacementPlugin(),
 		new NoEmitOnErrorsPlugin()
+		new DefinePlugin({
+	      	"process.env": {
+	        	NODE_ENV: JSON.stringify("production")
+	      	}
+	    })
 		// new LoaderOptionsPlugin({
 		//     options: {
 		// 	      	postcss: [
