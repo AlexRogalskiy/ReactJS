@@ -211,15 +211,34 @@ const EditTextBox = React.createClass({
 		var target = e.target.name.substring(1);
 		this.refs['t' + target].setState({ isDisabled: true });
 		this.props.update(e);
+
+		// var self = this;
+		// return function (event) {
+		// 	var state = {};
+		// 	state[e] = event.target.value;
+		// 	self.setState(state);
+		// };
 	},
 	edit: function(e) {
 		this.setState({ isEditing: true });
 		var target = e.target.name.substring(1);
 		this.refs['t' + target].setState({ isDisabled: false });
+		// var self = this;
+		// return function (event) {
+		// 	var state = {};
+		// 	state[e] = event.target.value;
+		// 	self.setState(state);
+		// };
 	},
 	onChange: function(e) {
 		this.setState({ value: e.target.value });
 		this.refs['t' + e.target.name].onChange(e);
+		// var self = this;
+		// return function (event) {
+		// 	var state = {};
+		// 	state[e] = event.target.value;
+		// 	self.setState(state);
+		// };
 	},
 	render: function() {
 		var formClass = "form-group";
@@ -298,11 +317,12 @@ const View = React.createClass({
 		var fieldName = e.target.name.substring(1);
 		this.state.fields[fieldName].value = this.refs[fieldName].refs['t' + fieldName].props.value;
 		this.setState({ fields: this.state.fields });
-		// this.setState({
-		// 	// firstName: ReactDOM.findDOMNode(this.refs.firstName.refs.editTextBox).value,
-		// 	firstName: this.refs.firstName.refs.editTextBox.refs.textBox.value,
-		// 	lastName: this.refs.lastName.refs.editTextBox.refs.textBox.value,
-		// });
+		// var self = this;
+		// return function (event) {
+		// 	var state = {};
+		// 	state[e] = event.target.value;
+		// 	self.setState(state);
+		// };
 	},
 	// update: function(key, value) {
 	// 	var newState = {};
@@ -498,7 +518,6 @@ const Form = React.createClass({
 		}
 	},
 	onChange: function(e) {
-		console.log(this.refs.view.refs.firstName2.props.item.value);
 		//var field = e.target.name.substring(1);
 		console.log('onChange: key =', e.target.name, ', value =', e.target.value);
 		this.state.fields[e.target.name].value = e.target.value;
@@ -514,6 +533,14 @@ const Form = React.createClass({
 		const validationState = {};
    	 	validationState[e.target.name] = e.target.value;
     	this.setState(this.state.fields);
+
+    	//this.onChange(self.state.fields[key].name)
+		// var self = this;
+		// return function (event) {
+		// 	var state = {};
+		// 	state[e] = event.target.value;
+		// 	self.setState(state);
+		// };
 	},
 	onSubmit: function(e) {
 		e.preventDefault();
