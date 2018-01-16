@@ -3,7 +3,7 @@ import Config from 'webpack-config';
 
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-export default new Config().extend('conf/webpack.base.config.js').merge({
+export default new Config().extend('config/webpack.base.config.js').merge({
   output: {
     filename: 'bundle.min.js'
   },

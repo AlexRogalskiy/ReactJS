@@ -6,7 +6,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 const autoprefixer = require('autoprefixer');
 const include = path.join(__dirname, '../client');
 
-export default new Config().extend('conf/webpack.base.config.js').merge({
+export default new Config().extend('config/webpack.base.config.js').merge({
   entry: [
     'webpack-hot-middleware/client?reload=true',
     'babel-polyfill',
