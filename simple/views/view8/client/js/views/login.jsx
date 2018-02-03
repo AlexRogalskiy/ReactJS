@@ -1,17 +1,51 @@
-import React from 'react';
+"use strict";
+/**
+ * Module dependencies
+ */
+import React       from 'react';
 import { History } from 'react-router';
+import BasicInput  from 'appRoot/js/components/basicInput';
+import Actions     from 'appRoot/js/actions';
 
 export default class Login extends React.Component {
-	mixins: [History]
-	login(e) {
-		this.history.pushState('', '/');
+	mixins: [
+		History
+	]
+	getInitialState() {
+		return {};
+	}
+	logIn(e) {
+		var detail = {};
+
+		Array.prototype.forEach.call(
+			e.target.querySelectorAll('input'),
+			function (v) {
+				detail[v.getAttribute('name')] = v.value;
+			});
+		e.preventDefault(); 
+		e.stopPropagation(); 
+
+		Actions.login(detail.username, detail.password)
+			.then(function () {
+				//console.log("SUCCESS", arguments);
+				this.history.pushState('', '/');
+			}.bind(this))
+			['catch'](function () {
+				//console.log("ERROR", arguments);
+				this.setState({'loginError': 'bad username or password'});
+			}.bind(this));
 	}
 	render() {
 		return (
-			<form className='login-form' onSubmit={this.login}>
-				login-form
-				<button type="submit">Login</button>
+			<form className="login-form" onSubmit={this.logIn}>
+				<fieldset>
+					<legend>Log In</legend>
+					<BasicInput name="username" type="text" placeholder="username" />
+					<BasicInput name="password" type="password" placeholder="password" />
+					{ this.state.loginError && <aside className="error">{this.state.loginError}</aside> }
+					<button type="submit">Log In</button>
+				</fieldset>
 			</form>
 		);
 	}
-}
+};

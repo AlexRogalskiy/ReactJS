@@ -1,3 +1,7 @@
+"use strict";
+/**
+ * Module dependencies
+ */
 import webpack from 'webpack';
 import Config from 'webpack-config';
 

@@ -4,6 +4,7 @@ import { useStrict } from 'mobx';
 
 /* components */
 import Menu from '../components/menu';
+import AppHeader from 'appRoot/js/views/appHeader';
 
 /* stores */
 import leftMenuStore from '../stores/menu-store';
@@ -18,9 +19,10 @@ useStrict(true);
 
 const stores = { leftMenuStore, userStore };
 
-const App = props => (
+const AppLayout = props => (
   <Provider { ...stores }>
     <div className={styles['app-container']}>
+      <AppHeader />
       <Menu />
       <div className={styles['page-container']}>
         {props.children}
@@ -29,4 +31,30 @@ const App = props => (
   </Provider>
 );
 
-export default App;
+// class AppLayout extends React.Component {
+// 	constructor(props) {
+//     	super(props);
+//     	this.state = { };
+//   	}
+//   	// componentDidUpdate(nextProps, nextState) {
+// 	  //   //let newShoppingItems = this.calculateShoppingItems();
+// 	  //   //this.setState({ listOfShoppingItems: newShoppingItems });
+//   	// }
+//   	// shouldComponentUpdate(nextProps, nextState) {
+//    //      //this.setState({ src: this.props.initialImage });
+//    //      //return true;
+//    //  }
+//    //{this.props.children}
+// 	render() {
+// 		return (
+// 			<div className='app-container'>
+// 				<AppHeader />
+// 				<main>
+// 					{React.cloneElement(this.props.children, this.props)}
+// 				</main>
+// 			</div>
+// 		);
+// 	}
+// };
+
+export default AppLayout;

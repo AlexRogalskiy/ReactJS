@@ -1,3 +1,7 @@
+"use strict";
+/**
+ * Module dependencies
+ */
 import webpack from 'webpack';
 import Config from 'webpack-config';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
@@ -8,7 +12,7 @@ import path from 'path';
 const include = path.join(__dirname, '../client');
 
 export default new Config().merge({
-	entry: path.join(include, 'index.js'),
+	entry: path.join(include, 'js', 'app.js'),
 	output: {
 		path: path.join(__dirname, '../dist'),
 		libraryTarget: 'umd'

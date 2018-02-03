@@ -1,3 +1,7 @@
+"use strict";
+/**
+ * Module dependencies
+ */
 import webpack from 'webpack';
 import Config from 'webpack-config';
 import path from 'path';
@@ -11,7 +15,7 @@ export default new Config().extend('config/webpack.base.config.js').merge({
 		'webpack-hot-middleware/client?reload=true',
 		'babel-polyfill',
 		'react-hot-loader/patch',
-		path.join(include, 'index.js')
+		path.join(include, 'js', 'app.js')
 	],
 	devtool: 'inline-source-map',
 	output: {
@@ -72,6 +76,9 @@ export default new Config().extend('config/webpack.base.config.js').merge({
 		//     compact: 'lodash/compact',
 		//     _: 'lodash'
 		// })
+		//new webpack.ProvidePlugin({
+		//	'arrayutils': 'imports?this=>global!exports?global.arrayutils!arrayutils'
+		//})
 	],
 	devServer: {
 		//stats: 'warnings-only',

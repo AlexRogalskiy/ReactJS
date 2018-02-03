@@ -1,3 +1,7 @@
+"use strict";
+/**
+ * Module dependencies
+ */
 import Reflux from 'reflux';
 
 export default Reflux.createActions({
@@ -19,4 +23,4 @@ export default Reflux.createActions({
 	},
 	'search': {},
 	'getSessionContext': {}
-})
+});
