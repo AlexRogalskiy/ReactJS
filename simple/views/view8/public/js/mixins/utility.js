@@ -74,7 +74,7 @@ export function validate (val, constraints) {
 export var formMixins = { 
 	getInputEle: function (ref) {
 		if(!this.isMounted()) {return;}
-		// if (!this.isChecked || !this.isMounted) { return; }
+		//if (!this.isChecked || !this.isMounted) { return; }
 		// if(!this.refs[ref]) { return; }
 		// if (!this.refs[ref].isMounted) { return; }
 		return this.refs[ref] ? 

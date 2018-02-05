@@ -9,6 +9,7 @@ import update       from 'react-addons-update';
 
 import BasicInput   from 'appRoot/js/components/basicInput';
 import BasicImage   from 'appRoot/js/components/basicImage';
+import BasicTextInput   from 'appRoot/js/components/basicTextInput';
 
 import Actions      from 'appRoot/js/actions';
 import UserStore    from 'appRoot/js/stores/users';

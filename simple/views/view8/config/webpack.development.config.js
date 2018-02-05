@@ -8,7 +8,7 @@ import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 const autoprefixer = require('autoprefixer');
-const include = path.join(__dirname, '../client');
+const include = path.join(__dirname, '..', 'public');
 
 export default new Config().extend('config/webpack.base.config.js').merge({
 	entry: [

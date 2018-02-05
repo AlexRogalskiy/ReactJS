@@ -9,7 +9,7 @@ import autoprefixer from 'autoprefixer';
 import precss from 'precss';
 import path from 'path';
 
-const include = path.join(__dirname, '../client');
+const include = path.join(__dirname, '..', 'public');
 
 export default new Config().merge({
 	entry: path.join(include, 'js', 'app.js'),
@@ -33,7 +33,7 @@ export default new Config().merge({
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
-			template: './client/index.html',
+			template: './public/index.html',
 			inject: "body"
 		}),
 		new webpack.LoaderOptionsPlugin({ options: { postcss: [precss, autoprefixer] } })

@@ -8,27 +8,20 @@ import ClassNames from 'classnames';
 
 let Types = React.PropTypes;
 
-export default class BasicInput extends React.Component {
+export default class BasicImage extends React.Component {
 	propTypes: {
 		dataInfo:  Types.string,
 		dataError: Types.string
 	}
-	state: {
-    	isMounted: false,
-    	isChecked: false
-	}
-	componentDidMount() {
-	    this.setState({isMounted: true})
-	}
-	componentWillUnmount(){
-	    this.setState({isMounted: false})
-	}
+	constructor(props) {
+        super(props);
+    }
 	render() {
 		const { dataInfo, dataError, ...rest } = this.props
 		return (
-			<div className={ClassNames({'basic-input': true, 'error': dataError})} {...rest} >
-				<input 
-					className={dataError ? 'error' : ''} 
+			<div className={ClassNames({'basic-image': true, 'error': dataError})} {...rest} >
+				<img 
+					className="#{rest.className}, {#{dataError} ? 'error' : ''}"
 					{...update(rest, {children: {$set: null}})} />
 				{rest.children}
 				<aside>{dataInfo || dataError || ' '}</aside>
