@@ -3,16 +3,12 @@
  * Module dependencies
  */
 import React from 'react';
-// import update     from 'react-addons-update';
-// import ClassNames from 'classnames';
-import Logger from 'appRoot/js/mixins/logger';
 
 let Types = React.PropTypes;
 
-export default class BasicIcon extends React.Component {
-	mixins: [Logger]
+export default class BasicMenuItem extends React.Component {
 	propTypes: {
-		message: Types.string,
+		title: Types.string,
         item: Types.object,
         key: Types.string
     }
@@ -21,22 +17,22 @@ export default class BasicIcon extends React.Component {
     }
     getDefaultProps() {
         return {
-        	message: '',
+        	title: '',
             item: {},
             key: ''
         };
     }
     getInitialState() {
 		return {
-			message: this.props.message,
+			title: this.props.title,
 			item: this.props.item,
 			key: this.props.key
 		};
 	}
-	render() {
-		const {message, ...rest} = this.props;
-		return (
-			<span {...rest}>{message}</span>
-		);
-	}
-};
+    render() {
+    	const {title, ...rest} = this.props;
+        return (
+            <li {...rest}>{title}</li>
+        );
+    }
+}

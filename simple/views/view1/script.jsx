@@ -40,7 +40,6 @@ const Header2 = React.createClass({
 		return { message: this.props.message, className: this.props.className };
 	},
 	render: function() {
-		console.log('render: Header2');
 		return <h2 className={this.props.className}>{this.props.message}</h2>;
 	},
 	componentWillMount: function() {
@@ -150,15 +149,15 @@ const TextBox = React.createClass({
     },
 	render: function() {
 		var error = this.props.getValidationMessages(this.props.name);
-		var formClass = 'row no-gutters';
+		var controlClass = 'row no-gutters';
 
         if (error.length > 0) {
-            formClass += ' has-error';
+            controlClass += ' has-error';
         }
 
 		return (
-			<div>
-				<div className={formClass}>
+			<div className='input-group'>
+				<div className={controlClass}>
 					<input id={this.props.id} name={this.props.name} ref={this.props.ref} type={this.props.type} className={this.state.className} value={this.state.value} disabled={this.props.isDisabled} placeholder={this.props.placeholder} onChange={this.props.onChange ? this.props.onChange : this.onChange} {...this.props} />
 					{this.props.decorator}
 				</div>

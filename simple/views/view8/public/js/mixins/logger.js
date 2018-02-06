@@ -2,7 +2,7 @@
 /**
  * Module dependencies
  */
-const output = (dateTime, message) => `Logger => time: ${dateTime}, message: ${message}`;
+const output = (dateTime, message, ...args) => `Logger => time: ${dateTime}, message: ${message}, args: ${args}`;
 
 export default class Logger {
 	state: {
@@ -35,6 +35,19 @@ export default class Logger {
 		this.log(output(this.time(), 'componentWillUnmount'));
 		this.setState({isMounted: false})
 	}
+	componentWillReceiveProps(nextProps) {
+        console.log(output(this.time(), 'componentWillReceiveProps', {nextProps: nextProps}));
+	}
+	shouldComponentUpdate(nextProps, nextState) {
+        console.log(output(this.time(), 'shouldComponentUpdate', {nextProps: nextProps, nextState: nextState}));
+        return true;
+    }
+    componentWillUpdate(nextProps, nextState) {
+        console.log(output(this.time(), 'componentWillUpdate', {nextProps: nextProps, nextState: nextState}));
+    }
+    componentDidUpdate(prevProps, prevState) {
+        console.log(output(this.time(), 'componentDidUpdate', {prevProps: prevProps, prevState: prevState}));
+    }
 	time() {
 		let currentDate = new Date();
 		let currentTime = new Date(currentDate.getTime() - (currentDate.getTimezoneOffset() * 60000)).toJSON();
