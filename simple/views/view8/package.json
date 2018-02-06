@@ -1,9 +1,9 @@
 {
-  "name": "react-blog",
+  "name": "react-stitchery-showroom",
   "version": "0.0.1",
   "main": "index.js",
   "private": "true",
-  "description": "A simple react blog showcase",
+  "description": "React Stitchery Showroom",
   "repository": {
     "type": "git",
     "url": "https://github.com/AlexRogalskiy/ReactJS.git"
@@ -62,8 +62,9 @@
   },
   "babel": {
     "presets": [
+      "react",
       "es2015",
-      "stage-2"
+      "stage-3"
     ]
   },
   "dependencies": {
