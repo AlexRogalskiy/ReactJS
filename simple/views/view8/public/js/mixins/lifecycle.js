@@ -8,7 +8,7 @@ import createReactClass from 'create-react-class';
 
 let Types = React.PropTypes;
 
-module.exports = function wrapper(WrappedComponent) {
+export default function wrapper(WrappedComponent) {
   	return createReactClass({
 	  	propTypes: {
 	        isMounted: Types.bool
@@ -48,9 +48,9 @@ module.exports = function wrapper(WrappedComponent) {
 			Utils.Logger.debug('componentDidUpdate', {prevProps: prevProps, prevState: prevState});
 		},
 	    render: function() {
-	    	const {isMounted, ...rest} = this.props;
+	    	const { isMounted, ...rest } = this.props;
 	      	return (
-	      		<WrappedComponent {...rest} />
+	      		<WrappedComponent {...rest} isMounted={isMounted} />
 	      	);
 	    }
   	});

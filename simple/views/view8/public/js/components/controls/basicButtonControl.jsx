@@ -6,7 +6,7 @@ import React      from 'react';
 import ReactDOM	  from 'react-dom';
 // import update     from 'react-addons-update';
 import ClassNames from 'classnames';
-import Utils      from 'appRoot/js/mixins/logger';
+import Logger     from 'appRoot/js/mixins/logger';
 
 let Types = React.PropTypes;
 
@@ -31,7 +31,7 @@ export default class BasicButtonControl extends React.Component {
         };
     }
 	onClick(e) {
-		Utils.Logger.debug(ReactDOM.findDOMNode(this).id + 'clicked', e.target);
+		Logger.debug(ReactDOM.findDOMNode(this).id + 'clicked', e.target);
 	}
 	render() {
 		const { item, message, ...rest } = this.props;

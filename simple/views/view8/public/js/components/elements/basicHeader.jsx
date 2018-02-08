@@ -5,7 +5,8 @@
 import React      from 'react';
 // import update     from 'react-addons-update';
 import ClassNames from 'classnames';
-// import lifecycle  from 'appRoot/js/mixins/lifecycle';
+import Lifecycle  from 'appRoot/js/mixins/lifecycle';
+import Color      from 'appRoot/js/mixins/color';
 
 let Types = React.PropTypes;
 
@@ -27,6 +28,7 @@ export default class BasicHeader extends React.Component {
         };
     }
 	render() {
+        console.log(Color.getLuminance('#00ff00'));
         const { item, ...rest } = this.props;
 		return (
             <h1 {...rest}>{rest.children}</h1>

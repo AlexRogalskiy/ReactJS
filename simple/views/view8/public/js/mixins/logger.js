@@ -6,7 +6,7 @@ import dateFormat from 'dateformat';
 
 const output = (dateTime, message, ...args) => `Logger => time: ${dateTime}, message: ${message}, args: ${args}`;
 const DEFAULT_DATETIME_FORMAT = "dddd, mmmm dS, yyyy, h:MM:ss TT";
-const logger = {
+const Logger = {
 	state: {
     	isMounted: false
 	},
@@ -57,4 +57,4 @@ const logger = {
 	}
 };
 
-module.exports = exports = { Logger: logger };
+export default Logger;
