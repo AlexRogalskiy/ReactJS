@@ -1,6 +1,6 @@
 {
   "name": "react-stitchery-showroom",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "main": "index.js",
   "private": "true",
   "description": "React Stitchery Showroom",
@@ -69,6 +69,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
+    "dateformat": "3.0.2",
     "express": "^4.14.1",
     "history": "4.7.2",
     "mobx": "^3.1.2",

@@ -9,7 +9,11 @@ import update       from 'react-addons-update';
 
 import BasicInput   from 'appRoot/js/components/basicInput';
 import BasicImage   from 'appRoot/js/components/basicImage';
-// import BasicTextInput   from 'appRoot/js/components/basicTextInput';
+
+import BasicHeader  from 'appRoot/js/components/elements/basicHeader';
+import BasicButtonControl from 'appRoot/js/components/controls/basicButtonControl';
+// import BasicEditTextControl from 'appRoot/js/components/controls/basicEditTextControl';
+// import BasicView from 'appRoot/js/components/views/basicView';
 
 import Actions      from 'appRoot/js/actions';
 import UserStore    from 'appRoot/js/stores/users';
@@ -117,12 +121,38 @@ const Edit = React.createClass({
 		this.getInputEle('profileImage').click();
 	},
 	render() {
+		let fields = [
+				{
+					id: '1',
+					name: 'firstName',
+					label: 'First Name',
+					ref: 'firstName',
+					placeholder: 'First Name',
+					// textBoxClassName: '',
+					// buttonClassName: '',
+					value: ''
+				},
+				{
+					id: '2',
+					name: 'lastName',
+					label: 'Last Name',
+					ref: 'lastName',
+					placeholder: 'Last Name',
+					// textBoxClassName: '',
+					// buttonClassName: '',
+					value: ''
+				}
+			];
 		return (
 			<form ref="form" 
 				className="user-edit" 
 				name="useredit" 
 				onSubmit={function (e) { e.preventDefault(); }} 
 				noValidate>
+
+			<BasicHeader>sadf</BasicHeader>
+			<BasicButtonControl message='asdf' />
+
 			<fieldset>
 				<legend>become an author</legend>
 

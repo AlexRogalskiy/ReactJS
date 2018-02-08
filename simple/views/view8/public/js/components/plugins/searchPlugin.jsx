@@ -8,22 +8,18 @@ import update from 'react-addons-update';
 let Types = React.PropTypes;
 
 class SearchPlugin extends React.Component{
-    propTypes: {
+    static propTypes: {
         item: Types.object,
         key: Types.string
+    }
+    static defaultProps = {
+        item: {},
+        key: ''
     }
     constructor(props){
         super(props);
         this.onChanged = this.onChanged.bind(this);
-    }
-    getDefaultProps() {
-        return {
-            item: {},
-            key: ''
-        };
-    }
-    getInitialState() {
-        return {
+        this.state = {
             item: this.props.item,
             key: this.props.key
         };

@@ -15,6 +15,7 @@ export default new Config().merge({
 	entry: path.join(include, 'js', 'app.js'),
 	output: {
 		path: path.join(__dirname, '../dist'),
+		publicPath: '/',
 		libraryTarget: 'umd'
 	},
 	module: {
@@ -50,4 +51,7 @@ export default new Config().merge({
 			'vendor': 'appRoot/vendor'
 		}
 	},
+	devServer: {
+     	historyApiFallback: true,
+   	},
 });

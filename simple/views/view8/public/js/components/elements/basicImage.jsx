@@ -5,35 +5,30 @@
 import React      from 'react';
 import update     from 'react-addons-update';
 import ClassNames from 'classnames';
-import Logger     from 'appRoot/js/mixins/logger';
+// import Utils      from 'appRoot/js/mixins/logger';
 
 let Types = React.PropTypes;
 
 export default class BasicImage extends React.Component {
-	mixins: [Logger]
-	propTypes: {
+	static propTypes: {
 		data: Types.object,
         item: Types.object,
         key: Types.string
 	}
+    static defaultProps = {
+        data: {labelClass: 'control-label', formClass: 'row no-gutters', errorClass: 'has-error', errorMessageClass: 'help-block'},
+        item: {},
+        key: ''
+    }
 	constructor(props) {
         super(props);
         this.onChange = this.onChange.bind(this);
-    }
-    getDefaultProps() {
-        return {
-        	data: {labelClass: 'control-label', formClass: 'row no-gutters', errorClass: 'has-error', errorMessageClass: 'help-block'},
-            item: {},
-            key: ''
-        };
-    }
-    getInitialState() {
-		return {
-			data: this.props.data,
+        this.state = {
+            data: this.props.data,
 			item: this.props.item,
 			key: this.props.key
-		};
-	}
+        };
+    }
 	onChange(e) {
 		this.setState({ value: e.target.value });
 	}

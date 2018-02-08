@@ -5,34 +5,31 @@
 import React      from 'react';
 // import update     from 'react-addons-update';
 import ClassNames from 'classnames';
-import Logger     from 'appRoot/js/mixins/logger';
+// import lifecycle  from 'appRoot/js/mixins/lifecycle';
 
 let Types = React.PropTypes;
 
+// @lifecycle
 export default class BasicHeader extends React.Component {
-    mixins: [Logger]
-	propTypes: {
+	static propTypes = {
         item: Types.object,
         key: Types.string
     }
+    static defaultProps = {
+        item: {},
+        key: ''
+    }
     constructor(props) {
         super(props);
-    }
-    getDefaultProps() {
-        return {
-            item: {},
-            key: ''
+        this.state = {
+            item: props.item,
+            key: props.key
         };
     }
-    getInitialState() {
-		return {
-            item: this.props.item,
-            key: this.props.key
-        };
-	}
 	render() {
+        const { item, ...rest } = this.props;
 		return (
-            <h1 {...this.props}>{this.props.children}</h1>
+            <h1 {...rest}>{rest.children}</h1>
         );
 	}
 };

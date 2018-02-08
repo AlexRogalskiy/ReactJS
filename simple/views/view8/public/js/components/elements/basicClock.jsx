@@ -7,25 +7,21 @@ import React from 'react';
 let Types = React.PropTypes;
 
 export default class Clock extends React.Component {
-  propTypes: {
+  static propTypes: {
     message: Types.string,
     date: Types.object,
     item: Types.object,
     key: Types.string
   }
+  static defaultProps = {
+    message: '',
+    date: new Date(),
+    item: {},
+    key: ''
+  }
   constructor(props) {
     super(props);
-  }
-  getDefaultProps() {
-    return {
-      message: '',
-      date: new Date(),
-      item: {},
-      key: ''
-    };
-  }
-  getInitialState() {
-    return {
+    this.state = {
       message: this.props.message,
       date: this.props.date,
       item: this.props.item,

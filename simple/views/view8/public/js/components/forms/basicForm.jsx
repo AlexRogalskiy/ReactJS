@@ -5,31 +5,26 @@
 import React      from 'react';
 import update     from 'react-addons-update';
 import ClassNames from 'classnames';
-import Logger     from 'appRoot/js/mixins/logger';
+// import Utils      from 'appRoot/js/mixins/logger';
 
 let Types = React.PropTypes;
 
 export default class BasicForm extends React.Component {
-  mixins: [Logger]
-  propTypes: {
-    fields: Types.object,
+  static propTypes: {
+    fields: Types.arrau,
     item: Types.object,
     key: Types.string
+  }
+  static defaultProps = {
+    fields: [],
+    item: {},
+    key: ''
   }
   constructor(props) {
     super(props);
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-  } 
-  getDefaultProps() {
-    return {
-      fields: {},
-      item: {},
-      key: ''
-    };
-  }
-  getInitialState() {
-    return {
+    this.state = {
       fields: this.props.fields,
       item: this.props.item,
       key: this.props.key
@@ -48,8 +43,9 @@ export default class BasicForm extends React.Component {
     return (
       <form onSubmit={this.props.onSubmit ? this.props.onSubmit : this.onSubmit}>
           <div>
-            <label>Имя:</label><br />
-            <input type="text" value={this.state.name} onChange={this.props.onChange ? this.props.onChange : this.onChange}/>
+          fields.map(function(item) {
+            return <BasicTextControl key={item} text={item} onChange={this.props.onChange ? this.props.onChange : this.onChange} {...rest} />
+          });
           </div>
           <input type="submit" value="Send" />
       </form>

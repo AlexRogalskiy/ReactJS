@@ -9,26 +9,22 @@ import BasicMenuItem from './basicMenuItem';
 let Types = React.PropTypes;
 
 class BasicMenuItemList extends React.Component {
-    propTypes: {
+    static propTypes: {
         title: Types.string,
         items: Types.array,
         item: Types.object,
         key: Types.string
     }
+    static defaultProps = {
+        title: '',
+        items: [],
+        item: {},
+        key: ''
+    }
     constructor(props){
         super(props);
         this.filterList = this.filterList.bind(this);
-    }
-    getDefaultProps() {
-        return {
-            title: '',
-            items: [],
-            item: {},
-            key: ''
-        };
-    }
-    getInitialState() {
-        return {
+        this.state = {
             title: this.props.title,
             items: this.props.items,
             item: this.props.item,

@@ -5,38 +5,33 @@
 import React            from 'react';
 import update           from 'react-addons-update';
 import ClassNames       from 'classnames';
-import BasicButton      from './BasicButton';
-import BasicTextControl from './BasicTextControl';
-import Logger           from 'appRoot/js/mixins/logger';
+import BasicButtonControl from './basicButtonControl';
+import BasicTextControl from './basicTextControl';
+// import Utils           from 'appRoot/js/mixins/logger';
 
 let Types = React.PropTypes;
 
 export default class BasicEditTextControl extends React.Component {
-    mixins: [Logger]
-    propTypes: {
+    static propTypes: {
         dataClass: Types.object,
         isEditing: React.PropTypes.bool,
         item: React.PropTypes.object,
         key: React.PropTypes.string
+    }
+    static defaultProps = {
+        dataClass: {buttonClass: 'btn btn-info btn-lg', iconEditClass: 'glyphicon glyphicon-pencil', iconUpdateClass: 'glyphicon glyphicon-ok', formClass: 'form-group', labelClass: 'control-label', controlClass: 'row no-gutters', errorClass: 'has-error', errorMessageClass: 'help-block'},
+        isEditing: false,
+        update: null,
+        buttonPrefix: 'btn',
+        item: {},
+        key: ''
     }
     constructor(props) {
         super(props);
         this.onChange = this.onChange.bind(this);
         this.update = this.update.bind(this);
         this.edit = this.edit.bind(this);
-    }
-    getDefaultProps() {
-        return {
-            dataClass: {buttonClass: 'btn btn-info btn-lg', iconEditClass: 'glyphicon glyphicon-pencil', iconUpdateClass: 'glyphicon glyphicon-ok', formClass: 'form-group', labelClass: 'control-label', controlClass: 'row no-gutters', errorClass: 'has-error', errorMessageClass: 'help-block'},
-            isEditing: false,
-            update: null,
-            buttonPrefix: 'btn',
-            item: {},
-            key: ''
-        };
-    }
-    getInitialState() {
-        return {
+        this.state = {
             dataClass: this.props.dataClass,
             isEditing: false,
             update: this.props.update,
@@ -82,8 +77,8 @@ export default class BasicEditTextControl extends React.Component {
         const { buttonClass, iconEditClass, iconUpdateClass, ...restClass } = dataClass;
         rest.dataClass = restClass;
         let elements = this.state.isEditing
-                     ? <BasicButton ref={(button) => {this.textButton = button;}} name={this.props.buttonPrefix + this.props.name} onClick={this.update} className={buttonClass}><BasicIcon className={iconUpdateClass} />{buttonLabelUpdate}</BasicButton>
-                     : <BasicButton ref={(button) => {this.textButton = button;}} name={this.props.buttonPrefix + this.props.name} onClick={this.edit} className={buttonClass}><BasicIcon className={iconEditClass} />{buttonLabelEdit}</BasicButton>;
+                     ? <BasicButtonControl ref={(button) => {this.textButton = button;}} name={this.props.buttonPrefix + this.props.name} onClick={this.update} className={buttonClass}><BasicIcon className={iconUpdateClass} />{buttonLabelUpdate}</BasicButtonControl>
+                     : <BasicButtonControl ref={(button) => {this.textButton = button;}} name={this.props.buttonPrefix + this.props.name} onClick={this.edit} className={buttonClass}><BasicIcon className={iconEditClass} />{buttonLabelEdit}</BasicButtonControl>;
         return (
             <BasicTextControl ref={(input) => {this.textControl = input;}} onChange={rest.onChange ? rest.onChange : this.onChange} {...rest}>
                 {elements}

@@ -15,7 +15,7 @@ export default class BasicInput extends React.Component {
 	}
 	render() {
 		const { dataInfo, dataError, ...rest } = this.props
-		let errorClass = {dataError} ? 'error' : '';
+		let errorClass = dataError ? 'error' : '';
 		return (
 			<div className={ClassNames({'basic-input': true, 'error': dataError})} {...rest} >
 				<input 
