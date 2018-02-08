@@ -44,35 +44,25 @@ class BasicImage extends React.Component {
     activateValidation(field) {
     	return event => {
 	      	let state = {};
-	      	state[field] = event.target.label;
+	      	state[field] = event.target.src;
 	      	Strategy.activateRule(this.validatorTypes, field);
 	      	this.setState(state, () => {
 				this.props.handleValidation(field)(event);
 			});
 	    };
-	    // Strategy.activateRule(this.validatorTypes, field);
-	    // this.props.handleValidation(field)(e);
 	}
 	onChange(field) {
 		return event => {
 	      	let state = {};
-	      	state[field] = event.target.label;
+	      	state[field] = event.target.src;
 	      	this.setState(state, () => {
 				this.props.handleValidation(field)(event);
 			});
 	    };
-		//this.setState({ value: e.target.value });
 	}
 	getClassName(field) {
 		return this.props.isValid(field) ? '' : 'has-error';
 	}
-	// renderHelpText(message, messageClass) {
- //        return (
- //            <div className={messageClass}>
- //                {message}
- //            </div>
- //        );
- //    }
 	render() {
 		const { item, dataClass, errors, validate, isValid, getValidationMessages, clearValidations, handleValidation, ...rest } = this.props;
 		let errorMessage = getValidationMessages(rest.name);
