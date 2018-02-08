@@ -11,7 +11,7 @@ let Types = React.PropTypes;
 export default function wrapper(WrappedComponent) {
   	return createReactClass({
 	  	propTypes: {
-	        isMounted: Types.bool
+	        isMounted: Types.bool.isRequired
 	    },
 	    getDefaultProps: function() {
 	        return {
