@@ -39,17 +39,18 @@ class BasicMenuItemList extends React.Component {
     }
     render() {
         const { title, ...rest } = this.props;
-        return(
+        return (
             <div>
                 <h2>{title}</h2>
                 <SearchPlugin filter={this.filterList} />
                 <ul>
                     {
                         this.state.items.map(function(item) {
-                            return <BasicMenuItem key={item} name={item} {...rest} />
+                            return <BasicMenuItem item={item} key={item.id} title={item.title} {...rest} />
                         })
                     }
                 </ul>
-            </div>);
+            </div>
+        );
     }
 }

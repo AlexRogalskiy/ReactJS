@@ -76,7 +76,7 @@ export default class BasicEditTextControl extends React.Component {
         const { buttonLabelEdit, buttonLabelUpdate, dataClass, ...rest } = this.props;
         const { buttonClass, iconEditClass, iconUpdateClass, ...restClass } = dataClass;
         rest.dataClass = restClass;
-        let elements = this.state.isEditing
+        const elements = this.state.isEditing
                      ? <BasicButtonControl ref={(button) => {this.textButton = button;}} name={this.props.buttonPrefix + this.props.name} onClick={this.update} className={buttonClass}><BasicIcon className={iconUpdateClass} />{buttonLabelUpdate}</BasicButtonControl>
                      : <BasicButtonControl ref={(button) => {this.textButton = button;}} name={this.props.buttonPrefix + this.props.name} onClick={this.edit} className={buttonClass}><BasicIcon className={iconEditClass} />{buttonLabelEdit}</BasicButtonControl>;
         return (

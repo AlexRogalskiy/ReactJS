@@ -5,13 +5,13 @@
 import React      from 'react';
 import update     from 'react-addons-update';
 import ClassNames from 'classnames';
-// import Utils      from 'appRoot/js/mixins/logger';
+import Logger     from 'appRoot/js/mixins/logger';
 
 let Types = React.PropTypes;
 
 export default class BasicForm extends React.Component {
   static propTypes: {
-    fields: Types.arrau,
+    fields: Types.array,
     item: Types.object,
     key: Types.string
   }
@@ -36,16 +36,17 @@ export default class BasicForm extends React.Component {
   }
   onSubmit(e) {
     e.preventDefault();
-    alert("Fields: " + this.state.fields.inspect);
+    Logger.debug("Fields: " + this.state.fields.inspect);
   }
   render() {
+    const self = this;
     const { fields, ...rest } = this.props;
     return (
-      <form onSubmit={this.props.onSubmit ? this.props.onSubmit : this.onSubmit}>
+      <form onSubmit={rest.onSubmit ? rest.onSubmit : rest.onSubmit}>
           <div>
-          fields.map(function(item) {
-            return <BasicTextControl key={item} text={item} onChange={this.props.onChange ? this.props.onChange : this.onChange} {...rest} />
-          });
+            fields.map(function(item) {
+              return <BasicTextControl key={item} label={item.title} onChange={rest.onChange ? rest.onChange : rest.onChange} {...rest} />
+            });
           </div>
           <input type="submit" value="Send" />
       </form>

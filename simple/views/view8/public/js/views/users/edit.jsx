@@ -8,10 +8,11 @@ import Reflux       from 'reflux';
 import update       from 'react-addons-update';
 
 import BasicInput   from 'appRoot/js/components/basicInput';
-import BasicImage   from 'appRoot/js/components/basicImage';
+// import BasicImage   from 'appRoot/js/components/basicImage';
 
 import BasicHeader  from 'appRoot/js/components/elements/basicHeader';
 import BasicButtonControl from 'appRoot/js/components/controls/basicButtonControl';
+import BasicImage from 'appRoot/js/components/elements/basicImage';
 // import BasicEditTextControl from 'appRoot/js/components/controls/basicEditTextControl';
 // import BasicView from 'appRoot/js/components/views/basicView';
 
@@ -181,6 +182,7 @@ const Edit = React.createClass({
 				<div className="profile-image-container">
 					<label>profile image</label>
 					// <img className="profile-img" src={this.state.profileImageData} />
+					<BasicImage name="img" label="Profile Image" className="profile-img" src={this.state.profileImageData} />
 					<BasicImage className="profile-img" src={this.state.profileImageData} />
 					<BasicInput name="profileImage" type="file" ref="profileImage" onChange={this.userImageUpload} dataInfo={this.state.sizeExceeded ? 'less than 1MB' : ''}>
 						<button onClick={this.chooseFile}>choose file</button>

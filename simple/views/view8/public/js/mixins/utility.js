@@ -2,8 +2,26 @@
 /**
  * Module dependencies
  */
+import React 	from 'react';
 import ReactDOM from 'react-dom';
 
+/**
+ * returns help text block with error messages
+ */
+export default function HelpText(props) {
+	if (props && props.errorMessage.length) {
+        let messages = props.errorMessage.map((message, index) => <li key={index}>{message}</li>);
+		return (
+			<ul className={props.errorClass}>{messages}</ul>
+		);
+	}
+	return null;
+	// return (
+	//     <div className={props.errorClass}>
+	//     	{props.errorMessage}
+	//     </div>
+ 	// );
+};
 /**
  *  returns the failed constraints { errors: [] } or true if valid
  *  constraints are a map of supported constraint names and values
@@ -63,9 +81,8 @@ export function validate (val, constraints) {
 			};
 		}
 	}
-
 	return errors.length > 0 ? {errors: errors} : true;
-}
+};
 
 /**
  * get input element by ref to Basic Input or input name attr

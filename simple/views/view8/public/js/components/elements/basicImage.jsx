@@ -5,57 +5,93 @@
 import React      from 'react';
 import update     from 'react-addons-update';
 import ClassNames from 'classnames';
-// import Utils      from 'appRoot/js/mixins/logger';
+
+import Strategy   from 'react-validatorjs-strategy';
+import Validation from 'react-validation-mixin';
+import Validators from 'appRoot/js/mixins/validators';
+
+import HelpText   from 'appRoot/js/mixins/utility';
+// import Logger      from 'appRoot/js/mixins/logger';
 
 let Types = React.PropTypes;
 
-export default class BasicImage extends React.Component {
+class BasicImage extends React.Component {
+	displayName: 'BasicImage'
 	static propTypes: {
-		data: Types.object,
+		dataClass: Types.object,
         item: Types.object,
         key: Types.string
 	}
     static defaultProps = {
-        data: {labelClass: 'control-label', formClass: 'row no-gutters', errorClass: 'has-error', errorMessageClass: 'help-block'},
+        dataClass: {labelClass: 'control-label', formClass: 'row no-gutters', errorClass: 'has-error', errorMessageClass: 'help-block'},
         item: {},
         key: ''
     }
-	constructor(props) {
+    getValidatorData() {
+	    return this.state;
+	}
+    constructor(props) {
         super(props);
+        this.activateValidation = this.activateValidation.bind(this);
         this.onChange = this.onChange.bind(this);
         this.state = {
-            data: this.props.data,
+            dataClass: this.props.dataClass,
 			item: this.props.item,
 			key: this.props.key
         };
+        this.validatorTypes = Validators.imageControl;
     }
-	onChange(e) {
-		this.setState({ value: e.target.value });
+    activateValidation(field) {
+    	return event => {
+	      	let state = {};
+	      	state[field] = event.target.label;
+	      	Strategy.activateRule(this.validatorTypes, field);
+	      	this.setState(state, () => {
+				this.props.handleValidation(field)(event);
+			});
+	    };
+	    // Strategy.activateRule(this.validatorTypes, field);
+	    // this.props.handleValidation(field)(e);
 	}
-	renderHelpText(message, messageClass) {
-        return (
-            <div className={messageClass}>
-                {message}
-            </div>
-        );
-    }
+	onChange(field) {
+		return event => {
+	      	let state = {};
+	      	state[field] = event.target.label;
+	      	this.setState(state, () => {
+				this.props.handleValidation(field)(event);
+			});
+	    };
+		//this.setState({ value: e.target.value });
+	}
+	getClassName(field) {
+		return this.props.isValid(field) ? '' : 'has-error';
+	}
+	// renderHelpText(message, messageClass) {
+ //        return (
+ //            <div className={messageClass}>
+ //                {message}
+ //            </div>
+ //        );
+ //    }
 	render() {
-		const { data, ...rest } = this.props
-		let errorMessage = this.props.getValidationMessages(rest.name);
+		const { item, dataClass, errors, validate, isValid, getValidationMessages, clearValidations, handleValidation, ...rest } = this.props;
+		let errorMessage = getValidationMessages(rest.name);
         if (errorMessage.length > 0) {
-            data.formClass += ' ' + data.errorClass;
+            dataClass.formClass += ' ' + dataClass.errorClass;
         }
         return (
-			<div className={ClassNames({'basic-input': true})} {...rest}>
-				<div className={data.formClass}>
-                    <label className={data.labelClass} htmlFor={rest.name}>
+			<div className={ClassNames({'basic-input': true})}>
+				<div className={dataClass.formClass}>
+                    <label className={dataClass.labelClass} htmlFor={rest.name}>
                         {rest.label}
                     </label>
-					<img ref={(input) => {this.textInput = input;}} onChange={rest.onChange ? rest.onChange : this.onChange} {...update(rest, {children: {$set: null}})} />
+					<img ref={(input) => {this.imgInput = input;}} onChange={rest.onChange ? rest.onChange(rest.name) : this.onChange(rest.name)} onBlur={this.activateValidation(rest.name)} {...update(rest, {children: {$set: null}})} />
 					{rest.children}
 				</div>
-				{this.renderHelpText(errorMessage, data.errorMessageClass)}
+                <HelpText errorMessage={errorMessage} errorClass={dataClass.errorMessageClass} />
 			</div>
 		);
 	}
 };
+
+export default Validation(Strategy)(BasicImage);

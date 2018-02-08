@@ -27,9 +27,9 @@ export default class BasicMenuItem extends React.Component {
         };
     }
     render() {
-    	const { title, ...rest } = this.props;
+    	const { key, title, ...rest } = this.props;
         return (
-            <li {...rest}><BasicIcon message={title} /></li>
+            <li key={key}><BasicIcon title={title} {...rest} /></li>
         );
     }
 }

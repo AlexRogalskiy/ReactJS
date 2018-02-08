@@ -16,7 +16,7 @@ export default class BasicTextInput extends React.Component {
 		key: Types.string
     }
     static defaultProps = {
-        dataClass: {controlClass: 'row no-gutters', errorClass: 'has-error', errorMessageClass: 'help-block'},
+        dataClass: { controlClass: 'row no-gutters', errorClass: 'has-error', errorMessageClass: 'help-block' },
         className: 'form-control',
         item: {},
         key: ''

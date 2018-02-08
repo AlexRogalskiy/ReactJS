@@ -82,8 +82,12 @@ export default new Config().extend('config/webpack.base.config.js').merge({
 	],
 	devServer: {
 		//stats: 'warnings-only',
+		inline: true,
         port: 8080
-	},
+	}
+	// externals: {
+ //      'react': 'React'
+ //   	},
    //  postcss: [
     //   autoprefixer({
     //     browsers:['ie >= 8', 'last 4 version']
