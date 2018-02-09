@@ -3,6 +3,7 @@
  * Module dependencies
  */
 import React from 'react';
+import BasicCommentItem from './basicCommentItem';
 
 let Types = React.PropTypes;
 
@@ -34,9 +35,9 @@ export default class BasicCommentItemList extends React.Component {
         const { commentClass, ...restClass } = dataClass;
         const elements = items.map(function(item) {
             return (
-                <Comment item={item} key={item.id} author={item.author} className={item.className ? item.className : commentClass} dataClass={restClass}>
+                <BasicCommentItem item={item} key={item.id} author={item.author} className={item.className ? item.className : commentClass} dataClass={restClass}>
                     {item.text}
-                </Comment>
+                </BasicCommentItem>
             );
         });
         return (

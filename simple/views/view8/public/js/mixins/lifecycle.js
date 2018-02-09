@@ -28,24 +28,24 @@ export default function wrapper(WrappedComponent) {
 		},
 		componentDidMount: function() {
 			Utils.Logger.debug('componentDidMount');
-			this.setState({isMounted: true});
+			this.setState({ isMounted: true });
 		},
 		componentWillUnmount: function() {
 			Utils.Logger.debug('componentWillUnmount');
-			this.setState({isMounted: false});
+			this.setState({ isMounted: false });
 		},
 		componentWillReceiveProps: function(nextProps) {
-			Utils.Logger.debug('componentWillReceiveProps', {nextProps: nextProps});
+			Utils.Logger.debug('componentWillReceiveProps', { nextProps: nextProps });
 		},
 		shouldComponentUpdate: function(nextProps, nextState) {
-			Utils.Logger.debug('shouldComponentUpdate', {nextProps: nextProps, nextState: nextState});
+			Utils.Logger.debug('shouldComponentUpdate', { nextProps: nextProps, nextState: nextState });
 		    return true;
 		},
 		componentWillUpdate: function(nextProps, nextState) {
-			Utils.Logger.debug('componentWillUpdate', {nextProps: nextProps, nextState: nextState});
+			Utils.Logger.debug('componentWillUpdate', { nextProps: nextProps, nextState: nextState });
 		},
 		componentDidUpdate: function(prevProps, prevState) {
-			Utils.Logger.debug('componentDidUpdate', {prevProps: prevProps, prevState: prevState});
+			Utils.Logger.debug('componentDidUpdate', { prevProps: prevProps, prevState: prevState });
 		},
 	    render: function() {
 	    	const { isMounted, ...rest } = this.props;

@@ -3,6 +3,7 @@
  * Module dependencies
  */
 import React from 'react';
+import marked from 'marked';
 
 let Types = React.PropTypes;
 

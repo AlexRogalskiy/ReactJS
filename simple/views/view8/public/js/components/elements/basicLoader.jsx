@@ -6,8 +6,8 @@ import React      from 'react';
 import ClassNames from 'classnames';
 // import Logger from 'appRoot/js/mixins/logger';
 
-export default class Loader extends React.Component {
-	displayName: 'Loader'
+export default class BasicLoader extends React.Component {
+	displayName: 'BasicLoader'
 	static propTypes: {
         item: Types.object,
         key: Types.string
