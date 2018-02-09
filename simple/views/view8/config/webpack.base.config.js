@@ -20,7 +20,7 @@ export default new Config().merge({
 	},
 	module: {
 		loaders: [
-			{ test: /.jsx?$/, loaders: ['babel-loader'], exclude: /(node_modules|bower_components)/, include: [include], query: { presets: ['react', 'es2015', 'stage-3'] } },
+			{ test: /.jsx?$/, loaders: ['babel-loader'], exclude: /(node_modules|bower_components)/, include: [include] },
 			// { test: /\.less$/, loader: 'style-loader!css-loader!autoprefixer?browsers=last 4 version!less-loader' },
 			//{ test: /\.css$/, loader: 'style-loader!css-loader' },
 			{ test: /\.(png|jpg|svg|ttf|eot|woff|woff2)$/, loader: 'file?name=[path][name].[ext]' },

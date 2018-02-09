@@ -11,9 +11,9 @@ import ReactDOM from 'react-dom';
 export default function HelpText(props) {
 	const { messages, messageClass, ...rest } = props;
 	if (messages && messages.length) {
-        messages = messages.map((item, index) => <li key={index} className={messageClass}>{item}</li>);
+        let elements = messages.map((item, index) => <li key={index} className={messageClass}>{item}</li>);
 		return (
-			<ul {...rest}>{messages}</ul>
+			<ul {...rest}>{elements}</ul>
 		);
 	}
 	return null;

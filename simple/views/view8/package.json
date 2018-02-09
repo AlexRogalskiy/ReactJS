@@ -90,7 +90,9 @@
     "superagent": "3.8.2",
     "react-validation-mixin": "^5.3.4",
     "react-validatorjs-strategy": "^0.1.4",
-    "validatorjs": "^2.0.2"
+    "validatorjs": "^2.0.2",
+    "jquery": "^2.2.0",
+    "marked": "^0.3.5"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.6",

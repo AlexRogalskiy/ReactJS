@@ -25,7 +25,9 @@ const Validators = {
             // "required.src": "Enter valid image :attribute",
             // "numeric.name": "Enter valid numeric :attribute"
         },
-        checkValidity(validator)
+        function checkValidity(validator) {
+            validator.lang = 'es';
+        }
     ),
     textInput: Strategy.createInactiveSchema(
         {
@@ -34,7 +36,9 @@ const Validators = {
         {
 
         },
-        checkValidity(validator)
+        function checkValidity(validator) {
+            validator.lang = 'es';
+        }
     ),
     editTextControl: Strategy.createInactiveSchema(
         {
@@ -43,7 +47,9 @@ const Validators = {
         {
 
         },
-        checkValidity(validator)
+        function checkValidity(validator) {
+            validator.lang = 'es';
+        }
     ),
 };
 

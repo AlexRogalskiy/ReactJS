@@ -25,7 +25,7 @@ class BasicImage extends React.Component {
 	}
     static defaultProps = {
         dataClass: {labelClass: 'control-label', formClass: 'row no-gutters', errorClass: 'has-error', errorMessageClass: 'help-block'},
-        className: 'form-control'
+        className: 'form-control',
         validator: '',
         item: {},
         key: ''
