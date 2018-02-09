@@ -13,6 +13,7 @@ import BasicEditTextControl from '../controls/basicEditTextControl';
 let Types = React.PropTypes;
 
 export default class BasicView extends React.Component {
+	displayName: 'BasicView'
 	static propTypes: {
 		fields: Types.array,
 		item: Types.object,
@@ -46,20 +47,21 @@ export default class BasicView extends React.Component {
     }
     constructor(props) {
         super(props);
+        this.update = this.update.bind(this);
         this.state = {
             fields: this.props.fields,
 			item: this.props.item,
 			key: this.props.key
         };
     }
-	update(e) {
+	update(field) {
 		// var fieldName = e.target.name.substring(1);
 		// this.state.fields[fieldName].value = this.refs[fieldName].refs['t' + fieldName].props.value;
 		// this.setState({ fields: this.state.fields });
 		const self = this;
 		return function (event) {
 			var state = {};
-			state[e.target.name] = event.target.value;
+			state[field] = event.target.value;
 			self.setState(state);
 		};
 	}
@@ -75,13 +77,13 @@ export default class BasicView extends React.Component {
 		}).join(' ');
 		const editFields = this.props.fields.map(function(item) {
 			return (
-				<BasicEditTextControl item={item} key={item} id={item.id} name={item.name} label={item.label} ref={item.ref} update={self.update.bind(self, item.name)} placeholder={item.placeholder} getValidationMessages={self.props.getValidationMessages} onChange={self.props.onChange} />
+				<BasicEditTextControl item={item} key={item.id} name={item.name} label={item.label} ref={item.ref} update={self.update.bind(self, item.name)} placeholder={item.placeholder} getValidationMessages={self.props.getValidationMessages} onChange={self.props.onChange} />
 			);
 		});
 		return (
 			<div>
 				<BasicHeader message={'Hello ' + header}></BasicHeader>
-				{editFields}
+					{editFields}
 				<BasicButtonControl onClick={this.reload} className='btn btn-primary'>Reload</BasicButtonControl>
 			</div>
 		);

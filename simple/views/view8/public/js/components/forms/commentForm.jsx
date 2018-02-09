@@ -21,47 +21,87 @@ class CommentForm extends React.Component {
   displayName: 'CommentForm'
   static propTypes: {
     dataClass: Types.object,
-    fields: Types.array,
+    validator: Types.string,
+    fields: Types.object,
     item: Types.object,
     key: Types.string
   }
   static defaultProps = {
-    dataClass: { fieldClass: 'field' },
-    fields: [],
+    dataClass: { formClass: 'form', fieldClass: 'field', buttonClass: 'btn btn-lg', errorClass: 'has-error', errorMessageClass: 'help-block' },
+    validator: '',
+    fields: {},
+    buttonFormLabel: 'Send',
+    method: 'POST',
     item: {},
     key: ''
   }
+  getValidatorData() {
+    return this.state;
+  }
   constructor(props) {
     super(props);
+    this.activateValidation = this.activateValidation.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.state = {
       dataClass: this.props.dataClass,
+      validator: this.props.validator,
       fields: this.props.fields,
+      buttonFormLabel: this.props.buttonFormLabel,
+      method: this.props.method,
       item: this.props.item,
       key: this.props.key
     };
+    this.validatorTypes = Validators[this.props.validator];
   }
-  onChange(e) {
-    let val = e.target.value;
-    this.setState({fields[e.target.name]: val});
+  activateValidation(field) {
+    return event => {
+      Strategy.activateRule(this.validatorTypes, field);
+      this.props.handleValidation(field)(event);
+    };
+  }
+  onChange(field) {
+    return event => {
+      this.state.fields[field].value = e.target.value;
+      const state = { fields: this.state.fields };
+      this.setState(state, () => {
+        this.props.handleValidation(field)(event);
+      });
+      //this.refs[field].onChange(event);
+    };
   }
   onSubmit(e) {
     e.preventDefault();
-    Logger.debug("Fields: " + this.state.fields.inspect);
+    this.props.validate((error) => {
+      if (!error) {
+        Logger.debug("Fields: " + this.state.fields.inspect);
+        this.props.onCommentSubmit(this.state);
+        this.setState({ fields: {} });
+      }
+    });
+  }
+  getClassName(field) {
+    return this.props.isValid(field) ? '' : 'has-error';
   }
   render() {
     const self = this;
-    const { dataClass, fields, ...rest } = this.props;
-    const { fieldClass, ...restClass } = dataClass;
+    const { dataClass, fields, buttonFormLabel, validator, errors, validate, isValid, getValidationMessages, clearValidations, handleValidation, ...rest } = this.props;
+    const { fieldClass, buttonClass, ...restClass } = dataClass;
+    
+    let errorMessage = getValidationMessages(rest.name);
+    let formClass = restClass.formClass;
+    if (errorMessage.length > 0) {
+      formClass += ' ' + restClass.errorClass;
+    }
     return (
       <form onSubmit={rest.onSubmit ? rest.onSubmit : self.onSubmit}  {...rest}>
-          <div>
+          <div className={formClass}>
             fields.map(function(item) {
-              return <BasicTextControl item={item} key={item.id} label={item.label} onChange={rest.onChange ? rest.onChange : self.onChange} className={item.className ? item.className : fieldClass} dataClass={restClass} />
+              return <BasicTextControl item={item} key={item.id} label={item.label} onChange={rest.onChange ? rest.onChange : self.onChange(rest.name)} className={item.className ? item.className : fieldClass} validator={item.validator} dataClass={restClass} />
             });
           </div>
-          <input type="submit" value="Send" />
+          <HelpText messages={errorMessage} className={dataClass.errorMessageClass} />
+          <BasicButtonControl type="submit" message={buttonFormLabel} className={buttonClass} />
       </form>
     );
   }

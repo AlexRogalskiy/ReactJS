@@ -10,6 +10,7 @@ import Logger     from 'appRoot/js/mixins/logger';
 let Types = React.PropTypes;
 
 export default class BasicForm extends React.Component {
+  displayName: 'BasicForm'
   static propTypes: {
     dataClass: Types.object,
     fields: Types.array,
@@ -34,8 +35,8 @@ export default class BasicForm extends React.Component {
     };
   }
   onChange(e) {
-    let val = e.target.value;
-    this.setState({fields[e.target.name]: val});
+    const value = e.target.value;
+    this.setState({fields[e.target.name]: value});
   }
   onSubmit(e) {
     e.preventDefault();

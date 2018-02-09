@@ -51,6 +51,17 @@ const Validators = {
             validator.lang = 'es';
         }
     ),
+    commentForm: Strategy.createInactiveSchema(
+        {
+
+        },
+        {
+
+        },
+        function checkValidity(validator) {
+            validator.lang = 'es';
+        }
+    ),
 };
 
 export default Validators;

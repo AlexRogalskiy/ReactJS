@@ -5,7 +5,7 @@
 import React from 'react';
 // import update     from 'react-addons-update';
 // import ClassNames from 'classnames';
-// import Utils from 'appRoot/js/mixins/logger';
+// import Logger from 'appRoot/js/mixins/logger';
 
 let Types = React.PropTypes;
 

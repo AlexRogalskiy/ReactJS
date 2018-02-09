@@ -9,26 +9,30 @@ import React from 'react';
 
 let Types = React.PropTypes;
 
-export default class BasicTextContent extends React.Component {
-    displayName: 'BasicTextContent'
+export default class BasicText extends React.Component {
+    displayName: 'BasicText'
 	static propTypes: {
+        message: Types.string,
         item: Types.object,
         key: Types.string
     }
     static defaultProps = {
+        message: '',
         item: {},
         key: ''
     }
     constructor(props) {
         super(props);
         this.state = {
+            message: this.props.message,
             item: this.props.item,
 			key: this.props.key
         };
     }
 	render() {
+        const { message, ...rest } = this.props;
 		return (
-			<span {...this.props}>{this.props.children}</span>
+			<span {...rest}>{message}</span>
 		);
 	}
 });

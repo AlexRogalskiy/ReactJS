@@ -8,8 +8,8 @@ import ReactDOM	  from 'react-dom';
 // import ClassNames from 'classnames';
 import JQuery from 'jquery';
 
-import BasicCommentItemList from '../elements/basicCommentItemList';
-import CommentForm from '../forms/commentForm';
+import BasicCommentItemList from 'appRoot/js/components/elements/basicCommentItemList';
+import CommentForm from 'appRoot/js/components/forms/commentForm';
 
 import Logger     from 'appRoot/js/mixins/logger';
 
@@ -18,11 +18,13 @@ let Types = React.PropTypes;
 export default class View extends React.Component {
 	displayName: 'View'
 	static propTypes: {
+        dataClass: Types.object,
 		items: Types.array,
 		item: Types.object,
 		key: Types.string
 	}
 	static defaultProps = {
+        dataClass: { commentListClass: 'commentList', commentFormClass: 'commentForm' },
         items: [],
         item: {},
         key: ''
@@ -31,6 +33,7 @@ export default class View extends React.Component {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
         this.state = {
+            dataClass: this.props.dataClass,
             items: this.props.items,
 			item: this.props.item,
 			key: this.props.key
@@ -50,10 +53,10 @@ export default class View extends React.Component {
         this.loadComments();
         //setInterval(this.loadComments, this.props.pollInterval);
 	}
-	onSubmit(e) {
-		var comments = this.state.items;
+	onCommentSubmit(comment) {
+		const comments = this.state.items;
         //comment.id = Date.now();
-        var newComments = comments.concat([comment]);
+        const newComments = comments.concat([comment]);
         this.setState({items: newComments});
 
         JQuery.ajax({
@@ -71,11 +74,12 @@ export default class View extends React.Component {
 		});
 	}
 	render() {
-		const { item, ...rest } = this.props;
+		const { dataClass, item, ...rest } = this.props;
+        const { commentListClass, commentFormClass, ...restClass } = dataClass;
 		return (
             <div {...rest}>
-                <BasicCommentItemList items={this.state.items} />
-                <CommentForm onSubmit={this.onSubmit} />
+                <BasicCommentItemList items={this.state.items} className={commentListClass} dataClass={restClass} />
+                <CommentForm onCommentSubmit={this.onCommentSubmit}  className={commentFormClass} dataClass={restClass} />
             </div>
 		);
 	}

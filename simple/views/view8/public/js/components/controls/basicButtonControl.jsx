@@ -33,6 +33,7 @@ export default class BasicButtonControl extends React.Component {
     }
 	onClick(e) {
 		Logger.debug(ReactDOM.findDOMNode(this).id + 'clicked', e.target);
+		//this.props.click(e);
 	}
 	render() {
 		const { item, message, ...rest } = this.props;

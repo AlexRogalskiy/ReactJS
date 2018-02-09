@@ -3,8 +3,8 @@
  * Module dependencies
  */
 import React from 'react';
-import SearchPlugin from '../plugins/searchPlugin';
-import BasicMenuItem from './basicMenuItem';
+import SearchPlugin from 'appRoot/js/components/plugins/searchPlugin';
+import BasicMenuItem from 'appRoot/js/components/elements/basicMenuItem';
 
 let Types = React.PropTypes;
 

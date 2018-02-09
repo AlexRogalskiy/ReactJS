@@ -3,7 +3,7 @@
  * Module dependencies
  */
 import React     from 'react';
-import BasicIcon from './basicIcon';
+import BasicIcon from 'appRoot/js/components/elements/basicIcon';
 
 let Types = React.PropTypes;
 

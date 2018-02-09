@@ -4,12 +4,14 @@
  */
 import React      from 'react';
 import update     from 'react-addons-update';
-import ClassNames from 'classnames';
-// import Utils      from 'appRoot/js/mixins/logger';
+// import ClassNames from 'classnames';
+// import Logger      from 'appRoot/js/mixins/logger';
+import BasicContent from 'appRoot/js/components/elements/basicContent';
 
 let Types = React.PropTypes;
 
 export default class NotFound extends React.Component {
+  displayName: 'NotFound'
   static propTypes: {
   	message: Types.string,
     item: Types.object,
@@ -31,7 +33,7 @@ export default class NotFound extends React.Component {
   render() {
     const { message, ...rest } = this.props;
     return (
-    	<h2 {...rest}>{message}</h2>
+      <BasicContent {...rest}><BasicHeader>{message}</BasicHeader></BasicContent>
     );
   }
 }

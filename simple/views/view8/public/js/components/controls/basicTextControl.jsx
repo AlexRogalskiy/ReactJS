@@ -5,8 +5,9 @@
 import React          from 'react';
 import update         from 'react-addons-update';
 import ClassNames     from 'classnames';
-import BasicTextInput from './BasicTextInput';
-// import Utils          from 'appRoot/js/mixins/logger';
+
+import BasicTextInput from 'appRoot/js/components/controls/BasicTextInput';
+// import Logger          from 'appRoot/js/mixins/logger';
 
 let Types = React.PropTypes;
 
@@ -37,8 +38,16 @@ export default class BasicTextControl extends React.Component {
             key: this.props.key
         };
     }
-	onChange(e) {
-		this.setState({ value: e.target.value });
+	onChange(field) {
+		// this.setState({ value: e.target.value });
+        return event => {
+            const state = { value: event.target.value };
+            //state[field] = event.target.value;
+            //let target = e.target.name.substring(1);
+            this.setState(state);
+            this.refs[field].onChange(event);
+            //this.props.change(event);
+        };
 	}
     // onChange(field) {
     //     return event => {
@@ -56,7 +65,7 @@ export default class BasicTextControl extends React.Component {
                 <label className={labelClass} htmlFor={rest.name}>
                     {label}
                 </label>
-                <BasicTextInput ref={(input) => {this.textInput = input;}} onChange={rest.onChange ? rest.onChange : this.onChange} {...rest}>
+                <BasicTextInput ref={(input) => {this.textInput = input}} onChange={rest.onChange ? rest.onChange : this.onChange(rest.name)} {...rest}>
                     {rest.children}
                 </BasicTextInput>
 			</div>

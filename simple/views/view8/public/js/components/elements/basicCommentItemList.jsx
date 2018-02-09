@@ -3,7 +3,7 @@
  * Module dependencies
  */
 import React from 'react';
-import BasicCommentItem from './basicCommentItem';
+import BasicCommentItem from 'appRoot/js/components/elements/basicCommentItem';
 
 let Types = React.PropTypes;
 

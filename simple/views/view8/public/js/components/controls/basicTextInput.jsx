@@ -8,8 +8,8 @@ import ClassNames from 'classnames';
 
 import Strategy   from 'react-validatorjs-strategy';
 import Validation from 'react-validation-mixin';
-import Validators from 'appRoot/js/mixins/validators';
 
+import Validators from 'appRoot/js/mixins/validators';
 import HelpText   from 'appRoot/js/mixins/utility';
 import Logger     from 'appRoot/js/mixins/logger';
 
@@ -67,7 +67,7 @@ class BasicTextInput extends React.Component {
     // }
     activateValidation(field) {
         return event => {
-            let state = { value: event.target.value };
+            const state = { value: event.target.value };
             Strategy.activateRule(this.validatorTypes, field);
             this.setState(state, () => {
                 this.props.handleValidation(field)(event);
@@ -76,10 +76,11 @@ class BasicTextInput extends React.Component {
     }
     onChange(field) {
         return event => {
-            let state = { value: event.target.value };
+            const state = { value: event.target.value };
             this.setState(state, () => {
                 this.props.handleValidation(field)(event);
             });
+            //this.props.change(event);
         };
     }
     getClassName(field) {
