@@ -10,12 +10,14 @@ let Types = React.PropTypes;
 
 class BasicMenuItemList extends React.Component {
     static propTypes: {
+        dataClass: Types.object,
         title: Types.string,
         items: Types.array,
         item: Types.object,
         key: Types.string
     }
     static defaultProps = {
+        dataClass: { menuClass: 'menu' },
         title: '',
         items: [],
         item: {},
@@ -25,6 +27,7 @@ class BasicMenuItemList extends React.Component {
         super(props);
         this.filterList = this.filterList.bind(this);
         this.state = {
+            dataClass: this.props.dataClass,
             title: this.props.title,
             items: this.props.items,
             item: this.props.item,
@@ -38,15 +41,16 @@ class BasicMenuItemList extends React.Component {
         this.setState({items: filteredList});
     }
     render() {
-        const { title, ...rest } = this.props;
+        const { dataClass, title, ...rest } = this.props;
+        const { menuClass, ...restClass } = dataClass;
         return (
-            <div>
+            <div {...rest} >
                 <h2>{title}</h2>
                 <SearchPlugin filter={this.filterList} />
                 <ul>
                     {
                         this.state.items.map(function(item) {
-                            return <BasicMenuItem item={item} key={item.id} title={item.title} {...rest} />
+                            return <BasicMenuItem item={item} key={item.id} title={item.title} className={item.className ? item.className : menuClass} dataClass={restClass} />
                         })
                     }
                 </ul>

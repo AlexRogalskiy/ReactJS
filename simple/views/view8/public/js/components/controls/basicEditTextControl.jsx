@@ -3,11 +3,11 @@
  * Module dependencies
  */
 import React            from 'react';
-import update           from 'react-addons-update';
-import ClassNames       from 'classnames';
+// import update           from 'react-addons-update';
+// import ClassNames       from 'classnames';
 import BasicButtonControl from './basicButtonControl';
 import BasicTextControl from './basicTextControl';
-// import Utils           from 'appRoot/js/mixins/logger';
+// import Logger           from 'appRoot/js/mixins/logger';
 
 let Types = React.PropTypes;
 

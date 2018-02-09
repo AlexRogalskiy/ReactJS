@@ -6,7 +6,7 @@ import Strategy from 'react-validatorjs-strategy';
 import Logger from 'appRoot/js/mixins/logger';
 
 const Validators = {
-    imageForm: Strategy.createInactiveSchema(
+    imageControl: Strategy.createInactiveSchema(
         {
             // author: 'required',
             // text: 'required|min:10|max:50',

@@ -24,6 +24,7 @@ class BasicImage extends React.Component {
 	}
     static defaultProps = {
         dataClass: {labelClass: 'control-label', formClass: 'row no-gutters', errorClass: 'has-error', errorMessageClass: 'help-block'},
+        className: 'form-control',
         item: {},
         key: ''
     }
@@ -36,6 +37,7 @@ class BasicImage extends React.Component {
         this.onChange = this.onChange.bind(this);
         this.state = {
             dataClass: this.props.dataClass,
+            className: this.props.className,
 			item: this.props.item,
 			key: this.props.key
         };
@@ -66,12 +68,13 @@ class BasicImage extends React.Component {
 	render() {
 		const { item, dataClass, errors, validate, isValid, getValidationMessages, clearValidations, handleValidation, ...rest } = this.props;
 		let errorMessage = getValidationMessages(rest.name);
+		let formClass = dataClass.formClass;
         if (errorMessage.length > 0) {
             dataClass.formClass += ' ' + dataClass.errorClass;
         }
         return (
-			<div className={ClassNames({'basic-input': true})}>
-				<div className={dataClass.formClass}>
+			<div className={ClassNames({'basic-input': true})} {...rest}>
+				<div className={formClass}>
                     <label className={dataClass.labelClass} htmlFor={rest.name}>
                         {rest.label}
                     </label>
