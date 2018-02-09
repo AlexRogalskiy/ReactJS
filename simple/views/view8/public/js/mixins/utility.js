@@ -9,10 +9,11 @@ import ReactDOM from 'react-dom';
  * returns help text block with error messages
  */
 export default function HelpText(props) {
-	if (props && props.errorMessage.length) {
-        let messages = props.errorMessage.map((message, index) => <li key={index}>{message}</li>);
+	const { messages, messageClass, ...rest } = props;
+	if (messages && messages.length) {
+        messages = messages.map((item, index) => <li key={index} className={messageClass}>{item}</li>);
 		return (
-			<ul className={props.errorClass}>{messages}</ul>
+			<ul {...rest}>{messages}</ul>
 		);
 	}
 	return null;

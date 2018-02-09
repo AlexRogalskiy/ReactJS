@@ -19,12 +19,14 @@ class BasicImage extends React.Component {
 	displayName: 'BasicImage'
 	static propTypes: {
 		dataClass: Types.object,
+		validator: Types.string,
         item: Types.object,
         key: Types.string
 	}
     static defaultProps = {
         dataClass: {labelClass: 'control-label', formClass: 'row no-gutters', errorClass: 'has-error', errorMessageClass: 'help-block'},
-        className: 'form-control',
+        className: 'form-control'
+        validator: '',
         item: {},
         key: ''
     }
@@ -38,10 +40,11 @@ class BasicImage extends React.Component {
         this.state = {
             dataClass: this.props.dataClass,
             className: this.props.className,
+            validator: this.props.validator,
 			item: this.props.item,
 			key: this.props.key
         };
-        this.validatorTypes = Validators.imageControl;
+        this.validatorTypes = Validators[this.props.validator];
     }
     activateValidation(field) {
     	return event => {
@@ -66,22 +69,22 @@ class BasicImage extends React.Component {
 		return this.props.isValid(field) ? '' : 'has-error';
 	}
 	render() {
-		const { item, dataClass, errors, validate, isValid, getValidationMessages, clearValidations, handleValidation, ...rest } = this.props;
+		const { dataClass, item, label, validator, errors, validate, isValid, getValidationMessages, clearValidations, handleValidation, ...rest } = this.props;
 		let errorMessage = getValidationMessages(rest.name);
 		let formClass = dataClass.formClass;
         if (errorMessage.length > 0) {
             dataClass.formClass += ' ' + dataClass.errorClass;
         }
         return (
-			<div className={ClassNames({'basic-input': true})} {...rest}>
+			<div className={ClassNames({'basic-input': true, 'input-group': true})}>
 				<div className={formClass}>
                     <label className={dataClass.labelClass} htmlFor={rest.name}>
-                        {rest.label}
+                        {label}
                     </label>
-					<img ref={(input) => {this.imgInput = input;}} onChange={rest.onChange ? rest.onChange(rest.name) : this.onChange(rest.name)} onBlur={this.activateValidation(rest.name)} {...update(rest, {children: {$set: null}})} />
+					<img ref={(input) => {this.imgInput = input}} onChange={rest.onChange ? rest.onChange : this.onChange(rest.name)} onBlur={this.activateValidation(rest.name)} {...update(rest, {children: {$set: null}})} />
 					{rest.children}
 				</div>
-                <HelpText errorMessage={errorMessage} errorClass={dataClass.errorMessageClass} />
+                <HelpText messages={errorMessage} className={dataClass.errorMessageClass} />
 			</div>
 		);
 	}

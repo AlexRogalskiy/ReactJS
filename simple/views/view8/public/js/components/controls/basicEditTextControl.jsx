@@ -2,48 +2,66 @@
 /**
  * Module dependencies
  */
-import React            from 'react';
+import React      from 'react';
 // import update           from 'react-addons-update';
 // import ClassNames       from 'classnames';
+
+import Strategy   from 'react-validatorjs-strategy';
+import Validation from 'react-validation-mixin';
+import Validators from 'appRoot/js/mixins/validators';
+
 import BasicButtonControl from './basicButtonControl';
 import BasicTextControl from './basicTextControl';
-// import Logger           from 'appRoot/js/mixins/logger';
+
+// import HelpText   from 'appRoot/js/mixins/utility';
+import Logger     from 'appRoot/js/mixins/logger';
 
 let Types = React.PropTypes;
 
 export default class BasicEditTextControl extends React.Component {
+    displayName: 'BasicEditTextControl'
     static propTypes: {
         dataClass: Types.object,
-        isEditing: React.PropTypes.bool,
-        item: React.PropTypes.object,
-        key: React.PropTypes.string
+        isEditing: Types.bool,
+        update: Types.func,
+        edit: Types.func,
+        buttonPrefix: Types.string,
+        item: Types.object,
+        key: Types.string
     }
     static defaultProps = {
-        dataClass: {buttonClass: 'btn btn-info btn-lg', iconEditClass: 'glyphicon glyphicon-pencil', iconUpdateClass: 'glyphicon glyphicon-ok', formClass: 'form-group', labelClass: 'control-label', controlClass: 'row no-gutters', errorClass: 'has-error', errorMessageClass: 'help-block'},
+        dataClass: { buttonClass: 'btn btn-info btn-lg', iconEditClass: 'glyphicon glyphicon-pencil', iconUpdateClass: 'glyphicon glyphicon-ok' },
         isEditing: false,
         update: null,
+        edit: null,
         buttonPrefix: 'btn',
         item: {},
         key: ''
     }
     constructor(props) {
         super(props);
-        this.onChange = this.onChange.bind(this);
         this.update = this.update.bind(this);
         this.edit = this.edit.bind(this);
+        this.onChange = this.onChange.bind(this);
         this.state = {
             dataClass: this.props.dataClass,
             isEditing: false,
             update: this.props.update,
+            edit: this.props.edit,
+            buttonPrefix: this.props.buttonPrefix,
             item: this.props.item,
             key: this.props.key
         };
+        this.validatorTypes = Validators.editTextControl;
     }
-    update(e) {
-        this.setState({ isEditing: false });
-        var target = e.target.name.substring(1);
-        this.refs['t' + target].setState({ isDisabled: true });
-        this.props.update(e);
+    update(field) {
+        return event => {
+            let state = { isEditing: false };
+            //state[field] = event.target.value;
+            //let target = e.target.name.substring(1);
+            this.refs[field].setState({ isDisabled: true });
+            this.props.update(event);
+        };
         // var self = this;
         // return function (event) {
         //  var state = {};
@@ -51,10 +69,14 @@ export default class BasicEditTextControl extends React.Component {
         //  self.setState(state);
         // };
     }
-    edit(e) {
-        this.setState({ isEditing: true });
-        var target = e.target.name.substring(1);
-        this.refs['t' + target].setState({ isDisabled: false });
+    edit(field) {
+        return event => {
+            let state = { isEditing: true };
+            //let target = e.target.name.substring(1);
+            this.refs[field].setState({ isDisabled: false });
+            this.setState(state);
+            this.props.edit(event);
+        };
         // var self = this;
         // return function (event) {
         //  var state = {};
@@ -62,9 +84,14 @@ export default class BasicEditTextControl extends React.Component {
         //  self.setState(state);
         // };
     }
-    onChange(e) {
-        this.setState({ value: e.target.value });
-        this.refs['t' + e.target.name].onChange(e);
+    onChange(field) {
+        return event => {
+            let state = { value: event.target.value };
+            //state[field] = event.target.value;
+            //let target = e.target.name.substring(1);
+            this.refs[field].onChange(event);
+            this.setState(state);
+        };
         // var self = this;
         // return function (event) {
         //  var state = {};
@@ -73,14 +100,14 @@ export default class BasicEditTextControl extends React.Component {
         // };
     }
     render() {
-        const { buttonLabelEdit, buttonLabelUpdate, dataClass, ...rest } = this.props;
+        const { dataClass, buttonLabelEdit, buttonLabelUpdate, buttonPrefix, ...rest } = this.props;
         const { buttonClass, iconEditClass, iconUpdateClass, ...restClass } = dataClass;
         rest.dataClass = restClass;
         const elements = this.state.isEditing
-                     ? <BasicButtonControl ref={(button) => {this.textButton = button;}} name={this.props.buttonPrefix + this.props.name} onClick={this.update} className={buttonClass}><BasicIcon className={iconUpdateClass} />{buttonLabelUpdate}</BasicButtonControl>
-                     : <BasicButtonControl ref={(button) => {this.textButton = button;}} name={this.props.buttonPrefix + this.props.name} onClick={this.edit} className={buttonClass}><BasicIcon className={iconEditClass} />{buttonLabelEdit}</BasicButtonControl>;
+                     ? <BasicButtonControl ref={(button) => {this.textButton = button;}} name={buttonPrefix + rest.name} onClick={this.update} className={buttonClass}><BasicIcon className={iconUpdateClass} />{buttonLabelUpdate}</BasicButtonControl>
+                     : <BasicButtonControl ref={(button) => {this.textButton = button;}} name={buttonPrefix + rest.name} onClick={this.edit} className={buttonClass}><BasicIcon className={iconEditClass} />{buttonLabelEdit}</BasicButtonControl>;
         return (
-            <BasicTextControl ref={(input) => {this.textControl = input;}} onChange={rest.onChange ? rest.onChange : this.onChange} {...rest}>
+            <BasicTextControl ref={(input) => {this.textControl = input;}} onChange={rest.onChange ? rest.onChange : this.onChange(rest.name)} {...rest}>
                 {elements}
             </BasicTextControl>
         );

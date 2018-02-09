@@ -7,6 +7,7 @@ import React from 'react';
 let Types = React.PropTypes;
 
 export default class Clock extends React.Component {
+  displayName: 'Clock'
   static propTypes: {
     message: Types.string,
     date: Types.object,

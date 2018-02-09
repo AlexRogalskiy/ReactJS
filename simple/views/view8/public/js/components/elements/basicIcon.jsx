@@ -10,31 +10,28 @@ import React from 'react';
 let Types = React.PropTypes;
 
 export default class BasicIcon extends React.Component {
+    displayName: 'BasicIcon'
 	static propTypes: {
-		title: Types.string,
-		className: Types.string.isRequired,
         item: Types.object,
         key: Types.string
     }
     static defaultProps = {
-        title: '',
-        className: '',
+        className: 'glyphicon',
         item: {},
         key: ''
     }
     constructor(props) {
         super(props);
         this.state = {
-            title: this.props.title,
 			className: this.props.className,
 			item: this.props.item,
 			key: this.props.key
         };
     }
 	render() {
-		const { title, className, ...rest } = this.props;
+		const { item, ...rest } = this.props;
 		return (
-			<span className={className} {...rest}>{title}</span>
+			<span {...rest}></span>
 		);
 	}
 };

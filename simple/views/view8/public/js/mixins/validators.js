@@ -5,6 +5,10 @@
 import Strategy from 'react-validatorjs-strategy';
 import Logger from 'appRoot/js/mixins/logger';
 
+function checkValidity(validator) {
+    validator.lang = 'es';
+}
+
 const Validators = {
     imageControl: Strategy.createInactiveSchema(
         {
@@ -21,10 +25,26 @@ const Validators = {
             // "required.src": "Enter valid image :attribute",
             // "numeric.name": "Enter valid numeric :attribute"
         },
-        // function (validator) {
-        //     validator.lang = 'es';
-        // }
-    )
+        checkValidity(validator)
+    ),
+    textInput: Strategy.createInactiveSchema(
+        {
+
+        },
+        {
+
+        },
+        checkValidity(validator)
+    ),
+    editTextControl: Strategy.createInactiveSchema(
+        {
+
+        },
+        {
+
+        },
+        checkValidity(validator)
+    ),
 };
 
 export default Validators;

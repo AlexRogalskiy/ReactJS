@@ -7,6 +7,7 @@ import React from 'react';
 let Types = React.PropTypes;
 
 export default class BasicCommentItemList extends React.Component {
+    displayName: 'BasicCommentItemList'
 	static propTypes: {
         dataClass: Types.object,
 		items: Types.array,

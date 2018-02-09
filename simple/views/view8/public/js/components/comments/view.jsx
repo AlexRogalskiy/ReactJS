@@ -5,12 +5,12 @@
 import React      from 'react';
 import ReactDOM	  from 'react-dom';
 // import update     from 'react-addons-update';
-// import ClassNames from 'classnames';
+import ClassNames from 'classnames';
 import Logger     from 'appRoot/js/mixins/logger';
 
 let Types = React.PropTypes;
 
-export default class BasicButtonControl extends React.Component {
+export default class View extends React.Component {
 	displayName: 'BasicButtonControl'
 	static propTypes: {
 		message: Types.string,

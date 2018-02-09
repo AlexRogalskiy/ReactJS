@@ -8,17 +8,16 @@ import BasicMenuItem from './basicMenuItem';
 
 let Types = React.PropTypes;
 
-class BasicMenuItemList extends React.Component {
+export default class BasicMenuItemList extends React.Component {
+    displayName: 'BasicMenuItemList'
     static propTypes: {
         dataClass: Types.object,
-        title: Types.string,
         items: Types.array,
         item: Types.object,
         key: Types.string
     }
     static defaultProps = {
-        dataClass: { menuClass: 'menu' },
-        title: '',
+        dataClass: { itemClass: 'menuitem', itemIconClass: 'menuitemicon' },
         items: [],
         item: {},
         key: ''
@@ -28,7 +27,6 @@ class BasicMenuItemList extends React.Component {
         this.filterList = this.filterList.bind(this);
         this.state = {
             dataClass: this.props.dataClass,
-            title: this.props.title,
             items: this.props.items,
             item: this.props.item,
             key: this.props.key
@@ -41,16 +39,16 @@ class BasicMenuItemList extends React.Component {
         this.setState({items: filteredList});
     }
     render() {
-        const { dataClass, title, ...rest } = this.props;
-        const { menuClass, ...restClass } = dataClass;
+        const { dataClass, items, ...rest } = this.props;
+        const { itemClass, itemIconClass, ...restClass } = dataClass;
         return (
             <div {...rest} >
-                <h2>{title}</h2>
                 <SearchPlugin filter={this.filterList} />
                 <ul>
                     {
                         this.state.items.map(function(item) {
-                            return <BasicMenuItem item={item} key={item.id} title={item.title} className={item.className ? item.className : menuClass} dataClass={restClass} />
+                            restClass.iconClass = item.iconClass ? item.iconClass : itemIconClass;
+                            return <BasicMenuItem item={item} key={item.id} title={item.title} className={item.className ? item.className : itemClass} dataClass={restClass} />
                         })
                     }
                 </ul>

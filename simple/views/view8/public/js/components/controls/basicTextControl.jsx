@@ -11,15 +11,18 @@ import BasicTextInput from './BasicTextInput';
 let Types = React.PropTypes;
 
 export default class BasicTextControl extends React.Component {
+    displayName: 'BasicTextControl'
 	static propTypes: {
-        label: Types.string,
         dataClass: Types.object,
+        validator: Types.string,
+        label: Types.string,
         item: Types.object,
 		key: Types.string
     }
     static defaultProps = {
+        dataClass: { formClass: 'form-group', labelClass: 'control-label' },
+        validator: '',
         label: '',
-        dataClass: {formClass: 'form-group', labelClass: 'control-label', controlClass: 'row no-gutters', errorClass: 'has-error', errorMessageClass: 'help-block'},
         item: {},
         key: ''
     }
@@ -27,8 +30,9 @@ export default class BasicTextControl extends React.Component {
         super(props);
         this.onChange = this.onChange.bind(this);
         this.state = {
-            label: this.props.label,
             dataClass: this.props.dataClass,
+            validator: this.props.validator,
+            label: this.props.label,
             item: this.props.item,
             key: this.props.key
         };
@@ -36,12 +40,19 @@ export default class BasicTextControl extends React.Component {
 	onChange(e) {
 		this.setState({ value: e.target.value });
 	}
+    // onChange(field) {
+    //     return event => {
+    //         let state = {};
+    //         state[field] = event.target.value;
+    //         this.setState(state);
+    //     };
+    // }
 	render() {
-        const { label, dataClass, ...rest } = this.props;
+        const { dataClass, label, ...rest } = this.props;
         const { formClass, labelClass, ...restClass } = dataClass;
         rest.dataClass = restClass;
 		return (
-			<div className={formClass} {...rest}>
+			<div className={formClass}>
                 <label className={labelClass} htmlFor={rest.name}>
                     {label}
                 </label>

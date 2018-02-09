@@ -12,6 +12,7 @@ let Types = React.PropTypes;
 
 // @lifecycle
 export default class BasicHeader extends React.Component {
+    displayName: 'BasicHeader'
 	static propTypes = {
         item: Types.object,
         key: Types.string
