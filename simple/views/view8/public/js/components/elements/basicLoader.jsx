@@ -20,9 +20,9 @@ export default class BasicLoader extends React.Component {
 	constructor(props) {
         super(props);
         this.state = {
-        	className: this.props.className,
-            item: this.props.item,
-			key: this.props.key
+        	className: props.className,
+            item: props.item,
+			key: props.key
         };
     }
 	render() {

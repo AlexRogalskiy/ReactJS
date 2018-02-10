@@ -26,10 +26,10 @@ export default class BasicMenuItemList extends React.Component {
         super(props);
         this.filterList = this.filterList.bind(this);
         this.state = {
-            dataClass: this.props.dataClass,
-            items: this.props.items,
-            item: this.props.item,
-            key: this.props.key
+            dataClass: props.dataClass,
+            items: props.items,
+            item: props.item,
+            key: props.key
         };
     }
     filterList(text) {

@@ -31,11 +31,11 @@ export default class BasicTextControl extends React.Component {
         super(props);
         this.onChange = this.onChange.bind(this);
         this.state = {
-            dataClass: this.props.dataClass,
-            validator: this.props.validator,
-            label: this.props.label,
-            item: this.props.item,
-            key: this.props.key
+            dataClass: props.dataClass,
+            validator: props.validator,
+            label: props.label,
+            item: props.item,
+            key: props.key
         };
     }
 	onChange(field) {

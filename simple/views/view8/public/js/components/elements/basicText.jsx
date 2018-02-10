@@ -24,9 +24,9 @@ export default class BasicText extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            message: this.props.message,
-            item: this.props.item,
-			key: this.props.key
+            message: props.message,
+            item: props.item,
+			key: props.key
         };
     }
 	render() {

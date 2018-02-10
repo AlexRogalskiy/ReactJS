@@ -5,13 +5,13 @@
 import webpack from 'webpack';
 import Config from 'webpack-config';
 
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+// const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 export default new Config().extend('config/webpack.base.config.js').merge({
 	output: {
 		filename: 'bundle.min.js'
 	},
-	devtool: 'source-map',
+	devtool: 'null',
 	module: {
 		loaders: [{
 			test: /\.css$/,
@@ -35,8 +35,9 @@ export default new Config().extend('config/webpack.base.config.js').merge({
 	},
 	plugins: [
 		new webpack.optimize.UglifyJsPlugin({
+		  minimize: true,
 		  compress: {
-				sourceMap: true,,
+				sourceMap: true,
 				warnings: true,
 				drop_console: true,
 				unsafe: true,

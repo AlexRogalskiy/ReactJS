@@ -27,7 +27,7 @@
     "README.md"
   ],
   "scripts": {
-    "start": "webpack-dev-server --hot --config ./webpack.config.js --progress --colors --watch",
+    "start": "webpack-dev-server --hot --config ./webpack.config.js --progress --colors --watch & json-server db/db.json",
     "test2": "clear && ./node_modules/mocha/bin/mocha --compilers js:babel/register --reporter dot --recursive",
     "build": "browserify src/client.js -t babelify --outfile public/bundle.js && node-less --output-style compressed styles/main.less public/main.css",
     "flow": "babel src --out-dir build_flow --blacklist flow && flow build_flow",
@@ -71,6 +71,7 @@
     ]
   },
   "dependencies": {
+    "body-parser": "^1.4.3",
     "classnames": "^2.2.5",
     "dateformat": "3.0.2",
     "express": "^4.14.1",

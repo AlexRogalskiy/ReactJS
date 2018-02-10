@@ -38,11 +38,11 @@ class BasicImage extends React.Component {
         this.activateValidation = this.activateValidation.bind(this);
         this.onChange = this.onChange.bind(this);
         this.state = {
-            dataClass: this.props.dataClass,
-            className: this.props.className,
-            validator: this.props.validator,
-			item: this.props.item,
-			key: this.props.key
+            dataClass: props.dataClass,
+            className: props.className,
+            validator: props.validator,
+			item: props.item,
+			key: props.key
         };
         this.validatorTypes = Validators[this.props.validator];
     }

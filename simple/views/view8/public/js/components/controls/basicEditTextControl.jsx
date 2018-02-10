@@ -44,16 +44,16 @@ export default class BasicEditTextControl extends React.Component {
         this.edit = this.edit.bind(this);
         this.onChange = this.onChange.bind(this);
         this.state = {
-            dataClass: this.props.dataClass,
-            validator: this.props.validator,
+            dataClass: props.dataClass,
+            validator: props.validator,
             isEditing: false,
-            update: this.props.update,
-            edit: this.props.edit,
-            buttonLabelEdit: this.props.buttonLabelEdit,
-            buttonLabelUpdate: this.props.buttonLabelUpdate,
-            buttonPrefix: this.props.buttonPrefix,
-            item: this.props.item,
-            key: this.props.key
+            update: props.update,
+            edit: props.edit,
+            buttonLabelEdit: props.buttonLabelEdit,
+            buttonLabelUpdate: props.buttonLabelUpdate,
+            buttonPrefix: props.buttonPrefix,
+            item: props.item,
+            key: props.key
         };
     }
     update(field) {

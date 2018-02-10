@@ -22,9 +22,9 @@ export default class BasicCommentItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataClass: this.props.dataClass,
-            item: this.props.item,
-            key: this.props.key
+            dataClass: props.dataClass,
+            item: props.item,
+            key: props.key
         };
     }
     rawMarkup() {

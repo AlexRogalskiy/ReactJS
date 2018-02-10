@@ -23,10 +23,10 @@ export default class Clock extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: this.props.message,
-      date: this.props.date,
-      item: this.props.item,
-      key: this.props.key
+      message: props.message,
+      date: props.date,
+      item: props.item,
+      key: props.key
     };
   }
   componentDidMount() {

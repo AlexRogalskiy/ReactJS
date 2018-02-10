@@ -8,14 +8,14 @@ import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 const autoprefixer = require('autoprefixer');
-const include = path.join(__dirname, '..', 'public');
+const publicDir = path.join(__dirname, '..', 'public');
 
 export default new Config().extend('config/webpack.base.config.js').merge({
 	entry: [
 		'webpack-hot-middleware/client?reload=true',
 		'babel-polyfill',
 		'react-hot-loader/patch',
-		path.join(include, 'js', 'app.js')
+		path.join(publicDir, 'js', 'app.js')
 	],
 	devtool: 'inline-source-map',
 	output: {
@@ -81,12 +81,17 @@ export default new Config().extend('config/webpack.base.config.js').merge({
 		//})
 	],
 	devServer: {
-		//stats: 'warnings-only',
 		inline: true,
-        port: 8080
-	}
+		port: 8080,
+     	historyApiFallback: true,
+     	//stats: 'warnings-only',
+   	}
 	// externals: {
- //      'react': 'React'
+     // "react": "React",
+  //       "marked": "marked",
+  //       "jquery": "jQuery",
+  //       "react-dom": "ReactDOM",
+		// "window": "window"
  //   	},
    //  postcss: [
     //   autoprefixer({

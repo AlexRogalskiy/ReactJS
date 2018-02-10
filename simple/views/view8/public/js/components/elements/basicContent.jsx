@@ -22,8 +22,8 @@ export default class BasicContent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            item: this.props.item,
-			key: this.props.key
+            item: props.item,
+			key: props.key
         };
     }
 	render() {
@@ -31,4 +31,4 @@ export default class BasicContent extends React.Component {
 			<span {...this.props}>{this.props.children}</span>
 		);
 	}
-});
+};

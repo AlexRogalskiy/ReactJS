@@ -14,15 +14,14 @@ const AppHeader = React.createClass({
 		Reflux.connect(SessionStore, 'session'),
 		History
 	],
-	// constructor(props) {
- //    	super(props);
- //    	this.state = { };
- //  	},
-  	logOut() {
+	getInitialState: function() {
+		return {};
+	},
+  	logOut: function() {
 		Actions.logOut();
 		this.history.pushState('', '/');
 	},
-	render() {
+	render: function() {
 		return (
 	      	<header className="app-header">
 				<Link to="/"><h1>Re&#923;ction</h1></Link>

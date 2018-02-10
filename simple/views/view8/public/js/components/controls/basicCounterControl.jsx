@@ -53,20 +53,20 @@ export default const BasicCounter extends React.Component {
         this.down = this.down.bind(this);
         this.onClick = this.onClick.bind(this);
         this.state = {
-        	dataClass: this.props.dataClass,
-            counter: this.props.counter,
-            min: this.props.min,
-            max: this.props.max,
-            step: this.props.step,
+        	dataClass: props.dataClass,
+            counter: props.counter,
+            min: props.min,
+            max: props.max,
+            step: props.step,
             isIncreasing: false,
-            isVisible: this.props.isVisible,
-            up: this.props.up,
-            down: this.props.down,
-            buttonLabelUp: this.props.buttonLabelUp,
-            buttonLabelDown: this.props.buttonLabelDown,
-            buttonPrefix: this.props.buttonPrefix,
-			item: this.props.item,
-			key: this.props.key
+            isVisible: props.isVisible,
+            up: props.up,
+            down: props.down,
+            buttonLabelUp: props.buttonLabelUp,
+            buttonLabelDown: props.buttonLabelDown,
+            buttonPrefix: props.buttonPrefix,
+			item: props.item,
+			key: props.key
         };
     }
 	shouldComponentUpdate(nextProps, nextState) {

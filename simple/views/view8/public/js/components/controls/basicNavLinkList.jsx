@@ -28,10 +28,10 @@ export default class BasicNavLinkList extends React.Component{
         super(props);
         this.onClick = this.onClick.bind(this);
         this.state = {
-            dataClass: this.props.dataClass,
-            items: this.props.items,
-            item: this.props.item,
-            key: this.props.key
+            dataClass: props.dataClass,
+            items: props.items,
+            item: props.item,
+            key: props.key
         };
     }
     onClick(e) {

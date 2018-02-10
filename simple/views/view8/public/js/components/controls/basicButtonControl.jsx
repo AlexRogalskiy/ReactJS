@@ -26,9 +26,9 @@ export default class BasicButtonControl extends React.Component {
         super(props);
         this.onClick = this.onClick.bind(this);
         this.state = {
-            message: this.props.message,
-			item: this.props.item,
-			key: this.props.key
+            message: props.message,
+			item: props.item,
+			key: props.key
         };
     }
 	onClick(e) {

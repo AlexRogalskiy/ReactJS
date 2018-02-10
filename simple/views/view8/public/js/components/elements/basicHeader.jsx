@@ -4,8 +4,8 @@
  */
 import React      from 'react';
 // import update     from 'react-addons-update';
-import ClassNames from 'classnames';
-import lifecycle  from 'appRoot/js/mixins/lifecycle';
+// import ClassNames from 'classnames';
+// import lifecycle  from 'appRoot/js/mixins/lifecycle';
 // import Color      from 'appRoot/js/mixins/color';
 
 let Types = React.PropTypes;

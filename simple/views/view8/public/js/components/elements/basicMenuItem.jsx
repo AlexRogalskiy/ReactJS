@@ -24,10 +24,10 @@ export default class BasicMenuItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataClass: this.props.dataClass,
-            title: this.props.title,
-            item: this.props.item,
-            key: this.props.key
+            dataClass: props.dataClass,
+            title: props.title,
+            item: props.item,
+            key: props.key
         };
     }
     render() {

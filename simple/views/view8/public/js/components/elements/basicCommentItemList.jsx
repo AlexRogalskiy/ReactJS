@@ -24,10 +24,10 @@ export default class BasicCommentItemList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataClass: this.props.dataClass,
-            items: this.props.items,
-            item: this.props.item,
-            key: this.props.key
+            dataClass: props.dataClass,
+            items: props.items,
+            item: props.item,
+            key: props.key
         };
     }
     render() {

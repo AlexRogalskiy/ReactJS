@@ -7,14 +7,15 @@ import { History } from 'react-router';
 import BasicInput  from 'appRoot/js/components/basicInput';
 import Actions     from 'appRoot/js/actions';
 
-export default class Login extends React.Component {
+// export default class Login extends React.Component {
+const Login = React.createClass({
 	mixins: [
 		History
-	]
-	getInitialState() {
+	],
+	getInitialState: function() {
 		return {};
-	}
-	logIn(e) {
+	},
+	logIn: function(e) {
 		var detail = {};
 
 		Array.prototype.forEach.call(
@@ -34,8 +35,8 @@ export default class Login extends React.Component {
 				//console.log("ERROR", arguments);
 				this.setState({'loginError': 'bad username or password'});
 			}.bind(this));
-	}
-	render() {
+	},
+	render: function() {
 		return (
 			<form className="login-form" onSubmit={this.logIn}>
 				<fieldset>
@@ -48,4 +49,6 @@ export default class Login extends React.Component {
 			</form>
 		);
 	}
-};
+});
+
+export default Login;
