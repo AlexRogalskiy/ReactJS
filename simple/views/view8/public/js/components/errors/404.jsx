@@ -3,7 +3,7 @@
  * Module dependencies
  */
 import React      from 'react';
-import update     from 'react-addons-update';
+// import update     from 'react-addons-update';
 // import ClassNames from 'classnames';
 // import Logger      from 'appRoot/js/mixins/logger';
 import BasicContent from 'appRoot/js/components/elements/basicContent';
@@ -25,9 +25,9 @@ export default class NotFound extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: this.props.message,
-      item: this.props.item,
-      key: this.props.key
+      message: props.message,
+      item: props.item,
+      key: props.key
     };
   }
   render() {

@@ -49,9 +49,9 @@ export default class BasicView extends React.Component {
         super(props);
         this.update = this.update.bind(this);
         this.state = {
-            fields: this.props.fields,
-			item: this.props.item,
-			key: this.props.key
+            fields: props.fields,
+			item: props.item,
+			key: props.key
         };
     }
 	update(field) {

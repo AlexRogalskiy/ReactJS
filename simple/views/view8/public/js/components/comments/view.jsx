@@ -10,7 +10,6 @@ import JQuery from 'jquery';
 
 import BasicCommentItemList from 'appRoot/js/components/elements/basicCommentItemList';
 import CommentForm from 'appRoot/js/components/forms/commentForm';
-
 import Logger     from 'appRoot/js/mixins/logger';
 
 let Types = React.PropTypes;
@@ -33,10 +32,10 @@ export default class View extends React.Component {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
         this.state = {
-            dataClass: this.props.dataClass,
-            items: this.props.items,
-			item: this.props.item,
-			key: this.props.key
+            dataClass: props.dataClass,
+            items: props.items,
+			item: props.item,
+			key: props.key
         };
     }
     loadComments() {
@@ -65,7 +64,7 @@ export default class View extends React.Component {
             type: 'POST',
             data: comment,
             success: (data) => {
-                this.setState({items: data});
+                this.setState({ items: data });
             },
             error: function (xhr, status, err) {
                 this.setState({items: comments});

@@ -28,10 +28,10 @@ export default class BasicForm extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.state = {
-      dataClass: this.props.dataClass,
-      fields: this.props.fields,
-      item: this.props.item,
-      key: this.props.key
+      dataClass: props.dataClass,
+      fields: props.fields,
+      item: props.item,
+      key: props.key
     };
   }
   onChange(e) {

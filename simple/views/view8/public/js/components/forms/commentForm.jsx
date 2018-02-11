@@ -44,13 +44,13 @@ class CommentForm extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.state = {
-      dataClass: this.props.dataClass,
-      validator: this.props.validator,
-      fields: this.props.fields,
-      buttonFormLabel: this.props.buttonFormLabel,
-      method: this.props.method,
-      item: this.props.item,
-      key: this.props.key
+      dataClass: props.dataClass,
+      validator: props.validator,
+      fields: props.fields,
+      buttonFormLabel: props.buttonFormLabel,
+      method: props.method,
+      item: props.item,
+      key: props.key
     };
     this.validatorTypes = Validators[this.props.validator];
   }
@@ -62,7 +62,7 @@ class CommentForm extends React.Component {
   }
   onChange(field) {
     return event => {
-      this.state.fields[field].value = e.target.value;
+      this.state.fields[field].value = event.target.value;
       const state = { fields: this.state.fields };
       this.setState(state, () => {
         this.props.handleValidation(field)(event);

@@ -22,9 +22,9 @@ export default class Redirect extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            path: this.props.message,
-            item: this.props.item,
-            key: this.props.key
+            path: props.message,
+            item: props.item,
+            key: props.key
         };
     }
     render() {

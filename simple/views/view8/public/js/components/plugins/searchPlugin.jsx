@@ -20,8 +20,8 @@ class SearchPlugin extends React.Component{
         super(props);
         this.onChanged = this.onChanged.bind(this);
         this.state = {
-            item: this.props.item,
-            key: this.props.key
+            item: props.item,
+            key: props.key
         };
     }
     onChanged(e) {
