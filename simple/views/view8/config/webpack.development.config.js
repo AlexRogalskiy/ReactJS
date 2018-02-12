@@ -19,7 +19,8 @@ export default new Config().extend('config/webpack.base.config.js').merge({
 	],
 	devtool: 'inline-source-map',
 	output: {
-		filename: '[name].js',
+		filename: "[name].js",
+		chunkFilename: "[name].js",
 		library: '[name]',
 		sourceMapFilename: '[name].map'
 	},
@@ -32,9 +33,11 @@ export default new Config().extend('config/webpack.base.config.js').merge({
 					loader: 'css-loader',
 					options: {
 						modules: true,
+						url: false,
 						importLoaders: 1,
 						localIdentName: "[local]__[hash:base64:5]",
 						minimize: false,
+						sourceMap: true,
 						plugins: () => autoprefixer({
 							browsers: ['last 3 versions', '> 1%']
 						})
@@ -48,11 +51,34 @@ export default new Config().extend('config/webpack.base.config.js').merge({
 			{
 				loader: 'postcss-loader',
 				options: {
+					modules: true,
+					url: false,
+					importLoaders: 1,
+					localIdentName: "[local]__[hash:base64:5]",
+					minimize: false,
+					sourceMap: true,
 					plugins: () => autoprefixer({
 						browsers: ['last 3 versions', '> 1%']
 					})
 				}
 			}, 'less-loader'])
+		},
+		{ test: /\.scss$/,
+			loader: ExtractTextPlugin.extract(['css-loader',
+			{
+				loader: 'postcss-loader',
+				options: {
+					modules: true,
+					url: false,
+					importLoaders: 1,
+					localIdentName: "[local]__[hash:base64:5]",
+					minimize: false,
+					sourceMap: true,
+					plugins: () => autoprefixer({
+						browsers: ['last 3 versions', '> 1%']
+					})
+				}
+			}, 'sass-loader'])
 		}]
 	},
 	plugins: [
@@ -64,11 +90,13 @@ export default new Config().extend('config/webpack.base.config.js').merge({
 			}
 		}),
 		new ExtractTextPlugin({
-			filename: '[name].css',
+			filename: 'css/[name].css',
+			disable: false,
 			allChunks: true,
 		}),
 		new webpack.optimize.CommonsChunkPlugin({
 			name: "common",
+			filename: "common.js"
 			// chunks: ['about', 'home'],
 			// minChunks: 2,
 		}),

@@ -60,3 +60,44 @@ function humanize(size) {
 //         }
 //     });
 // });
+
+// var fileInput = $('input[type=file]');
+// var button = $('#upload');
+// button.on('click', function() {
+//     var files = fileInput.prop('files');
+//     if(files.length == 0) {
+//         alert('Please choose a file to upload!');
+//         return false;
+//     }
+//     var fd = new FormData();
+//     fd.append('file', files[0]);
+//     $.ajax({
+//         url: './assets/php/upload.php',
+//         data: fd,
+//         contentType:false,
+//         processData:false,
+//         type:'POST',
+//         success: function(m){ console.log(m); }
+//     });
+// });
+
+// var preloader = $('<div>',{ 'class':'preloader' }).appendTo('body');
+// var doc = $(document);
+// doc.ajaxStart(function(){ preloader.fadeIn(); });
+// doc.ajaxComplete(function(){
+//     preloader.delay(800).fadeOut();
+// });
+
+// function JSON_Reader(name) {
+//     var d = new $.Deferred();
+//     $.ajax({
+//         url: '' + name + '.json',
+//         dataType: 'json',
+//         success: function(data){ d.resolve(data); },
+//         error: function(){ d.reject(); }
+//     });
+//     return d.promise();
+// }
+// var one = new JSON_Reader('1');
+// one.done(function(d){ console.log('Data received:', d); });
+// one.fail(function(){ console.log('The file does not exist!'); });

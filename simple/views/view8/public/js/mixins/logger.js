@@ -23,6 +23,11 @@ const Logger = {
 	info: function(message, ...args) {
 		console.info(output(this.time(), message, args));
 	},
+	group: function(message, ...args) {
+		console.group(output(this.time(), message));
+		console.log(args);
+		console.groupEnd();
+	},
 	time: function() {
 		let currentDate = new Date();
 		let currentTime = new Date(currentDate.getTime() - (currentDate.getTimezoneOffset() * 60000));

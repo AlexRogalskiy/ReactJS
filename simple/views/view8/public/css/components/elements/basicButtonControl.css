@@ -1,0 +1,10 @@
+.base {
+	background: green;
+	background-size: 100px;
+}
+.hover {
+	background: red;
+}
+.base:hover {
+	background: red;
+};

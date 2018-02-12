@@ -24,7 +24,7 @@ export default new Config().merge({
 			// { test: /\.less$/, loader: 'style-loader!css-loader!autoprefixer?browsers=last 4 version!less-loader' },
 			//{ test: /\.css$/, loader: 'style-loader!css-loader' },
 			{ test: /\.(png|jpg|svg|ttf|eot|woff|woff2)$/, loader: 'file?name=[path][name].[ext]' },
-			{ test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192&name=images/[hash].[ext]' },
+			{ test: /\.(png|jpg|svg)$/, loader: 'url-loader?limit=8192&name=images/[hash].[ext]' },
 			//{ test: /\.jsx?$/, exclude: /(node_modules|bower_components)/, include: [include], loaders: ['react-hot-loader/webpack', 'babel-loader?presets[]=react,presets[]=es2015'] },
 			{ test: /\.json$/, loader: 'json-loader', include }
 		]
@@ -44,7 +44,7 @@ export default new Config().merge({
 			'node_modules',
 			'bower_modules'
 		],
-		extensions: ['.js', '.json', '.jsx', '.less'],
+		extensions: ['.js', '.json', '.jsx', '.less', '.scss'],
 		alias: {
 			'appRoot': include,
 			'vendor': 'appRoot/vendor'

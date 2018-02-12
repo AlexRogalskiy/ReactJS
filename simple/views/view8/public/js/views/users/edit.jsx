@@ -12,6 +12,7 @@ import BasicInput   from 'appRoot/js/components/basicInput';
 
 import BasicHeader  from 'appRoot/js/components/elements/basicHeader';
 import BasicButtonControl from 'appRoot/js/components/controls/basicButtonControl';
+import BasicToggleButtonControl from 'appRoot/js/components/controls/basicToggleButtonControl';
 import BasicImage from 'appRoot/js/components/elements/basicImage';
 // import BasicEditTextControl from 'appRoot/js/components/controls/basicEditTextControl';
 // import BasicView from 'appRoot/js/components/views/basicView';
@@ -153,7 +154,8 @@ const Edit = React.createClass({
 
 			<BasicHeader>sadf</BasicHeader>
 			<BasicButtonControl message='asdf' />
-
+			<BasicToggleButtonControl message='test' />
+			
 			<fieldset>
 				<legend>become an author</legend>
 

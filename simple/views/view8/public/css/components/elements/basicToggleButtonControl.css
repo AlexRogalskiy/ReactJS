@@ -1,0 +1,10 @@
+.base {
+	background: green;
+	background-size: 100px;
+}
+.hover {
+	background: red;
+}
+.flipped {
+	background: yellow;
+}
