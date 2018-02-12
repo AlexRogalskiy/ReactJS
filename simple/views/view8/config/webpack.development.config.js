@@ -95,10 +95,10 @@ export default new Config().extend('config/webpack.base.config.js').merge({
 			allChunks: true,
 		}),
 		new webpack.optimize.CommonsChunkPlugin({
-			name: "common",
-			filename: "common.js"
-			// chunks: ['about', 'home'],
-			// minChunks: 2,
+			// name: "common",
+			// filename: "common.js"
+			chunks: ['common', 'button'],
+			minChunks: 2,
 		}),
 		// new webpack.ProvidePlugin({
 		//     compact: 'lodash/compact',
