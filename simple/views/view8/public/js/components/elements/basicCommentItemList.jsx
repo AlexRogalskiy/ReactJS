@@ -36,7 +36,7 @@ export default class BasicCommentItemList extends React.Component {
         const elements = items.map(function(item) {
             return (
                 <BasicCommentItem item={item} key={item.id} author={item.author} className={item.className ? item.className : commentClass} dataClass={restClass}>
-                    {item.text}
+                    {item.data}
                 </BasicCommentItem>
             );
         });

@@ -15,6 +15,8 @@ import BasicButtonControl from 'appRoot/js/components/controls/basicButtonContro
 import BasicToggleButtonControl from 'appRoot/js/components/controls/basicToggleButtonControl';
 import BasicSubmitButtonControl from 'appRoot/js/components/controls/basicSubmitButtonControl';
 import BasicImage from 'appRoot/js/components/elements/basicImage';
+import BasicCardItem from 'appRoot/js/components/elements/basicCardItem';
+import BasicCardItemList from 'appRoot/js/components/elements/basicCardItemList';
 // import BasicEditTextControl from 'appRoot/js/components/controls/basicEditTextControl';
 // import BasicView from 'appRoot/js/components/views/basicView';
 
@@ -133,7 +135,8 @@ const Edit = React.createClass({
 					placeholder: 'First Name',
 					// textBoxClassName: '',
 					// buttonClassName: '',
-					value: ''
+					value: '',
+					data: "Test 1"
 				},
 				{
 					id: '2',
@@ -143,7 +146,8 @@ const Edit = React.createClass({
 					placeholder: 'Last Name',
 					// textBoxClassName: '',
 					// buttonClassName: '',
-					value: ''
+					value: '',
+					data: "Test 2"
 				}
 			];
 		return (
@@ -157,6 +161,8 @@ const Edit = React.createClass({
 			<BasicButtonControl message='asdf' />
 			<BasicToggleButtonControl message='test' />
 			<BasicSubmitButtonControl message='testing' />
+			<BasicCardItem>Data</BasicCardItem>
+			<BasicCardItemList items={fields} />
 			
 			<fieldset>
 				<legend>become an author</legend>

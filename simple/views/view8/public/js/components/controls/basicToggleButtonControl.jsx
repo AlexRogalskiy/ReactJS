@@ -7,8 +7,8 @@ import ReactDOM	  from 'react-dom';
 // import update     from 'react-addons-update';
 import ClassNames from 'classnames/bind';
 
-import BasicButtonControl from 'appRoot/js/components/controls/basicButtonControl';
 import Logger     from 'appRoot/js/mixins/logger';
+import BasicButtonControl from 'appRoot/js/components/controls/basicButtonControl';
 import BasicToggleButtonStyle from 'appRoot/css/components/controls/basicToggleButtonControl';
 
 let Types = React.PropTypes;
@@ -20,12 +20,14 @@ export default class BasicToggleButtonControl extends BasicButtonControl {
 		flipped: Types.bool
 	}
 	static defaultProps = {
+		className: 'btnToggle btn',
         flipped: false
     }
 	constructor(props) {
         super(props);
         this.onClick = this.onClick.bind(this);
         this.state = {
+        	className: props.className,
             flipped: props.flipped
         };
     }
@@ -39,8 +41,8 @@ export default class BasicToggleButtonControl extends BasicButtonControl {
   	}
 	render() {
 		const { flipped, ...rest } = this.props;
-		rest.className = Styles({
-	      	btnToggle: true,
+		rest.className = Styles(rest.className, {
+	      	// btnToggle: true,
 	      	// pressed: this.state.isPressed,
 	      	// hover: !this.state.isPressed && this.state.isHovered,
 	      	// disabled: this.state.isDisabled,

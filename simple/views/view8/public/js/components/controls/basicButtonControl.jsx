@@ -17,40 +17,38 @@ export default class BasicButtonControl extends React.Component {
 	displayName: 'BasicButtonControl'
 	static propTypes: {
 		message: Types.string,
-		item: Types.object,
-		key: Types.string
+		item: Types.object
 	}
 	static defaultProps = {
         message: '',
-        item: {},
-        key: ''
+        className: 'btn',
+        item: {}
     }
 	constructor(props) {
         super(props);
         this.onClick = this.onClick.bind(this);
         this.state = {
             message: props.message,
-			item: props.item,
-			key: props.key
+            className: props.className,
+			item: props.item
         };
     }
 	onClick(e) {
 		Logger.debug(ReactDOM.findDOMNode(this).id + 'clicked', e.target);
-		if(this.props.click) {
-			this.props.click(e);
+		if(this.props.onClick) {
+			this.props.onClick(e);
 		}
 	}
 	render() {
 		const { item, message, ...rest } = this.props;
 		rest.className = Styles(rest.className, {
-	      	btn: true,
+	      	// btn: true,
 	      	// pressed: this.state.isPressed,
 	      	// hover: !this.state.isPressed && this.state.isHovered,
 	      	disabled: this.state.isDisabled,
     	});
-    	console.log(rest.className);
 		return (
-			<button onClick={this.props.onClick ? this.props.onClick : this.onClick} {...rest}>
+			<button onClick={this.onClick} {...rest}>
 				{message}
 			</button>
 		);

@@ -7,8 +7,8 @@ import ReactDOM	  from 'react-dom';
 // import update     from 'react-addons-update';
 import ClassNames from 'classnames/bind';
 
-import BasicButtonControl from 'appRoot/js/components/controls/basicButtonControl';
 import Logger     from 'appRoot/js/mixins/logger';
+import BasicButtonControl from 'appRoot/js/components/controls/basicButtonControl';
 import BasicSubmitButtonStyle from 'appRoot/css/components/controls/basicSubmitButtonControl';
 
 let Types = React.PropTypes;
@@ -21,6 +21,7 @@ export default class BasicSubmitButtonControl extends BasicButtonControl {
 	}
 	static defaultProps = {
         messageInProgress: 'Processing...',
+        className: 'btnSubmit btn',
         store: {
         	submissionInProgress: false,
         	error: false,
@@ -30,14 +31,15 @@ export default class BasicSubmitButtonControl extends BasicButtonControl {
 	constructor(props) {
         super(props);
         this.state = {
-            messageInProgress: props.messageInProgress
+            messageInProgress: props.messageInProgress,
+            className: props.className,
         };
     }
 	render() {
 		const { store, messageInProgress, ...rest } = this.props;
 		rest.message = store.submissionInProgress ? messageInProgress : this.props.message;
-		rest.className = Styles({
-	      	btnSubmit: true,
+		rest.className = Styles(rest.className, {
+	      	// btnSubmit: true,
 	      	inProgress: store.submissionInProgress,
 	      	error: store.errorOccurred,
 	      	disabled: store.valid,
