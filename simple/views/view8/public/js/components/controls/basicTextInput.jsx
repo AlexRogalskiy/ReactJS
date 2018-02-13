@@ -4,7 +4,7 @@
  */
 import React      from 'react';
 import update     from 'react-addons-update';
-import ClassNames from 'classnames';
+import ClassNames from 'classnames/bind';
 
 import Strategy   from 'react-validatorjs-strategy';
 import Validation from 'react-validation-mixin';
@@ -13,40 +13,39 @@ import Validators from 'appRoot/js/mixins/validators';
 import HelpText   from 'appRoot/js/mixins/utility';
 import Logger     from 'appRoot/js/mixins/logger';
 
+import BasicTextInputStyle from 'appRoot/css/components/controls/basicTextInput';
+
 let Types = React.PropTypes;
+let Styles = ClassNames.bind(BasicTextInputStyle);
 
 class BasicTextInput extends React.Component {
     displayName: 'BasicTextInput'
 	static propTypes: {
         dataClass: Types.object,
         validator: Types.string,
-        item: Types.object,
-		key: Types.string
+        item: Types.object
     }
     static defaultProps = {
-        dataClass: { controlClass: 'row no-gutters', errorClass: 'has-error', errorMessageClass: 'help-block' },
-        className: 'form-control',
-        validator: '',
-        item: {},
-        key: ''
+        dataClass: { inputClass: 'form-control', controlClass: 'row no-gutters', errorMessageClass: 'help-block' },
+        className: 'basic-input input-group',
+        validator: 'textInput'
     }
     getValidatorData() {
         return this.state;
     }
     constructor(props) {
         super(props);
-        this.activateValidation = this.activateValidation.bind(this);
+        this.onBlur = this.onBlur.bind(this);
         this.onChange = this.onChange.bind(this);
         this.state = {
             dataClass: props.dataClass,
             className: props.className,
             validator: props.validator,
-            item: props.item,
-            key: props.key
+            item: props.item
         };
-        this.validatorTypes = Validators[this.props.validator];
+        this.validatorTypes = Validators[props.validator];
     }
-    // activateValidation(field) {
+    // onBlur(field) {
     //     return event => {
     //         let state = {};
     //         state[field] = event.target.value;
@@ -65,13 +64,16 @@ class BasicTextInput extends React.Component {
     //         });
     //     };
     // }
-    activateValidation(field) {
+    onBlur(field) {
         return event => {
             const state = { value: event.target.value };
             Strategy.activateRule(this.validatorTypes, field);
             this.setState(state, () => {
                 this.props.handleValidation(field)(event);
             });
+            if(this.props.onBlur) {
+                this.props.onBlur(event);
+            }
         };
     }
     onChange(field) {
@@ -80,23 +82,30 @@ class BasicTextInput extends React.Component {
             this.setState(state, () => {
                 this.props.handleValidation(field)(event);
             });
-            //this.props.change(event);
+            console.log('asdfsdaf');
+            if(this.props.onChange) {
+                this.props.onChange(event);
+            }
         };
     }
-    getClassName(field) {
-        return this.props.isValid(field) ? '' : 'has-error';
-    }
+    // getClassName(field) {
+    //     return this.props.isValid(field) ? '' : 'has-error';
+    // }
 	render() {
-        const { dataClass, item, validator, errors, validate, isValid, getValidationMessages, clearValidations, handleValidation, ...rest } = this.props;
-		let errorMessage = getValidationMessages(rest.name);
-        let controlClass = dataClass.controlClass;
-        if (errorMessage.length > 0) {
-            controlClass += ' ' + dataClass.errorClass;
-        }
+        const { dataClass, onChange, onBlur, className, item, validator, errors, validate, isValid, getValidationMessages, clearValidations, handleValidation, ...rest } = this.props;
+		const errorMessage = getValidationMessages(rest.name);
+        const controlClass = Styles(dataClass.controlClass, {
+            error: errorMessage.length > 0
+        });
+        rest.className = dataClass.inputClass;
+        // let controlClass = dataClass.controlClass;
+        // if (errorMessage.length > 0) {
+        //     controlClass += ' ' + dataClass.errorClass;
+        // }
 		return (
-			<div className={ClassNames({'basic-input': true, 'input-group': true})}>
+			<div className={className}>
 				<div className={controlClass}>
-					<input ref={(input) => {this.textInput = input}} onChange={rest.onChange ? rest.onChange : this.onChange(rest.name)} onBlur={this.activateValidation(rest.name)} {...update(rest, {children: {$set: null}})} />
+					<input ref={(input) => {this.textInput = input}} onChange={this.onChange(rest.name)} onBlur={this.onBlur(rest.name)} {...update(rest, {children: {$set: null}})} />
 					{rest.children}
 				</div>
 				<HelpText messages={errorMessage} className={dataClass.errorMessageClass} />

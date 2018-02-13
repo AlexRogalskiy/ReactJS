@@ -17,6 +17,7 @@ import BasicSubmitButtonControl from 'appRoot/js/components/controls/basicSubmit
 import BasicImage from 'appRoot/js/components/elements/basicImage';
 import BasicCardItem from 'appRoot/js/components/elements/basicCardItem';
 import BasicCardItemList from 'appRoot/js/components/elements/basicCardItemList';
+import BasicTextInput from 'appRoot/js/components/controls/basicTextInput';
 // import BasicEditTextControl from 'appRoot/js/components/controls/basicEditTextControl';
 // import BasicView from 'appRoot/js/components/views/basicView';
 
@@ -122,6 +123,9 @@ const Edit = React.createClass({
 			});
 		}
 	},
+	change(e) {
+		console.log('asdfsadsfadsdaf');
+	},
 	chooseFile() {
 		this.getInputEle('profileImage').click();
 	},
@@ -163,6 +167,7 @@ const Edit = React.createClass({
 			<BasicSubmitButtonControl message='testing' />
 			<BasicCardItem>Data</BasicCardItem>
 			<BasicCardItemList items={fields} />
+			<BasicTextInput defaultValue='testing' onChange={this.change} />
 			
 			<fieldset>
 				<legend>become an author</legend>
