@@ -28,7 +28,8 @@ class BasicTextInput extends React.Component {
     static defaultProps = {
         dataClass: { inputClass: 'form-control', controlClass: 'row no-gutters', errorMessageClass: 'help-block' },
         className: 'basic-input input-group',
-        validator: 'textInput'
+        validator: 'textInput',
+        item: {}
     }
     getValidatorData() {
         return this.state;
@@ -82,7 +83,6 @@ class BasicTextInput extends React.Component {
             this.setState(state, () => {
                 this.props.handleValidation(field)(event);
             });
-            console.log('asdfsdaf');
             if(this.props.onChange) {
                 this.props.onChange(event);
             }

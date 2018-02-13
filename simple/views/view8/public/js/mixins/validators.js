@@ -40,6 +40,17 @@ const Validators = {
             validator.lang = 'es';
         }
     ),
+    imageInput: Strategy.createInactiveSchema(
+        {
+
+        },
+        {
+
+        },
+        function checkValidity(validator) {
+            validator.lang = 'es';
+        }
+    ),
     editTextControl: Strategy.createInactiveSchema(
         {
 

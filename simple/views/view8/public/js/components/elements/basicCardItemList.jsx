@@ -14,23 +14,20 @@ export default class BasicCardItemList extends React.Component {
 	static propTypes = {
         dataClass: Types.object,
         items: Types.array,
-        item: Types.object,
-        key: Types.string
+        item: Types.object
     }
     static defaultProps = {
         dataClass: {},
         className: 'deck-component',
         items: [],
-        item: {},
-        key: ''
+        item: {}
     }
     constructor(props) {
         super(props);
         this.state = {
             dataClass: props.dataClass,
             items: props.items,
-            item: props.item,
-            key: props.key
+            item: props.item
         };
     }
 	render() {
@@ -45,7 +42,7 @@ export default class BasicCardItemList extends React.Component {
                     {item.data}
                 </BasicCardItem>
             );
-        });
+        }.bind(this));
 		return (
             <div {...rest}>{elements}</div>
         );

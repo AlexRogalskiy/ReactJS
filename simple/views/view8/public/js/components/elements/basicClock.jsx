@@ -11,22 +11,19 @@ export default class Clock extends React.Component {
   static propTypes: {
     message: Types.string,
     date: Types.object,
-    item: Types.object,
-    key: Types.string
+    item: Types.object
   }
   static defaultProps = {
     message: '',
     date: new Date(),
-    item: {},
-    key: ''
+    item: {}
   }
   constructor(props) {
     super(props);
     this.state = {
       message: props.message,
       date: props.date,
-      item: props.item,
-      key: props.key
+      item: props.item
     };
   }
   componentDidMount() {

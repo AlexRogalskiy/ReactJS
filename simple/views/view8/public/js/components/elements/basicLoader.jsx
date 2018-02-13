@@ -3,34 +3,42 @@
  * Module dependencies
  */
 import React      from 'react';
-import ClassNames from 'classnames';
+import ClassNames from 'classnames/bind';
 // import Logger from 'appRoot/js/mixins/logger';
+import BasicLoaderStyle from 'appRoot/css/components/elements/basicLoader';
+
+let Types = React.PropTypes;
+let Styles = ClassNames.bind(BasicLoaderStyle);
 
 export default class BasicLoader extends React.Component {
 	displayName: 'BasicLoader'
 	static propTypes: {
-        item: Types.object,
-        key: Types.string
+		dataClass: Types.object,
+        item: Types.object
 	}
 	static defaultProps = {
+		dataClass: { innerClass: 'loader-container'},
 		className: 'loader',
-        item: {},
-        key: ''
+		inline: true,
+        item: {}
     }
 	constructor(props) {
         super(props);
         this.state = {
+        	dataClass: props.dataClass,
         	className: props.className,
-            item: props.item,
-			key: props.key
+        	inline: props.inline,
+            item: props.item
         };
     }
 	render() {
-		const { item, ...rest } = this.props;
-		const classes = ClassNames({'loader-container': true, 'inline': this.props.inline});
+		const { item, inline, ...rest } = this.props;
+		const innerClass = Styles(dataClass.innerClass, {
+            inline: this.props.inline
+        });
 		return (
 			<div {...rest}>
-				<div className={classes}>
+				<div className={innerClass}>
 					<aside></aside>
 					<aside></aside>
 					<aside></aside>

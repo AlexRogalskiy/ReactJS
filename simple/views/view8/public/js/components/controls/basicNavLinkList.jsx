@@ -15,14 +15,12 @@ export default class BasicNavLinkList extends React.Component{
 	static propTypes: {
         dataClass: Types.object,
         items: Types.array,
-		item: Types.object,
-		key: Types.string
+		item: Types.object
 	}
     static defaultProps = {
         dataClass: { itemClass: 'navlink' },
         items: [],
-        item: {},
-        key: ''
+        item: {}
     }
 	constructor(props) {
         super(props);
@@ -30,24 +28,24 @@ export default class BasicNavLinkList extends React.Component{
         this.state = {
             dataClass: props.dataClass,
             items: props.items,
-            item: props.item,
-            key: props.key
+            item: props.item
         };
     }
     onClick(e) {
         Logger.debug(ReactDOM.findDOMNode(this).id + 'clicked', e.target);
-        // this.props.click(e);
+        if(this.props.onClick) {
+            this.props.onClick(e);
+        }
     }
     render() {
-        const self = this;
-        const { dataClass, items, ...rest } = this.props;
+        const { dataClass, items, item, onClick, ...rest } = this.props;
         const { itemClass, ...restClass } = dataClass;
         return 	(
             <div {...rest}>
                 <nav>
                     items.map(function(item) {
-                        return <NavLink item={item} key={item.id} to={item.path} onClick={rest.onClick ? rest.onClick : self.onClick} className={item.className ? item.className : itemClass}>{item.name}</NavLink>
-                    });
+                        return <NavLink item={item} key={item.id} to={item.path} onClick={this.onClick} className={item.className ? item.className : itemClass}>{item.name}</NavLink>
+                    }.bind(this));
                 </nav>
             <div>
         );

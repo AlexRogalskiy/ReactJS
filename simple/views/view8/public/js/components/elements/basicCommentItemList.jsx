@@ -12,26 +12,25 @@ export default class BasicCommentItemList extends React.Component {
 	static propTypes: {
         dataClass: Types.object,
 		items: Types.array,
-        item: Types.object,
-        key: Types.string
+        item: Types.object
     }
     static defaultProps = {
-        dataClass: { commentClass: 'comment' },
+        dataClass: {},
+        className: 'commentList',
         items: [],
-        item: {},
-        key: ''
+        item: {}
     }
     constructor(props) {
         super(props);
         this.state = {
             dataClass: props.dataClass,
+            className: props.className,
             items: props.items,
-            item: props.item,
-            key: props.key
+            item: props.item
         };
     }
     render() {
-    	const { dataClass, items, ...rest } = this.props;
+    	const { dataClass, items, item, ...rest } = this.props;
         const { commentClass, ...restClass } = dataClass;
         const elements = items.map(function(item) {
             return (
@@ -39,7 +38,7 @@ export default class BasicCommentItemList extends React.Component {
                     {item.data}
                 </BasicCommentItem>
             );
-        });
+        }.bind(this));
         return (
             <div {...rest}>
                 {elements}

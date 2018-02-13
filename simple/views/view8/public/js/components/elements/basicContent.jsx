@@ -12,23 +12,21 @@ let Types = React.PropTypes;
 export default class BasicContent extends React.Component {
     displayName: 'BasicContent'
 	static propTypes: {
-        item: Types.object,
-        key: Types.string
+        item: Types.object
     }
     static defaultProps = {
-        item: {},
-        key: ''
+        item: {}
     }
     constructor(props) {
         super(props);
         this.state = {
-            item: props.item,
-			key: props.key
+            item: props.item
         };
     }
 	render() {
+        const { item, ...rest } = this.props;
 		return (
-			<span {...this.props}>{this.props.children}</span>
+			<span {...rest}>{rest.children}</span>
 		);
 	}
 };

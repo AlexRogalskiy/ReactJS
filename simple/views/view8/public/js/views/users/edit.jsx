@@ -14,7 +14,7 @@ import BasicHeader  from 'appRoot/js/components/elements/basicHeader';
 import BasicButtonControl from 'appRoot/js/components/controls/basicButtonControl';
 import BasicToggleButtonControl from 'appRoot/js/components/controls/basicToggleButtonControl';
 import BasicSubmitButtonControl from 'appRoot/js/components/controls/basicSubmitButtonControl';
-import BasicImage from 'appRoot/js/components/elements/basicImage';
+import BasicImageInput from 'appRoot/js/components/elements/basicImageInput';
 import BasicCardItem from 'appRoot/js/components/elements/basicCardItem';
 import BasicCardItemList from 'appRoot/js/components/elements/basicCardItemList';
 import BasicTextInput from 'appRoot/js/components/controls/basicTextInput';
@@ -197,8 +197,8 @@ const Edit = React.createClass({
 				<div className="profile-image-container">
 					<label>profile image</label>
 					// <img className="profile-img" src={this.state.profileImageData} />
-					<BasicImage name="img" label="Profile Image" className="profile-img" src={this.state.profileImageData} />
-					<BasicImage className="profile-img" src={this.state.profileImageData} />
+					<BasicImageInput name="img" label="Profile Image" className="profile-img" src={this.state.profileImageData} />
+					<BasicImageInput className="profile-img" src={this.state.profileImageData} />
 					<BasicInput name="profileImage" type="file" ref="profileImage" onChange={this.userImageUpload} dataInfo={this.state.sizeExceeded ? 'less than 1MB' : ''}>
 						<button onClick={this.chooseFile}>choose file</button>
 					</BasicInput>

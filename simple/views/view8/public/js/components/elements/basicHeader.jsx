@@ -14,18 +14,15 @@ let Types = React.PropTypes;
 export default class BasicHeader extends React.Component {
     displayName: 'BasicHeader'
 	static propTypes = {
-        item: Types.object,
-        key: Types.string
+        item: Types.object
     }
     static defaultProps = {
-        item: {},
-        key: ''
+        item: {}
     }
     constructor(props) {
         super(props);
         this.state = {
-            item: props.item,
-            key: props.key
+            item: props.item
         };
     }
 	render() {

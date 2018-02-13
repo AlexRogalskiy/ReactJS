@@ -11,20 +11,19 @@ export default class BasicCommentItem extends React.Component {
     displayName: 'BasicCommentItem'
 	static propTypes: {
         dataClass: Types.object,
-        item: Types.object,
-        key: Types.string
+        item: Types.object
     }
     static defaultProps = {
         dataClass: { commentAuthorClass: 'commentAuthor', commentTextClass: 'commentText' },
-        item: {},
-        key: ''
+        className: 'comment',
+        item: {}
     }
     constructor(props) {
         super(props);
         this.state = {
             dataClass: props.dataClass,
-            item: props.item,
-            key: props.key
+            className: props.className,
+            item: props.item
         };
     }
     rawMarkup() {
@@ -40,7 +39,7 @@ export default class BasicCommentItem extends React.Component {
                     {author}
                 </h2>
                 <span dangerouslySetInnerHTML={this.rawMarkup()} />
-                <span className={commentTextClass}>{...rest.children}</span>
+                <span className={commentTextClass}>{rest.children}</span>
             </div>
         );
     }

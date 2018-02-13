@@ -20,13 +20,11 @@ export default class View extends React.Component {
         dataClass: Types.object,
 		items: Types.array,
 		item: Types.object,
-		key: Types.string
 	}
 	static defaultProps = {
         dataClass: { commentListClass: 'commentList', commentFormClass: 'commentForm' },
         items: [],
-        item: {},
-        key: ''
+        item: {}
     }
 	constructor(props) {
         super(props);
@@ -34,8 +32,7 @@ export default class View extends React.Component {
         this.state = {
             dataClass: props.dataClass,
             items: props.items,
-			item: props.item,
-			key: props.key
+			item: props.item
         };
     }
     loadComments() {

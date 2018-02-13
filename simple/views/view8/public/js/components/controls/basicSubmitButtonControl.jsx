@@ -39,7 +39,6 @@ export default class BasicSubmitButtonControl extends BasicButtonControl {
 		const { store, messageInProgress, ...rest } = this.props;
 		rest.message = store.submissionInProgress ? messageInProgress : this.props.message;
 		rest.className = Styles(rest.className, {
-	      	// btnSubmit: true,
 	      	inProgress: store.submissionInProgress,
 	      	error: store.errorOccurred,
 	      	disabled: store.valid,

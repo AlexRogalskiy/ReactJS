@@ -41,7 +41,7 @@ export default class BasicCardItem extends React.Component {
         this.setState({flipped: !this.state.flipped});
     }
 	render() {
-        const { dataClass, item, ...rest } = this.props;
+        const { dataClass, item, onClick, ...rest } = this.props;
         const { cardFrontClass, cardBackClass, cardInnerClass, ...restClass } = dataClass;
         rest.className = Styles(rest.className, {
             flipped: this.state.flipped

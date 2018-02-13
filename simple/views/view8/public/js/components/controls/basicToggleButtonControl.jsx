@@ -32,9 +32,8 @@ export default class BasicToggleButtonControl extends BasicButtonControl {
         };
     }
 	onClick(e) {
-		super.onClick(e);
 		this.flip();
-		//this.props.click(e);
+		super.onClick(e);
 	}
 	flip() {
     	this.setState({ flipped: !this.state.flipped });
@@ -42,7 +41,6 @@ export default class BasicToggleButtonControl extends BasicButtonControl {
 	render() {
 		const { flipped, ...rest } = this.props;
 		rest.className = Styles(rest.className, {
-	      	// btnToggle: true,
 	      	// pressed: this.state.isPressed,
 	      	// hover: !this.state.isPressed && this.state.isHovered,
 	      	// disabled: this.state.isDisabled,

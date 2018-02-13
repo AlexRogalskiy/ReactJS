@@ -4,7 +4,7 @@
  */
 import React          from 'react';
 import update         from 'react-addons-update';
-import ClassNames     from 'classnames';
+// import ClassNames     from 'classnames';
 
 import BasicTextInput from 'appRoot/js/components/controls/BasicTextInput';
 // import Logger          from 'appRoot/js/mixins/logger';
@@ -17,15 +17,12 @@ export default class BasicTextControl extends React.Component {
         dataClass: Types.object,
         validator: Types.string,
         label: Types.string,
-        item: Types.object,
-		key: Types.string
+        item: Types.object
     }
     static defaultProps = {
         dataClass: { formClass: 'form-group', labelClass: 'control-label' },
-        validator: '',
         label: '',
-        item: {},
-        key: ''
+        item: {}
     }
     constructor(props) {
         super(props);
@@ -34,8 +31,7 @@ export default class BasicTextControl extends React.Component {
             dataClass: props.dataClass,
             validator: props.validator,
             label: props.label,
-            item: props.item,
-            key: props.key
+            item: props.item
         };
     }
 	onChange(field) {
@@ -46,7 +42,9 @@ export default class BasicTextControl extends React.Component {
             //let target = e.target.name.substring(1);
             this.setState(state);
             this.refs[field].onChange(event);
-            //this.props.change(event);
+            if(this.props.onChange) {
+                this.props.onChange(event);
+            }
         };
 	}
     // onChange(field) {
@@ -57,7 +55,7 @@ export default class BasicTextControl extends React.Component {
     //     };
     // }
 	render() {
-        const { dataClass, label, ...rest } = this.props;
+        const { dataClass, item, label, onChange, ...rest } = this.props;
         const { formClass, labelClass, ...restClass } = dataClass;
         rest.dataClass = restClass;
 		return (
@@ -65,7 +63,7 @@ export default class BasicTextControl extends React.Component {
                 <label className={labelClass} htmlFor={rest.name}>
                     {label}
                 </label>
-                <BasicTextInput ref={(input) => {this.textInput = input}} onChange={rest.onChange ? rest.onChange : this.onChange(rest.name)} {...rest}>
+                <BasicTextInput ref={(input) => {this.textInput = input}} onChange={this.onChange(rest.name)} {...rest}>
                     {rest.children}
                 </BasicTextInput>
 			</div>
