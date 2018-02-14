@@ -12,29 +12,34 @@ export default class BasicMenuItem extends React.Component {
 	static propTypes: {
         dataClass: Types.object,
 		title: Types.string,
-        item: Types.object,
-        key: Types.string
+        item: Types.object
     }
     static defaultProps = {
-        dataClass: { iconClass: 'glyphicon' },
+        dataClass: { iconClass: 'menuitemIcon' },
+        className: 'menuitem',
         title: '',
-        item: {},
-        key: ''
+        item: {}
     }
     constructor(props) {
         super(props);
+        this.onClick = this.onClick.bind(this);
         this.state = {
             dataClass: props.dataClass,
+            className: props.className,
             title: props.title,
-            item: props.item,
-            key: props.key
+            item: props.item
         };
     }
+    onClick(e) {
+        if(this.props.onClick) {
+            this.props.onClick(e);
+        }
+    }
     render() {
-    	const { dataClass, item, key, title, ...rest } = this.props;
+    	const { dataClass, item, key, title, onClick, ...rest } = this.props;
         const { iconClass, ...restClass }  = dataClass;
         return (
-            <li key={key} {...rest}><BasicIcon className={iconClass} />{title}</li>
+            <li key={key} onClick={this.onClick} {...rest}><BasicIcon className={iconClass} />{title}</li>
         );
     }
 }

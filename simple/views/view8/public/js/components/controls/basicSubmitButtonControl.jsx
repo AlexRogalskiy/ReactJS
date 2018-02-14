@@ -22,6 +22,7 @@ export default class BasicSubmitButtonControl extends BasicButtonControl {
 	static defaultProps = {
         messageInProgress: 'Processing...',
         className: 'btnSubmit btn',
+        type: 'submit',
         store: {
         	submissionInProgress: false,
         	error: false,

@@ -9,9 +9,9 @@ import ClassNames from 'classnames/bind';
 import Strategy   from 'react-validatorjs-strategy';
 import Validation from 'react-validation-mixin';
 
+// import Logger      from 'appRoot/js/mixins/logger';
 import Validators from 'appRoot/js/mixins/validators';
 import HelpText   from 'appRoot/js/mixins/utility';
-// import Logger      from 'appRoot/js/mixins/logger';
 import BasicImageInputStyle from 'appRoot/css/components/elements/basicImageInput';
 
 let Types = React.PropTypes;

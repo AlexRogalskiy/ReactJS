@@ -14,22 +14,19 @@ export default class BasicTableRow extends React.Component {
 	static propTypes = {
         dataClass: Types.object,
         columns: Types.array,
-        item: Types.object,
-        key: Types.string
+        item: Types.object
     }
     static defaultProps = {
         dataClass: { columnClass: 'column' },
         columns: [],
-        item: {},
-        key: ''
+        item: {}
     }
     constructor(props) {
         super(props);
         this.state = {
             dataClass: props.dataClass,
             columns: props.columns,
-            item: props.item,
-            key: props.key
+            item: props.item
         };
     }
 	render() {

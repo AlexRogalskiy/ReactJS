@@ -7,30 +7,31 @@ import update from 'react-addons-update';
 
 let Types = React.PropTypes;
 
-class SearchPlugin extends React.Component{
+export default class SearchPlugin extends React.Component{
     static propTypes: {
-        item: Types.object,
-        key: Types.string
+        item: Types.object
     }
     static defaultProps = {
-        item: {},
-        key: ''
+        item: {}
     }
     constructor(props){
         super(props);
-        this.onChanged = this.onChanged.bind(this);
+        this.onChange = this.onChange.bind(this);
         this.state = {
-            item: props.item,
-            key: props.key
+            item: props.item
         };
     }
-    onChanged(e) {
-        let text = e.target.value.trim();
+    onChange(e) {
+        const text = e.target.value.trim();
         this.props.filter(text);
+        if(this.props.onChange) {
+            this.props.onChange(e);
+        }
     }
     render() {
+        const { item, onChange, ...rest } = this.props;
         return (
-            <input onChange={this.props.onChanged ? this.props.onChanged : this.onChanged} {...update(this.props, {children: {$set: null}})} />
+            <input onChange={this.onChange} {...update(rest, {children: {$set: null}})} />
         );
     }
 }

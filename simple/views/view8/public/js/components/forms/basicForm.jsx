@@ -5,7 +5,10 @@
 import React      from 'react';
 // import update     from 'react-addons-update';
 // import ClassNames from 'classnames';
+
 import Logger     from 'appRoot/js/mixins/logger';
+import BasicSubmitButtonControl from 'appRoot/js/components/controls/basicSubmitButtonControl';
+import BasicTextControl from 'appRoot/js/components/controls/basicTextControl';
 
 let Types = React.PropTypes;
 
@@ -13,15 +16,15 @@ export default class BasicForm extends React.Component {
   displayName: 'BasicForm'
   static propTypes: {
     dataClass: Types.object,
+    formButtonSubmitMessage: Types.string,
     fields: Types.array,
-    item: Types.object,
-    key: Types.string
+    item: Types.object
   }
   static defaultProps = {
-    dataClass: { fieldClass: 'field' },
+    dataClass: { formFieldClass: 'field', formButtonSubmitClass: 'btn btnSubmit' },
+    formButtonSubmitMessage: 'Send',
     fields: [],
-    item: {},
-    key: ''
+    item: {}
   }
   constructor(props) {
     super(props);
@@ -29,31 +32,41 @@ export default class BasicForm extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.state = {
       dataClass: props.dataClass,
+      formButtonSubmitMessage: props.formButtonSubmitMessage;
       fields: props.fields,
-      item: props.item,
-      key: props.key
+      item: props.item
     };
   }
-  onChange(e) {
-    const value = e.target.value;
-    this.setState({fields[e.target.name]: value});
+  onChange(field) {
+        // const value = e.target.value;
+        // this.setState({fields[e.target.name]: value});
+        // this.refs[field].onChange(e);
+        return event => {
+            const state = { fields[field]: event.target.value };
+            //state[field] = event.target.value;
+            //let target = e.target.name.substring(1);
+            this.setState(state);
+            this.refs[field].onChange(event);
+        };
   }
   onSubmit(e) {
     e.preventDefault();
     Logger.debug("Fields: " + this.state.fields.inspect);
+    if(this.props.onSubmit) {
+      this.props.onSubmit(e);
+    }
   }
   render() {
-    const self = this;
-    const { dataClass, fields, ...rest } = this.props;
-    const { fieldClass, ...restClass } = dataClass;
+    const { dataClass, item, fields, onSubmit, formButtonSubmitMessage, ...rest } = this.props;
+    const { formFieldClass, formButtonSubmitClass, ...restClass } = dataClass;
     return (
-      <form onSubmit={rest.onSubmit ? rest.onSubmit : self.onSubmit}  {...rest}>
+      <form onSubmit={this.onSubmit} {...rest}>
           <div>
             fields.map(function(item) {
-              return <BasicTextControl item={item} key={item.id} label={item.label} onChange={rest.onChange ? rest.onChange : self.onChange} className={item.className ? item.className : fieldClass} dataClass={restClass} />
-            });
+              return <BasicTextControl item={item} key={item.id} label={item.label} onChange={this.onChange(item.name)} className={item.className ? item.className : formFieldClass} dataClass={restClass} />
+            }.bind(this));
           </div>
-          <input type="submit" value="Send" />
+          <BasicSubmitButtonControl message={formButtonSubmitMessage} className={formButtonSubmitClass} />
       </form>
     );
   }

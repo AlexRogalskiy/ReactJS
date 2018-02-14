@@ -6,10 +6,10 @@ import React      from 'react';
 // import update           from 'react-addons-update';
 import ClassNames from 'classnames/bind';
 
+import Logger     from 'appRoot/js/mixins/logger';
 import BasicButtonControl from 'appRoot/js/components/controls/basicButtonControl';
 import BasicTextControl from 'appRoot/js/components/controls/basicTextControl';
-// import HelpText   from 'appRoot/js/mixins/utility';
-import Logger     from 'appRoot/js/mixins/logger';
+import BasicIcon from 'appRoot/js/components/elements/basicIcon';
 import BasicEditTextControlStyle from 'appRoot/css/components/controls/basicEditTextControl';
 
 let Types = React.PropTypes;

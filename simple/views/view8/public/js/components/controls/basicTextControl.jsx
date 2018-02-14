@@ -4,7 +4,6 @@
  */
 import React          from 'react';
 import update         from 'react-addons-update';
-// import ClassNames     from 'classnames';
 
 import BasicTextInput from 'appRoot/js/components/controls/BasicTextInput';
 // import Logger          from 'appRoot/js/mixins/logger';

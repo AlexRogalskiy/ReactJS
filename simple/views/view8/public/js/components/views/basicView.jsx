@@ -5,10 +5,10 @@
 import React from 'react';
 // import update     from 'react-addons-update';
 // import ClassNames from 'classnames';
-import Utils from 'appRoot/js/mixins/logger';
-import BasicHeader from '../elements/basicHeader';
-import BasicButtonControl from '../controls/basicButtonControl';
-import BasicEditTextControl from '../controls/basicEditTextControl';
+import Logger from 'appRoot/js/mixins/logger';
+import BasicHeader from 'appRoot/js/components/elements/basicHeader';
+import BasicButtonControl from 'appRoot/js/components/controls/basicButtonControl';
+import BasicEditTextControl from 'appRoot/js/components/controls/basicEditTextControl';
 
 let Types = React.PropTypes;
 
@@ -16,8 +16,7 @@ export default class BasicView extends React.Component {
 	displayName: 'BasicView'
 	static propTypes: {
 		fields: Types.array,
-		item: Types.object,
-        key: Types.string
+		item: Types.object
     }
     static defaultProps = {
         fields: [
@@ -42,16 +41,14 @@ export default class BasicView extends React.Component {
 				value: ''
 			}
 		],
-		item: {},
-        key: ''
+		item: {}
     }
     constructor(props) {
         super(props);
         this.update = this.update.bind(this);
         this.state = {
             fields: props.fields,
-			item: props.item,
-			key: props.key
+			item: props.item
         };
     }
 	update(field) {
@@ -70,16 +67,14 @@ export default class BasicView extends React.Component {
 		// ReactDOM.render(<ValidationView />, document.getElementById('view'));
 	}
 	render() {
-		const self = this;
-		console.log(this.props);
 		const header = this.props.fields.map(function(item) {
 			return item.value;
-		}).join(' ');
+		}.bind(this)).join(' ');
 		const editFields = this.props.fields.map(function(item) {
 			return (
-				<BasicEditTextControl item={item} key={item.id} name={item.name} label={item.label} ref={item.ref} update={self.update.bind(self, item.name)} placeholder={item.placeholder} getValidationMessages={self.props.getValidationMessages} onChange={self.props.onChange} />
+				<BasicEditTextControl item={item} key={item.id} name={item.name} label={item.label} update={this.update.bind(this, item.name)} placeholder={item.placeholder} getValidationMessages={this.props.getValidationMessages} onChange={this.props.onChange} />
 			);
-		});
+		}.bind(this));
 		return (
 			<div>
 				<BasicHeader message={'Hello ' + header}></BasicHeader>

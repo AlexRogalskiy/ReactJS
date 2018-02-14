@@ -4,7 +4,7 @@
  */
 import React      from 'react';
 // import update     from 'react-addons-update';
-// import ClassNames from 'classnames';
+
 import BasicTableRow from 'appRoot/js/components/elements/basicTableRow';
 import BasicTableHeader from 'appRoot/js/components/elements/basicTableHeader';
 
@@ -16,15 +16,13 @@ export default class BasicTable extends React.Component {
         dataClass: Types.object,
         headers: Types.array,
         rows: Types.array,
-        item: Types.object,
-        key: Types.string
+        item: Types.object
     }
     static defaultProps = {
         dataClass: { rowClass: 'row', rowHeaderClass: 'row header' },
         headers: [],
         rows: [],
-        item: {},
-        key: ''
+        item: {}
     }
     constructor(props) {
         super(props);
@@ -32,15 +30,14 @@ export default class BasicTable extends React.Component {
             dataClass: props.dataClass,
             headers: props.headers,
             rows: props.rows,
-            item: props.item,
-            key: props.key
+            item: props.item
         };
     }
 	render() {
         const { dataClass, item, ...rest } = this.props;
         const { rowClass, rowHeaderClass, ...restClass } = dataClass;
-        const headers = <BasicTableHeader columns={this.state.headers} className={item.className ? item.className : rowHeaderClass} />;
-        const rows = <BasicTableRow columns={this.state.rows} className={item.className ? item.className : rowClass} />;
+        const headers = <BasicTableHeader columns={this.state.headers} className={rowHeaderClass} />;
+        const rows = <BasicTableRow columns={this.state.rows} className={rowClass} />;
         return (
             <table {...rest}>
                 <thead>

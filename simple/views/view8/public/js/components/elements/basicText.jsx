@@ -13,24 +13,21 @@ export default class BasicText extends React.Component {
     displayName: 'BasicText'
 	static propTypes: {
         message: Types.string,
-        item: Types.object,
-        key: Types.string
+        item: Types.object
     }
     static defaultProps = {
         message: '',
-        item: {},
-        key: ''
+        item: {}
     }
     constructor(props) {
         super(props);
         this.state = {
             message: props.message,
-            item: props.item,
-			key: props.key
+            item: props.item
         };
     }
 	render() {
-        const { message, ...rest } = this.props;
+        const { message, item, ...rest } = this.props;
 		return (
 			<span {...rest}>{message}</span>
 		);
