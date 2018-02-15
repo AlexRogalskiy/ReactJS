@@ -5,7 +5,8 @@
 import React from 'react';
 import { NavLink, BrowserRouter }  from 'react-router-dom';
 // import update     from 'react-addons-update';
-// import ClassNames from 'classnames';
+// import ClassNames from 'classnames/bind';
+
 import Logger from 'appRoot/js/mixins/logger';
 
 let Types = React.PropTypes;
@@ -18,7 +19,7 @@ export default class BasicNavLinkList extends React.Component{
 		item: Types.object
 	}
     static defaultProps = {
-        dataClass: { itemClass: 'navlink' },
+        dataClass: { navigationClass: 'breadcrumbs', itemClass: 'navigation-link' },
         items: [],
         item: {}
     }
@@ -39,12 +40,12 @@ export default class BasicNavLinkList extends React.Component{
     }
     render() {
         const { dataClass, items, item, onClick, ...rest } = this.props;
-        const { itemClass, ...restClass } = dataClass;
-        return 	(
+        const { itemClass, navigationClass, ...restClass } = dataClass;
+        return (
             <div {...rest}>
-                <nav>
+                <nav className={navigationClass} aria-label="breadcrumbs">
                     items.map(function(item) {
-                        return <NavLink item={item} key={item.id} to={item.path} onClick={this.onClick} className={item.className ? item.className : itemClass}>{item.name}</NavLink>
+                        return <NavLink item={item} key={item.id} to={item.path} onClick={this.onClick} className={item.className ? item.className : itemClass}>{item.title}</NavLink>
                     }.bind(this));
                 </nav>
             <div>

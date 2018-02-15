@@ -34,16 +34,16 @@ export default class BasicLoader extends React.Component {
 	render() {
 		const { item, inline, ...rest } = this.props;
 		const innerClass = Styles(dataClass.innerClass, {
-            inline: this.props.inline
+            inline: inline
         });
 		return (
 			<div {...rest}>
 				<div className={innerClass}>
-					<aside></aside>
-					<aside></aside>
-					<aside></aside>
-					<aside></aside>
-					<aside></aside>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
 				</div>
 			</div>
 		);

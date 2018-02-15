@@ -15,9 +15,10 @@
   },
   "homepage": "https://github.com/AlexRogalskiy/ReactJS",
   "keywords": [
-    "testing",
+    "stichery",
     "react",
-    "features"
+    "features",
+    "showroom"
   ],
   "engines": {
     "node": "0.12.x"
