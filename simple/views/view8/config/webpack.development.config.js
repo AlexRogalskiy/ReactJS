@@ -113,7 +113,11 @@ export default new Config().extend('config/webpack.base.config.js').merge({
 		port: 8080,
      	historyApiFallback: true,
      	//stats: 'warnings-only',
-   	}
+   	},
+	watchOptions: {
+		poll: 1000,
+		aggregateTimeout: 1000
+	},
 	// externals: {
      // "react": "React",
   //       "marked": "marked",
