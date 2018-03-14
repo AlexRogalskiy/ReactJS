@@ -1,0 +1,28 @@
+.listControl {
+  position: relative;
+}
+.searchControl {
+  
+}
+.listControl li {
+  position: absolute;
+  transition: opacity .3s ease, transform .3s ease, top .1s ease;
+}
+
+.todoGroup-enter {
+  opacity: 0.01;
+}
+
+.todoGroup-enter.todoGroup-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.todoGroup-leave {
+  opacity: 1;
+}
+
+.todoGroup-leave.todoGroup-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}

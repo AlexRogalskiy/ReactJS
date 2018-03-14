@@ -1,0 +1,28 @@
+.listControl {
+  position: relative;
+}
+.searchControl {
+  
+}
+.listControl li {
+  position: absolute;
+  transition: opacity .3s ease, transform .3s ease, top .1s ease;
+}
+
+.listGroup-enter {
+  opacity: 0.01;
+  transform: translateX(-100px);
+}
+.listGroup-enter.listGroup-enter-active {
+  opacity: 1;
+  transform: translateX(0px);
+  transition-delay: 0.25s;
+}
+.listGroup-leave {
+  opacity: 1;
+  transform: translateX(0px);
+}
+.listGroup-leave.listGroup-leave-active {
+  opacity: 0.01;
+  transform: translateX(100px);
+}

@@ -15,7 +15,7 @@ export default class BasicCommentItem extends React.Component {
     }
     static defaultProps = {
         dataClass: { commentAuthorClass: 'commentAuthor', commentTextClass: 'commentText' },
-        className: 'comment',
+        className: '',
         item: {}
     }
     constructor(props) {
@@ -32,7 +32,7 @@ export default class BasicCommentItem extends React.Component {
     }
     render() {
     	const { dataClass, item, author, ...rest } = this.props;
-        const { commentAuthorClass, commentTextClass } = dataClass;
+        const { commentAuthorClass, commentTextClass, ...restClass } = dataClass;
         return (
             <div {...rest}>
                 <h2 className={commentAuthorClass}>

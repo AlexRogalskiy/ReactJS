@@ -12,8 +12,8 @@ import BasicHeader from 'appRoot/js/components/elements/basicHeader';
 
 let Types = React.PropTypes;
 
-export default class ResourceNotFoundError extends React.Component {
-  displayName: 'ResourceNotFoundError'
+export default class InternalServerError extends React.Component {
+  displayName: 'InternalServerError'
   static propTypes: {
     dataClass: Types.object,
   	message: Types.string,
@@ -21,7 +21,7 @@ export default class ResourceNotFoundError extends React.Component {
   }
   static defaultProps = {
     dataClass: { headerClass: 'header' },
-    message: '404 [ Resource not found ]',
+    message: '503 [ Internal server error ]',
     item: {}
   }
   constructor(props) {

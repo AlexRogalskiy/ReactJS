@@ -3,7 +3,7 @@
  * Module dependencies
  */
 import React      from 'react';
-import ReactDOM	  from 'react-dom';
+// import ReactDOM	  from 'react-dom';
 // import update     from 'react-addons-update';
 import ClassNames from 'classnames/bind';
 

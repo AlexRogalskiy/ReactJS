@@ -6,7 +6,6 @@ import React from 'react';
 import { Link, BrowserRouter }  from 'react-router-dom';
 // import update     from 'react-addons-update';
 // import ClassNames from 'classnames/bind';
-
 import Logger from 'appRoot/js/mixins/logger';
 
 let Types = React.PropTypes;

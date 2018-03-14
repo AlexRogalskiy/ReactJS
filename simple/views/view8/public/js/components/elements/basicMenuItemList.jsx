@@ -31,7 +31,7 @@ export default class BasicMenuItemList extends React.Component {
     }
     filter(text) {
         let filteredList = this.props.items.filter(function(item) {
-            return item.toLowerCase().search(text.toLowerCase()) !== -1;
+            return item.title.toLowerCase().search(text.toLowerCase()) !== -1;
         }); 
         this.setState({items: filteredList});
     }
@@ -45,9 +45,9 @@ export default class BasicMenuItemList extends React.Component {
         return (
             <div {...rest}>
                 <SearchPlugin filter={this.filter} />
-                <ul>
+                <nav>
                     {elements}
-                </ul>
+                </nav>
             </div>
         );
     }

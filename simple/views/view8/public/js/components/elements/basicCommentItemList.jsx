@@ -16,7 +16,7 @@ export default class BasicCommentItemList extends React.Component {
     }
     static defaultProps = {
         dataClass: {},
-        className: 'commentList',
+        className: '',
         items: [],
         item: {}
     }

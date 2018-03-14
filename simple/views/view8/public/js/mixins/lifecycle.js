@@ -2,9 +2,9 @@
 /**
  * Module dependencies
  */
-import React 			from 'react';
-import Utils 			from 'appRoot/js/mixins/logger';
-import createReactClass from 'create-react-class';
+import { React } 			from 'react';
+import { Utils } 			from 'appRoot/js/mixins/logger';
+import { createReactClass } from 'create-react-class';
 
 let Types = React.PropTypes;
 
@@ -50,7 +50,7 @@ export default function wrapper(WrappedComponent) {
 	    render: function() {
 	    	const { isMounted, ...rest } = this.props;
 	      	return (
-	      		<WrappedComponent {...rest} isMounted={isMounted} />
+	      		<WrappedComponent isMounted={isMounted} {...rest} />
 	      	);
 	    }
   	});
