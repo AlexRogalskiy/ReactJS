@@ -7,8 +7,8 @@ import { BasicIcon } from 'appRoot/js/components/elements/basicIcon';
 
 let Types = React.PropTypes;
 
-export default class BasicMenuItem extends React.Component {
-    displayName: 'BasicMenuItem'
+export default class BasicMenuItem2 extends React.Component {
+    displayName: 'BasicMenuItem2'
 	static propTypes: {
         dataClass: Types.object,
 		title: Types.string,
@@ -39,7 +39,7 @@ export default class BasicMenuItem extends React.Component {
     	const { dataClass, item, key, title, onClick, ...rest } = this.props;
         const { iconClass, ...restClass } = dataClass;
         return (
-            <li key={key} onClick={this.onClick} {...rest}><BasicIcon className={iconClass} />{title}</li>
+            <li key={key} onClick={this.onClick} {...update(rest, {children: {$set: null}})><BasicIcon className={iconClass} />{rest.children}</li>
         );
     }
 }

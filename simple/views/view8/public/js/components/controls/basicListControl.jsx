@@ -56,7 +56,7 @@ export default class BasicListControl extends React.Component{
                 transitionEnterTimeout={transition.enterTimeout}
                 transitionLeaveTimeout={transition.leaveTimeout}
                 {...rest}>
-                {items}
+                    {items}
             </CSSTransitionGroup>
         );
     }
