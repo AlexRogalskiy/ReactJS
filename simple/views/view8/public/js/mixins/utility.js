@@ -2,8 +2,8 @@
 /**
  * Module dependencies
  */
-import React 	from 'react';
-import ReactDOM from 'react-dom';
+import { React } 	from 'react';
+import { ReactDOM } from 'react-dom';
 
 /**
  * returns help text block with error messages

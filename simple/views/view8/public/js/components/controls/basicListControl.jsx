@@ -25,8 +25,20 @@ export default class BasicListControl extends React.Component{
         transition: {
             component: "ul",
             name: "listGroup",
+            appear: true,
+            appearTimeout: { 500 },
+            enter: true,
             enterTimeout: { 300 },
-            leaveTimeout: { 300 }
+            leave: true,
+            leaveTimeout: { 300 },
+            dateClass: {
+                enter: 'enter',
+                enterActive: 'enterActive',
+                leave: 'leave',
+                leaveActive: 'leaveActive',
+                appear: 'appear',
+                appearActive: 'appearActive'
+            }
         },
         items: [],
         item: {}
@@ -52,8 +64,12 @@ export default class BasicListControl extends React.Component{
         return (
             <CSSTransitionGroup
                 component={transition.component} 
-                transitionName={transition.name}
+                transitionName={transition.name ? transition.name : transition.dateClass}
+                transitionAppear={transition.appear}
+                transitionAppearTimeout={transition.appearTimeout}
+                transitionEnter={transition.enter}
                 transitionEnterTimeout={transition.enterTimeout}
+                transitionLeave={transition.leave}
                 transitionLeaveTimeout={transition.leaveTimeout}
                 {...rest}>
                     {items}

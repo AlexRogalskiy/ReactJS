@@ -2,8 +2,8 @@
 /**
  * Module dependencies
  */
-import Strategy from 'react-validatorjs-strategy';
-import Logger from 'appRoot/js/mixins/logger';
+import { Strategy } from 'react-validatorjs-strategy';
+import { Logger } 	from 'appRoot/js/mixins/logger';
 
 function checkValidity(validator) {
     validator.lang = 'es';

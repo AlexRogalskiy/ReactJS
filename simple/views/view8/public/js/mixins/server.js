@@ -2,8 +2,8 @@
 /**
  * Module dependencies
  */
-import React 	from 'react';
-import ReactDOMServer from 'react-dom/server';
+import { React } 	from 'react';
+import { ReactDOMServer } from 'react-dom/server';
 
 import CommentView from 'appRoot/js/components/comments/view'
 

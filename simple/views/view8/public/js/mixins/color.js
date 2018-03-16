@@ -2,7 +2,7 @@
 /**
  * Module dependencies
  */
-import Logger from 'appRoot/js/mixins/logger';
+import { Logger } from 'appRoot/js/mixins/logger';
 
 const Color = {
 	getLuminance: function(color, params = {r: 0.299, g: 0.587, b: 0.114}) {

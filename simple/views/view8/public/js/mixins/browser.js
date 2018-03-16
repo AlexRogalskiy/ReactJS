@@ -2,9 +2,9 @@
 /**
  * Module dependencies
  */
-import ReactDOM from 'react-dom';
-import Window from 'window';
-import JQuery from 'jquery';
+import { ReactDOM } from 'react-dom';
+import { Window } from 'window';
+import { JQuery } from 'jquery';
 
 import CommentView from 'appRoot/js/components/comments/view'
 
