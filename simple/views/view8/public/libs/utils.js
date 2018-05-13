@@ -4,7 +4,8 @@
 module.exports =
 {
 	filter: filter,
-    format: format
+    format: format,
+	colorize: colorize
 };
 
 function filter(obj, predicate) {
@@ -48,6 +49,15 @@ function humanize(size) {
     ord = Math.min( Math.max(0, ord), units.length - 1);
     var s = Math.round((size / Math.pow(1024, ord)) * 100) / 100;
     return s + ' ' + units[ord];
+};
+
+function colorize(color, params = {r: 0.299, g: 0.587, b: 0.114}) {
+	color = (color.startsWith('#') ? color.substring(1) : color);
+	let c = parseInt(color, 16);
+    let r = (c & 0xFF0000) >> 16;
+    let g = (c & 0x00FF00) >> 8;
+    let b = (c & 0x0000FF);
+    return (params.r * r + params.g * g + params.b * b);
 };
 
 // $('a.fetchSize').each(function() {
